@@ -1,0 +1,4 @@
+**/*.log
+**/*.wip.js
+**/bower_components
+**/node_modules

@@ -1,0 +1,19 @@
+{
+  "name": "ai-world",
+  "version": "1.0.0",
+  "description": "Life simulation that demonstrates Perceptron neural networks adjusting to a dynamic scenario.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "neuralNetwork"
+  ],
+  "author": "Cesar Anton Dorantes",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  }
+}

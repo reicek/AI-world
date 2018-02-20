@@ -1,0 +1,36 @@
+html {
+    display             : flex;
+    align-items         : stretch;
+    justify-content     : center;
+    min-height          : 100vh;
+    max-height          : 100vh;
+    min-width           : 100vw;
+    max-width           : 100vw;
+    color               : #fff;
+}
+body {
+    display             : flex;
+    align-items         : stretch;
+    justify-content     : center;
+    flex-direction      : column;
+    flex                : 1;
+    margin              : 0;
+    padding             : 0;
+    background          : #212121;
+    overflow            : hidden;
+}
+#universe {
+    display             : flex;
+    align-items         : stretch;
+    justify-content     : center;
+    flex-direction      : column;
+    flex                : 1;
+    margin              : 0;
+    padding             : 0;
+}
+#world {
+    display             : flex;
+    flex                : 1;
+    margin              : 0;
+    padding             : 0;
+}
