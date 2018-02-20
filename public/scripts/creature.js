@@ -1,8 +1,9 @@
 const { Architect } = synaptic;
+const INITIAL_REPRODUCTION_CHANCE = 2;
 
 let metabolism = 0.0005; // Bigger means shorter life
-let metabolismAgingRatio = 1.161; // Bigger means longer life
-let reproductionChance = 1.6;
+let metabolismAgingRatio = 1.2; // Bigger means longer life
+let reproductionChance = INITIAL_REPRODUCTION_CHANCE;
 let speciesAffinity = 20; // Higher makes creature pay less attention to other species
 
 /**
@@ -47,8 +48,6 @@ function Creature (
         networkLayers.hidden,
         networkLayers.output
     );
-
-    creature.webWorker = creature.network.worker();
 
     creature.mass = !!mass ? mass : _.random(MIN_MASS, MAX_MASS, true);
     creature.maxspeed = _.random(MIN_SPEED / creature.mass, MAX_SPEED / creature.mass, true);
@@ -136,7 +135,7 @@ function Creature (
         if (creature.mass < TOP_MASS){ // Grow
             creature.mass += _.random(metabolism, metabolism * 2, true);
             creature.maxspeed = _.random(MIN_SPEED / creature.mass, MAX_SPEED / creature.mass, true);
-            creature.maxforce = _.random(0.2 * (creature.mass / 2), 0.3 * (creature.mass / 2), true);
+            creature.maxforce = _.random(0.3 * (creature.mass / 2), 0.4 * (creature.mass / 2), true);
             creature.length = creature.mass * 2;
             creature.base = creature.length / 3;
         }
@@ -147,9 +146,9 @@ function Creature (
 
             if (creature.maxspeed < 0.2) { // Highlight older creatures
                 creature.colors = {
-                    red: creature.species === 'red' ? MAX_COLOR : MIN_COLOR * 2,
-                    green: creature.species === 'green' ? MAX_COLOR : MIN_COLOR * 2,
-                    blue: creature.species === 'blue' ? MAX_COLOR : MIN_COLOR * 2
+                    red: creature.species === 'red' ? MIN_COLOR : 0,
+                    green: creature.species === 'green' ? MIN_COLOR : 0,
+                    blue: creature.species === 'blue' ? MIN_COLOR : 0
                 };
             }
         } else { // Death

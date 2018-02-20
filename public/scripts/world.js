@@ -1,20 +1,20 @@
 let keepPaths = false; // Toggle keep paths
-let fastSimulation = true; // Toggle fast emulation
+let fastSimulation = false; // Toggle fast emulation
 
 (function(){
-    const POPULATION = 30;
-    const TOP_POPULATION = 100;
+    const TOP_POPULATION = 200;
+    const INITIAL_POPULATION = 35;
     let births = 0;
     let deaths = 0;
     let cycles = 0;
 
-    startWorld(POPULATION);
+    startWorld(INITIAL_POPULATION);
 
     /**
      * @method startWorld
      * @param  population
      */
-    function startWorld(population) {
+    function startWorld(initialCreatures) {
         const canvas = $('#world')[0];
         const ctx = canvas.getContext('2d');
 
@@ -43,7 +43,7 @@ let fastSimulation = true; // Toggle fast emulation
         };
 
         // Populate
-        while (population--)
+        while (initialCreatures--)
             world.spawnCreature(
                 _.random(0, world.width),
                 _.random(0, world.height)
@@ -98,6 +98,20 @@ let fastSimulation = true; // Toggle fast emulation
             else
                 window.requestAnimationFrame(draw); // Redraw on next frame
             }
+
+            switch (true) { // Population control
+                case world.creatures.length > (INITIAL_POPULATION * 1.3): // If overpopulation in progress
+                    reproductionChance *=  0.9999; // Reduce reproduction chance
+                    break;
+
+                case world.creatures.length < INITIAL_POPULATION * 1.1: // If extintion in progress
+                    reproductionChance *=  1.0001// Increase reproduction chance
+                    break;
+
+                default:
+                    reproductionChance = INITIAL_REPRODUCTION_CHANCE;
+                    return;
+            }
         };
 
         $(window).resize(() => { // On screen change, resize world
@@ -135,6 +149,7 @@ let fastSimulation = true; // Toggle fast emulation
         console.log(`%c Green  : ${census.green}`, 'color: rgb(100, 255, 100)');
         console.log(`%c Blue : ${census.blue}`, ' color: rgb(100, 100, 255)');
         console.log(` Population: ${creatures.length}`);
+        console.log(` Reproduction chance ${reproductionChance}`);
         if (births > 0)
             console.log(` Births: ${births}`);
         if (deaths > 0)
