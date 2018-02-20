@@ -145,11 +145,10 @@ function Creature (
             creature.maxspeed -= _.random(deterioration, deterioration * 2);
 
             if (creature.maxspeed < 0.2) { // Highlight older creatures
-                creature.colors = {
-                    red: creature.species === 'red' ? MIN_COLOR : 0,
-                    green: creature.species === 'green' ? MIN_COLOR : 0,
-                    blue: creature.species === 'blue' ? MIN_COLOR : 0
-                };
+                creature.colors.red = creature.species === 'red' ? MIN_COLOR : 0;
+                creature.colors.green = creature.species === 'green' ? MIN_COLOR : 0;
+                creature.colors.blue = creature.species === 'blue' ? MIN_COLOR : 0;
+                creature.color = `rgb(${creature.colors.red}, ${creature.colors.green}, ${creature.colors.blue})`;
             }
         } else { // Death
             world.removeCreature(creature);

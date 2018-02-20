@@ -3,7 +3,7 @@ let fastSimulation = false; // Toggle fast emulation
 
 (function(){
     const TOP_POPULATION = 200;
-    const INITIAL_POPULATION = 35;
+    const INITIAL_POPULATION = 20;
     let births = 0;
     let deaths = 0;
     let cycles = 0;
