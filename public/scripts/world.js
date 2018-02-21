@@ -31,14 +31,14 @@ let fastSimulation = false; // Toggle fast emulation
         world.spawnCreature = (x, y, species, mass) => {
             world.creatures.push(new Creature(world, x, y, species, mass));
             births ++;
-            logCensus(world.creatures);
+            _logCensus(world.creatures);
         };
 
         world.removeCreature = creature => {
             const index = world.creatures.indexOf(creature);
             world.creatures.splice(index, 1);
             deaths ++;
-            logCensus(world.creatures);
+            _logCensus(world.creatures);
             console.log(`A ${creature.species} died.`)
         };
 
@@ -124,24 +124,17 @@ let fastSimulation = false; // Toggle fast emulation
             world.context = ctx;
         });
 
-        logCensus(world.creatures);
+        _logCensus(world.creatures);
         draw(); // Start simulation
     }
 
     /**
      * Clears the log and shows the census results
-     * @method logCensus
+     * @method _logCensus
      * @param  creatures
      */
-    function logCensus(creatures) {
-        const census = {
-            red: 0,
-            green: 0,
-            blue: 0
-        };
-
-        creatures.forEach(creature => // Do census
-            census[creature.species] ++);
+    function _logCensus(creatures) {
+        const census = _getCensus(creatures);
 
         console.clear();
         console.log('%c==================================', 'color: #777');
@@ -159,5 +152,30 @@ let fastSimulation = false; // Toggle fast emulation
         if (creatures.length === 0)
             console.log(`%c Extintion after ${cycles} cycles!`, 'color: rgb(255, 150, 150)');
         console.log('%c==================================', 'color: #777');
+    }
+
+    /**
+     * Returns the current population by species
+     * @method _getCensus
+     * @param  creatures
+     * @return {Census}
+     */
+    /**
+     * @typedef  {object} Census - Population by species
+     * @property {number}  red   - Red population
+     * @property {number}  green - Green population
+     * @property {number}  blue  - Blue population
+     */
+    function _getCensus(creatures) {
+        const results = {
+            red: 0,
+            green: 0,
+            blue: 0
+        };
+
+        creatures.forEach(creature => // Do census
+            results[creature.species] ++);
+
+        return results;
     }
 })()
