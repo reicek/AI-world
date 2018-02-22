@@ -1,30 +1,82 @@
 /**
- *  @library    express
- *  @doc        https://github.com/expressjs/express
+ *  @const express
+ *  @see {@link https://github.com/expressjs/express }
  */
 const express = require('express');
 /**
- *  @library    body-parser
- *  @doc        https://github.com/expressjs/body-parser
+ *  @const body-parser
+ *  @see {@link https://github.com/expressjs/body-parser }
  */
 const bodyParser = require('body-parser');
 
-const app = express();
-const server = require('http').createServer(app);
-const config = {
-    port: 8080
-};
+/**
+ * Pulls, process and persists data
+ * @module Server
+ * @requires express
+ * @requires bodyParser
+ */
+/**
+ * Static files server
+ * @class Server
+ */
+class Server {
+    /**
+     * Server constructor
+     * @constructs Server
+     * @param {number} [port = 8080] - Port number the server should listen
+     * @example
+     *     const customPort = 3000;
+     *     const app = new Server(customPort);
+     */
+    constructor(
+        port = 8080
+    ) {
+        /**
+         * Express application instance
+         * @member Server#app
+         */
+        this.app = express();
 
-app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(express.static('public'));
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: true }));
 
-startServer();
+        /**
+         * Express server instance
+         * @member Server#server
+         */
+        this.server = require('http').createServer(this.app);
 
-function startServer() {
-    server.listen(process.env.PORT || config.port);
-    console.log(`
-__________________________________________
-Express server launched
-port: ${config.port}`);
+        /**
+         * Configuration holder
+         * @member {Object} Server#config
+         */
+        this.config = {};
+
+        /**
+         * Port number
+         * @member {number} Server#config.port
+         */
+        this.config.port = port;
+    }
+
+    /**
+     * Launches this server instance
+     * @method launch
+     * @example
+     *     const app = new Server();
+     *     app.launch();
+     */
+    launch() {
+        this.server.listen(process.env.PORT || this.config.port);
+
+        console.log(`__________________________________________`);
+        console.log(`Express server launched`);
+        console.log(`port: ${this.config.port}`);
+    }
 }
+
+// Create server instance at default port (8080)
+const app = new Server();
+// Launch server
+app.launch();
