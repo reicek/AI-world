@@ -1,122 +1,210 @@
 /**
+ * @module Vector
+ */
+/**
  * @class Vector
  */
-function Vector (x, y) {
-    const vector = {
-        x,
-        y
+class Vector {
+    /**
+     * Vector constructor
+     * @constructs Vector
+     * @param {number} [x = 0] - X value
+     * @param {number} [y = 0] - Y value
+     * @example
+     *     const x = 1;
+     *     const y = 1;
+     *     const vector = new Vector(x, y);
+     */
+    constructor (
+        x = 0,
+        y = 0
+    ) {
+        /**
+         * X value
+         * @member Vector#x
+         */
+        this.x = x;
+
+        /**
+         * Y value
+         * @member Vector#y
+         */
+        this.y = y;
     };
 
-    vector.set = (x, y) => {
+    /**
+     * @method set
+     * @param {number} [x = 0] - X value
+     * @param {number} [y = 0] - Y value
+     */
+    set(
+        x = 0,
+        y = 0
+    ) {
         vector.x = x;
         vector.y = y;
 
         return vector;
     };
 
-    vector.random = () => {
-        vector.set(1, 1);
-        vector.setAngle(_.random(0,  Math.PI * 2));
+    /**
+     * @method random
+     */
+    random() {
+        this.set();
+        this.setAngle(_.random(0,  Math.PI * 2));
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.add = v => {
-        vector.x += v.x;
-        vector.y += v.y;
+    /**
+     * @method add
+     */
+    add(v) {
+        this.x += v.x;
+        this.y += v.y;
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.sub = v => {
-        vector.x -= v.x;
-        vector.y -= v.y;
+    /**
+     * @method sub
+     */
+    sub(v) {
+        this.x -= v.x;
+        this.y -= v.y;
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.mul = s => {
-        vector.x *= s;
-        vector.y *= s;
+    /**
+     * @method mul
+     */
+    mul(s) {
+        this.x *= s;
+        this.y *= s;
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.div = s => {
+    /**
+     * @method div
+     */
+    div(s) {
         !s && console.log('Division by zero!');
 
-        vector.x /= s;
-        vector.y /= s;
+        this.x /= s;
+        this.y /= s;
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.mag = () =>
-        Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+    /**
+     * @method mag
+     */
+    mag() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
 
-    vector.normalize = () => {
-        const mag = vector.mag();
-        mag && vector.div(mag);
+    /**
+     * @method normalize
+     */
+    normalize() {
+        const mag = this.mag();
+        mag && this.div(mag);
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.angle = () =>
-        Math.atan2(vector.y, vector.x);
+    /**
+     * @method angle
+     */
+    angle() {
+        return Math.atan2(this.y, this.x);
+    }
 
-    vector.setMag = m => {
-        const angle = vector.angle();
+    /**
+     * @method setMag
+     */
+    setMag(m) {
+        const angle = this.angle();
 
-        vector.x = m * Math.cos(angle);
-        vector.y = m * Math.sin(angle);
+        this.x = m * Math.cos(angle);
+        this.y = m * Math.sin(angle);
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.setAngle = a => {
-        const mag = vector.mag();
+    /**
+     * @method setAngle
+     */
+    setAngle(a) {
+        const mag = this.mag();
 
-        vector.x = mag * Math.cos(a);
-        vector.y = mag * Math.sin(a);
+        this.x = mag * Math.cos(a);
+        this.y = mag * Math.sin(a);
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.rotate = a => {
-        vector.setAngle(vector.angle() + a);
+    /**
+     * @method rotate
+     */
+    rotate(a) {
+        this.setAngle(this.angle() + a);
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.limit = l => {
-        if (vector.mag() > l)
-            vector.setMag(l);
+    /**
+     * @method limit
+     */
+    limit(l) {
+        if (this.mag() > l) {
+            this.setMag(l);
+        }
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.angleBetween = v =>
-        vector.angle() - v.angle();
+    /**
+     * @method angleBetween
+     */
+    angleBetween(v) {
+        return this.angle() - v.angle();
+    }
 
-    vector.dot = v =>
-        vector.x * v.x + vector.y * v.y;
+    /**
+     * @method dot
+     */
+    dot(v) {
+        return this.x * v.x + this.y * v.y;
+    }
 
-    vector.lerp = (v, amt) => {
-        vector.x += (v.x - vector.x) * amt;
-        vector.y += (v.y - vector.y) * amt;
+    /**
+     * @method lerp
+     */
+    lerp(v, amt) {
+        this.x += (v.x - this.x) * amt;
+        this.y += (v.y - this.y) * amt;
 
-        return vector;
-    };
+        return this;
+    }
 
-    vector.dist = v => {
-        const dx = vector.x - v.x;
-        const dy = vector.y - v.y;
+    /**
+     * @method dist
+     */
+    dist(v) {
+        const dx = this.x - v.x;
+        const dy = this.y - v.y;
 
         return Math.sqrt(dx * dx + dy * dy);
-    };
+    }
 
-    vector.copy = () =>
-        new Vector(vector.x, vector.y);
-
-    return vector;
+    /**
+     * @method copy
+     */
+    copy() {
+        return new Vector(this.x, this.y);
+    }
 }
