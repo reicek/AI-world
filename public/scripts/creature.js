@@ -10,14 +10,11 @@ let speciesAffinity = 20; // Higher makes creature pay less attention to other s
  * @class Creature
  */
 function Creature (
-    world,
     x,
     y,
     species = false,
     mass = false
 ) {
-    const creature = this;
-
     const INPUT_LAYER = 4; // Ideally 4
     const HIDDEN_LAYER = 6;
     const OUTPUT_LAYER = 3; // Must be 3
@@ -43,45 +40,45 @@ function Creature (
      * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
      * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
      */
-    creature.network = new Architect.Perceptron(
+    this.network = new Architect.Perceptron(
         networkLayers.input,
         networkLayers.hidden,
         networkLayers.output
     );
 
-    creature.mass = !!mass ? mass : _.random(MIN_MASS, MAX_MASS, true);
-    creature.maxspeed = _.random(MIN_SPEED / creature.mass, MAX_SPEED / creature.mass, true);
-    creature.maxforce = _.random(0.3 * (creature.mass / 2), 0.4 * (creature.mass / 2), true);
-    creature.length = creature.mass * 2;
-    creature.base = creature.length / 3;
-    creature.HALF_PI = Math.PI / 2;
-    creature.TWO_PI = Math.PI * 2;
-    creature.location = new Vector(x, y);
-    creature.velocity = new Vector(0, 0);
-    creature.acceleration = new Vector(0, 0);
+    this.mass = !!mass ? mass : _.random(MIN_MASS, MAX_MASS, true);
+    this.maxspeed = _.random(MIN_SPEED / this.mass, MAX_SPEED / this.mass, true);
+    this.maxforce = _.random(0.3 * (this.mass / 2), 0.4 * (this.mass / 2), true);
+    this.length = this.mass * 2;
+    this.base = this.length / 3;
+    this.HALF_PI = Math.PI / 2;
+    this.TWO_PI = Math.PI * 2;
+    this.location = new Vector(x, y);
+    this.velocity = new Vector(0, 0);
+    this.acceleration = new Vector(0, 0);
 
-    creature.colors = {
+    this.colors = {
         red: _.random(MIN_COLOR, MAX_COLOR),
         green: _.random(MIN_COLOR, MAX_COLOR),
         blue: _.random(MIN_COLOR, MAX_COLOR)
     };
 
-    const maxColor = _.max([creature.colors.red, creature.colors.green, creature.colors.blue]);
+    const maxColor = _.max([this.colors.red, this.colors.green, this.colors.blue]);
 
-    creature.species = !!species ? species :
-        creature.colors.red === maxColor ? 'red' :
-        creature.colors.green === maxColor ? 'green' :
+    this.species = !!species ? species :
+        this.colors.red === maxColor ? 'red' :
+        this.colors.green === maxColor ? 'green' :
         'blue';
 
-    creature.colors = {
-        red: creature.species === 'red' ? creature.colors.red : MIN_COLOR,
-        green: creature.species === 'green' ? creature.colors.green : MIN_COLOR,
-        blue: creature.species === 'blue' ? creature.colors.blue : MIN_COLOR
+    this.colors = {
+        red: this.species === 'red' ? this.colors.red : MIN_COLOR,
+        green: this.species === 'green' ? this.colors.green : MIN_COLOR,
+        blue: this.species === 'blue' ? this.colors.blue : MIN_COLOR
     };
 
-    creature.color = `rgb(${creature.colors.red}, ${creature.colors.green}, ${creature.colors.blue})`;
+    this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
 
-    creature.moveTo = networkOutput => {
+    this.moveTo = networkOutput => {
         const decision = {
             x: networkOutput[0],
             y: networkOutput[1],
@@ -92,37 +89,37 @@ function Creature (
             decision.y * world.height
         );
         const force = new Vector(0, 0);
-        const angle = (decision.angle * creature.TWO_PI) - Math.PI;
-        const separation = creature.separate(world.creatures);
-        const alignment = creature.align(world.creatures).setAngle(angle);
-        const cohesion = creature.seek(target);
+        const angle = (decision.angle * this.TWO_PI) - Math.PI;
+        const separation = this.separate();
+        const alignment = this.align().setAngle(angle);
+        const cohesion = this.seek(target);
 
         force.add(separation); // Apply force to reduce separation
         force.add(cohesion);   // Apply force to increase cohesion
         force.add(alignment);  // Apply force to better align to peers
-        force.limit(creature.maxforce);
+        force.limit(this.maxforce);
 
-        creature.applyForce(force);
+        this.applyForce(force);
     };
 
-    creature.draw = () => {
-        creature.update();
+    this.draw = () => {
+        this.update();
 
         const ctx = world.context;
-        const angle = creature.velocity.angle();
+        const angle = this.velocity.angle();
 
-        x1 = creature.location.x + Math.cos(angle) * creature.base * 3;
-        y1 = creature.location.y + Math.sin(angle) * creature.base * 3;
+        x1 = this.location.x + Math.cos(angle) * this.base * 3;
+        y1 = this.location.y + Math.sin(angle) * this.base * 3;
 
-        x2 = creature.location.x + Math.cos(angle + creature.HALF_PI) * creature.base;
-        y2 = creature.location.y + Math.sin(angle + creature.HALF_PI) * creature.base;
+        x2 = this.location.x + Math.cos(angle + this.HALF_PI) * this.base;
+        y2 = this.location.y + Math.sin(angle + this.HALF_PI) * this.base;
 
-        x3 = creature.location.x + Math.cos(angle - creature.HALF_PI) * creature.base;
-        y3 = creature.location.y + Math.sin(angle - creature.HALF_PI) * creature.base;
+        x3 = this.location.x + Math.cos(angle - this.HALF_PI) * this.base;
+        y3 = this.location.y + Math.sin(angle - this.HALF_PI) * this.base;
 
         ctx.lineWidth = 0.7;
-        ctx.fillStyle = creature.color;
-        ctx.strokeStyle = creature.color;
+        ctx.fillStyle = this.color;
+        ctx.strokeStyle = this.color;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
@@ -131,62 +128,62 @@ function Creature (
         ctx.fill();
     };
 
-    creature.update = () => {
-        if (creature.mass < TOP_MASS){ // Grow
-            creature.mass += _.random(metabolism, metabolism * 2, true);
-            creature.maxspeed = _.random(MIN_SPEED / creature.mass, MAX_SPEED / creature.mass, true);
-            creature.maxforce = _.random(0.3 * (creature.mass / 2), 0.4 * (creature.mass / 2), true);
-            creature.length = creature.mass * 2;
-            creature.base = creature.length / 3;
+    this.update = () => {
+        if (this.mass < TOP_MASS){ // Grow
+            this.mass += _.random(metabolism, metabolism * 2, true);
+            this.maxspeed = _.random(MIN_SPEED / this.mass, MAX_SPEED / this.mass, true);
+            this.maxforce = _.random(0.3 * (this.mass / 2), 0.4 * (this.mass / 2), true);
+            this.length = this.mass * 2;
+            this.base = this.length / 3;
         }
 
-        if (creature.maxspeed > 0) { // Aging
+        if (this.maxspeed > 0) { // Aging
             const deterioration = metabolism / metabolismAgingRatio;
-            creature.maxspeed -= _.random(deterioration, deterioration * 2);
+            this.maxspeed -= _.random(deterioration, deterioration * 2);
 
-            if (creature.maxspeed < 0.2) { // Highlight older creatures
-                creature.colors.red = creature.species === 'red' ? MIN_COLOR : 0;
-                creature.colors.green = creature.species === 'green' ? MIN_COLOR : 0;
-                creature.colors.blue = creature.species === 'blue' ? MIN_COLOR : 0;
-                creature.color = `rgb(${creature.colors.red}, ${creature.colors.green}, ${creature.colors.blue})`;
+            if (this.maxspeed < 0.2) { // Highlight older thiss
+                this.colors.red = this.species === 'red' ? MIN_COLOR : 0;
+                this.colors.green = this.species === 'green' ? MIN_COLOR : 0;
+                this.colors.blue = this.species === 'blue' ? MIN_COLOR : 0;
+                this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
             }
         } else { // Death
-            world.removeCreature(creature);
+            world.removeCreature(this);
         }
 
-        creature.boundaries();
-        creature.velocity.add(creature.acceleration);
-        creature.velocity.limit(creature.maxspeed);
+        this.boundaries();
+        this.velocity.add(this.acceleration);
+        this.velocity.limit(this.maxspeed);
 
-        if (creature.velocity.mag() > creature.maxspeed)
-            creature.velocity.setMag(creature.velocity.mag() * 0.9);
+        if (this.velocity.mag() > this.maxspeed)
+            this.velocity.setMag(this.velocity.mag() * 0.9);
 
-        if (creature.velocity.mag() < creature.maxspeed)
-            creature.velocity.setMag(creature.velocity.mag() * 1.01);
+        if (this.velocity.mag() < this.maxspeed)
+            this.velocity.setMag(this.velocity.mag() * 1.01);
 
-        creature.location.add(creature.velocity);
-        creature.acceleration.mul(0);
+        this.location.add(this.velocity);
+        this.acceleration.mul(0);
     };
 
-    creature.applyForce = force =>
-        creature.acceleration.add(force);
+    this.applyForce = force =>
+        this.acceleration.add(force);
 
-    creature.boundaries = () => {
+    this.boundaries = () => {
         switch (true) {
-            case creature.location.x < MARGIN:
-                creature.applyForce(new Vector(creature.velocity.mag(), 0));
+            case this.location.x < MARGIN:
+                this.applyForce(new Vector(this.velocity.mag(), 0));
                 break;
 
-            case creature.location.x > (world.width - MARGIN):
-                creature.applyForce(new Vector(-creature.velocity.mag(), 0));
+            case this.location.x > (world.width - MARGIN):
+                this.applyForce(new Vector(-this.velocity.mag(), 0));
                 break;
 
-            case creature.location.y < MARGIN:
-                creature.applyForce(new Vector(0, creature.velocity.mag()));
+            case this.location.y < MARGIN:
+                this.applyForce(new Vector(0, this.velocity.mag()));
                 break;
 
-            case creature.location.y > (world.height - MARGIN):
-                creature.applyForce(new Vector(0, -creature.velocity.mag()));
+            case this.location.y > (world.height - MARGIN):
+                this.applyForce(new Vector(0, -this.velocity.mag()));
                 break;
 
             default:
@@ -194,30 +191,30 @@ function Creature (
         }
     };
 
-    creature.seek = target => target.copy()
-        .sub(creature.location)
-        .sub(creature.velocity)
+    this.seek = target => target.copy()
+        .sub(this.location)
+        .sub(this.velocity)
         .limit(_.random(0.1, 0.01, true));
 
-    creature.separate = neighboors => {
+    this.separate = () => {
         const sum = new Vector(0, 0);
-        const minSeparation = creature.mass * 1.2;
+        const minSeparation = this.mass * 1.2;
         const maxSeparation = _.random(minSeparation * 2, minSeparation * 3);
 
         let count = 0;
 
-        neighboors.forEach(neighboor => {
-            const isNotMe = neighboor != creature;
+        world.creatures.forEach(neighboor => {
+            const isNotMe = neighboor != this;
 
             if (isNotMe) {
-                const distance = creature.location.dist(neighboor.location);
+                const distance = this.location.dist(neighboor.location);
                 const isFarEnough = distance < maxSeparation;
                 const isCloseEnough = distance > minSeparation;
-                const isSameSpecie = creature.species === neighboor.species;
+                const isSameSpecie = this.species === neighboor.species;
                 const intimateDistance = minSeparation * reproductionChance;
 
                 if (isFarEnough && isCloseEnough) {
-                    const diff = creature.location.copy().sub(neighboor.location);
+                    const diff = this.location.copy().sub(neighboor.location);
 
                     diff.normalize();
                     diff.div(Math.pow(distance, 2));
@@ -225,19 +222,19 @@ function Creature (
                     count++;
                 }
                 if (distance <= intimateDistance && isSameSpecie) {
-                    const bothMature = creature.mass >= TOP_MASS && neighboor.mass >= TOP_MASS;
+                    const bothMature = this.mass >= TOP_MASS && neighboor.mass >= TOP_MASS;
                     if (bothMature) {
-                        creature.mass /= 2;
+                        this.mass /= 2;
                         neighboor.mass /= 2;
 
-                        world.spawnCreature( // Spawn a new creature of the same specie in the same spot
-                            creature.location.x,
-                            creature.location.y,
-                            creature.species,
-                            creature.mass / 2 // New borns are 1/4 of the parent's mass
+                        world.spawnCreature( // Spawn a new this of the same specie in the same spot
+                            this.location.x,
+                            this.location.y,
+                            this.species,
+                            this.mass / 2 // New borns are 1/4 of the parent's mass
                         );
 
-                        console.log(`A new ${creature.species} was born.`);
+                        console.log(`A new ${this.species} was born.`);
                     }
                 }
             }
@@ -248,19 +245,19 @@ function Creature (
 
         sum.div(count);
         sum.normalize();
-        sum.sub(creature.velocity);
-        sum.limit(creature.maxforce);
+        sum.sub(this.velocity);
+        sum.limit(this.maxforce);
 
         return sum;
     };
 
-    creature.align = neighboors => {
+    this.align = () => {
         const sum = new Vector(0, 0);
         let count = 0;
 
-        neighboors.forEach(neighboor => {
-            if (neighboor !== creature) {
-                if (neighboor.species === creature.species) { // Align to same species
+        world.creatures.forEach(neighboor => {
+            if (neighboor !== this) {
+                if (neighboor.species === this.species) { // Align to same species
                     sum.add(neighboor.velocity);
                 } else { // Avoid aliens
                     const alienVelocity = neighboor.velocity.copy().div(speciesAffinity);
@@ -278,14 +275,14 @@ function Creature (
         return sum.limit(_.random(0.001, 0.1, true));
     };
 
-    creature.cohesion = neighboors => {
+    this.cohesion = () => {
         const sum = new Vector(0, 0);
         let count = 0;
 
-        neighboors.forEach(neighboor => {
-            const isNotMe = neighboor != creature;
+        world.creatures.forEach(neighboor => {
+            const isNotMe = neighboor != this;
             if (isNotMe) {
-                const isSameSpecie = neighboor.species === creature.species;
+                const isSameSpecie = neighboor.species === this.species;
                 if (isSameSpecie) { // Coerce only to same species
                     sum.add(neighboor.location);
                     count ++;

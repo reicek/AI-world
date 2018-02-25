@@ -1,5 +1,6 @@
 let keepPaths = false; // Toggle keep paths
 let fastSimulation = false; // Toggle fast emulation
+let world = {};
 
 (function(){
     const TOP_POPULATION = 200;
@@ -21,7 +22,7 @@ let fastSimulation = false; // Toggle fast emulation
         ctx.canvas.height = $('#universe').height();
         ctx.canvas.width = $('#universe').width();
 
-        const world = {
+        world = {
             creatures: [],
             width: canvas.width,
             height: canvas.height,
@@ -29,7 +30,7 @@ let fastSimulation = false; // Toggle fast emulation
         };
 
         world.spawnCreature = (x, y, species, mass) => {
-            world.creatures.push(new Creature(world, x, y, species, mass));
+            world.creatures.push(new Creature(x, y, species, mass));
             births ++;
             _logCensus(world.creatures);
         };
