@@ -1,3 +1,4 @@
+[![GitHub version](https://badge.fury.io/gh/reicek%2FAI-world.svg)](https://badge.fury.io/gh/reicek%2FAI-world) [![express](https://david-dm.org/reicek/AI-world/status.svg)](https://david-dm.org/reicek/AI-world) ![issues](https://img.shields.io/github/issues/reicek/AI-world.svg) [![license](https://img.shields.io/github/license/reicek/AI-world.svg)](https://github.com/reicek/AI-world/blob/master/LICENSE)
 # AI World
 ### Javascript Neural Network, Perceptron architecture.
 ###### by César Antón Dorantes <a href="https://twitter.com/reicek" target="_blank">@reicek</a>
