@@ -37,7 +37,7 @@ class Server {
          */
         this.app = express();
 
-        this.app.use(express.static('public'));
+        this.app.use(express.static('docs'));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
 
