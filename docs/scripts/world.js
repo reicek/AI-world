@@ -17,7 +17,7 @@ let world = {};
      */
     function startWorld(initialCreatures) {
         const canvas = $('#world')[0];
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { alpha: false });
 
         ctx.canvas.height = $('#universe').height();
         ctx.canvas.width = $('#universe').width();
@@ -67,7 +67,7 @@ let world = {};
             const creatures = world.creatures;
 
             if (!keepPaths) {
-                ctx.fillStyle = '#212121';
+                ctx.fillStyle = 'rgba(0,0,0,0.2)';
                 ctx.fillRect(0, 0, world.width, world.height);
             }
 
