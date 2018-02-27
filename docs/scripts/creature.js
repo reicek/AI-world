@@ -1,9 +1,7 @@
 const { Architect } = synaptic;
-const INITIAL_REPRODUCTION_CHANCE = 2;
 
 let metabolism = 0.0005; // Bigger means shorter life
 let metabolismAgingRatio = 1.2; // Bigger means longer life
-let reproductionChance = INITIAL_REPRODUCTION_CHANCE;
 let speciesAffinity = 20; // Higher makes creature pay less attention to other species
 
 /**
@@ -210,7 +208,7 @@ function Creature (
                 const isFarEnough = distance < maxSeparation;
                 const isCloseEnough = distance > minSeparation;
                 const isSameSpecie = this.species === neighboor.species;
-                const intimateDistance = minSeparation * reproductionChance;
+                const intimateDistance = minSeparation * world.reproductionChance;
 
                 if (isFarEnough && isCloseEnough) {
                     const diff = this.location.copy().sub(neighboor.location);

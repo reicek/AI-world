@@ -1,6 +1,6 @@
 class World {
     constructor(
-        initialPopulation = 10,
+        initialPopulation = 20,
         topPopulation = 100,
         reproductionChance = 2,
         id = 'world',
@@ -8,8 +8,8 @@ class World {
     ) {
         this.reproductionChance = reproductionChance;
         this.initialReproductionChange = reproductionChance;
-        this.initialR
         this.initialPopulation = initialPopulation;
+        this.initialPopulation_copy = initialPopulation;
         this.topPopulation = topPopulation;
         this.id = id;
         this.canvas = $(`#${id}`)[0];;
@@ -31,14 +31,15 @@ class World {
      * @public
      */
     launch() {
-        while (this.initialPopulation--) {
+        while (this.initialPopulation_copy--) {
             this.spawnCreature(
                 _.random(0, this.width),
                 _.random(0, this.height)
             );
         }
-
+        delete this.initialPopulation_copy;
         this.logCensus();
+
         return this.draw();
     }
 
@@ -98,10 +99,10 @@ class World {
             console.log(` Deaths ${this.deaths}`);
         }
         if (this.creatures.length >= this.topPopulation) {
-            console.log(`%c Overpopulation after ${cycles} cycles!`, 'color: rgb(255, 150, 150)');
+            console.log(`%c Overpopulation after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
         }
         if (this.creatures.length === 0) {
-            console.log(`%c Extintion after ${cycles} cycles!`, 'color: rgb(255, 150, 150)');
+            console.log(`%c Extintion after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
         }
         console.log('%c==================================', 'color: #777');
     }
@@ -168,7 +169,7 @@ class World {
 
             default:
                 this.reproductionChance = this.initialReproductionChange;;
-                return;
+                break;
         }
 
         requestAnimationFrame(() => {
