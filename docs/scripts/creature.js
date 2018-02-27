@@ -105,7 +105,6 @@ function Creature (
     this.draw = () => {
         this.update();
 
-        const ctx = world.context;
         const angle = this.velocity.angle();
 
         x1 = this.location.x + Math.cos(angle) * this.base * 3;
@@ -117,15 +116,15 @@ function Creature (
         x3 = this.location.x + Math.cos(angle - this.HALF_PI) * this.base;
         y3 = this.location.y + Math.sin(angle - this.HALF_PI) * this.base;
 
-        ctx.lineWidth = 0.7;
-        ctx.fillStyle = this.color;
-        ctx.strokeStyle = this.color;
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.lineTo(x3, y3);
-        ctx.stroke();
-        ctx.fill();
+        world.ctx.lineWidth = 0.7;
+        world.ctx.fillStyle = this.color;
+        world.ctx.strokeStyle = this.color;
+        world.ctx.beginPath();
+        world.ctx.moveTo(x1, y1);
+        world.ctx.lineTo(x2, y2);
+        world.ctx.lineTo(x3, y3);
+        world.ctx.stroke();
+        world.ctx.fill();
     };
 
     this.update = () => {
