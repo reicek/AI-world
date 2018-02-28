@@ -1,3 +1,9 @@
+/**
+ * @module World
+ */
+/**
+ * @class World
+ */
 class World {
     constructor(
         initialPopulation = 20,
@@ -24,6 +30,7 @@ class World {
         this.height = this.canvas.height;
         this.learningRate = 0.15;
         this.pathOpacity = pathOpacity;
+        this.reproductionVariation = 0.0001;
     }
 
     /**
@@ -109,8 +116,7 @@ class World {
 
     /**
      * Returns the current population by species
-     * @method _getCensus
-     * @extends logCensus
+     * @method getCensus
      * @return {Census}
      */
     /**
@@ -132,6 +138,10 @@ class World {
         return results;
     }
 
+    /**
+     * Draw creatures
+     * @method draw
+     */
     draw() {
         this.cycles ++;
 
@@ -160,11 +170,11 @@ class World {
 
         switch (true) { // Population control
             case this.creatures.length > (this.initialPopulation * 1.3): // If overpopulation in progress
-                this.reproductionChance *=  0.9999; // Reduce reproduction chance
+                this.reproductionChance *=  1 - this.reproductionVariation; // Reduce reproduction chance
                 break;
 
             case this.creatures.length < this.initialPopulation * 1.1: // If extintion in progress
-                this.reproductionChance *=  1.0001// Increase reproduction chance
+                this.reproductionChance *=  1 + this.reproductionVariation; // Increase reproduction chance
                 break;
 
             default:
