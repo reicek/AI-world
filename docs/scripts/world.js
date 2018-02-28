@@ -67,6 +67,21 @@ class World {
             this.initialPopulation++;
         });
 
+        $(`#${this.id}`).contextmenu(e => { // Remove oldest creature on right click
+            if (!this.oldestCreature) {
+                this.oldestCreature = _.head(this.creatures);;
+            }
+            this.creatures.forEach(creature => {
+                if (creature.maxspeed < this.oldestCreature.maxspeed) {
+                    this.oldestCreature = creature;
+                }
+            });
+            this.removeCreature(this.oldestCreature);
+            this.initialPopulation--;
+
+            return false;
+        });
+
         return this.draw();
     }
 
