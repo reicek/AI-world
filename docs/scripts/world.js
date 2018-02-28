@@ -6,7 +6,7 @@
  */
 class World {
     constructor(
-        initialPopulation = 20,
+        initialPopulation = 10,
         topPopulation = 100,
         reproductionChance = 2,
         id = 'world',
@@ -30,7 +30,6 @@ class World {
         this.height = this.canvas.height;
         this.learningRate = 0.15;
         this.pathOpacity = pathOpacity;
-        this.reproductionVariation = 0.0001;
     }
 
     /**
@@ -44,8 +43,29 @@ class World {
                 _.random(0, this.height)
             );
         }
-        delete this.initialPopulation_copy;
         this.logCensus();
+
+        delete this.initialPopulation_copy;
+
+        $(`#${this.id}`).click(e => { // Add new creature to the less populated species on left click
+            this.leastPopulated = _.minBy([
+                {
+                    species: 'red',
+                    population: this.censusResults.red
+                },
+                {
+                    species: 'green',
+                    population: this.censusResults.green
+                },
+                {
+                    species: 'blue',
+                    population: this.censusResults.blue
+                }
+            ], 'population');
+
+            this.spawnCreature(e.clientX, e.clientY, this.leastPopulated.species);
+            this.initialPopulation++;
+        });
 
         return this.draw();
     }
@@ -116,7 +136,8 @@ class World {
 
     /**
      * Returns the current population by species
-     * @method getCensus
+     * @method _getCensus
+     * @extends logCensus
      * @return {Census}
      */
     /**
@@ -126,22 +147,18 @@ class World {
      * @property {number} blue   - Blue population
      */
     getCensus() {
-        const results = {
+        this.censusResults = {
             red: 0,
             green: 0,
             blue: 0
         };
 
         this.creatures.forEach(creature =>
-            results[creature.species] ++);
+            this.censusResults[creature.species] ++);
 
-        return results;
+        return this.censusResults;
     }
 
-    /**
-     * Draw creatures
-     * @method draw
-     */
     draw() {
         this.cycles ++;
 
@@ -170,11 +187,11 @@ class World {
 
         switch (true) { // Population control
             case this.creatures.length > (this.initialPopulation * 1.3): // If overpopulation in progress
-                this.reproductionChance *=  1 - this.reproductionVariation; // Reduce reproduction chance
+                this.reproductionChance *=  0.9999; // Reduce reproduction chance
                 break;
 
             case this.creatures.length < this.initialPopulation * 1.1: // If extintion in progress
-                this.reproductionChance *=  1 + this.reproductionVariation; // Increase reproduction chance
+                this.reproductionChance *=  1.0001// Increase reproduction chance
                 break;
 
             default:
