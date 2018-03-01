@@ -1,9 +1,10 @@
-const { Architect } = synaptic;
-
 /**
  * @module Creature
  * @requires synaptic
+ * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
+const { Architect } = synaptic;
+
 /**
  * @class Creature
  */
@@ -68,21 +69,28 @@ class Creature {
         this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
     }
 
+    /**
+     * @method moveTo
+     * @param networkOutput
+     */
     moveTo(networkOutput) {
         this.decision = {
             x: networkOutput[0],
             y: networkOutput[1],
             angle: networkOutput[2]
         };
+
         this.target = new Vector(
             this.decision.x * world.width,
             this.decision.y * world.height
         );
+
         this.force = new Vector(0, 0);
         this.angle = (this.decision.angle * this.TWO_PI) - Math.PI;
+
         this.separationValue = this.separate();
-        this.alignmentValue = this.align().setAngle(this.angle);
         this.cohesionValue = this.seek(this.target);
+        this.alignmentValue = this.align().setAngle(this.angle);
 
         this.force.add(this.separationValue); // Apply force to reduce separation
         this.force.add(this.cohesionValue);   // Apply force to increase cohesion
@@ -92,6 +100,9 @@ class Creature {
         this.applyForce(this.force);
     }
 
+    /**
+     * @method draw
+     */
     draw() {
         this.update();
 
@@ -117,6 +128,9 @@ class Creature {
         world.ctx.fill();
     }
 
+    /**
+     * @method update
+     */
     update() {
         if (this.mass < this.topMass){ // Grow
             this.mass += _.random(this.metabolism, this.metabolism * 2, true);
@@ -154,10 +168,18 @@ class Creature {
         this.acceleration.mul(0);
     }
 
+    /**
+     * @method applyForce
+     * @param force
+     * @return {Vector}
+     */
     applyForce(force) {
         return this.acceleration.add(force);
     }
 
+    /**
+     * @method boundaries
+     */
     boundaries() {
         switch (true) {
             case this.location.x < this.margin:
@@ -181,6 +203,11 @@ class Creature {
         }
     }
 
+    /**
+     * @method seek
+     * @param target
+     * @return {Vector}
+     */
     seek(target) {
         return target.copy()
             .sub(this.location)
@@ -188,6 +215,10 @@ class Creature {
             .limit(_.random(0.1, 0.01, true));
     }
 
+    /**
+     * @method separate
+     * @return {Vector}
+     */
     separate() {
         this.sum = new Vector(0, 0);
         this.minSeparation = this.mass * 1.2;
@@ -195,18 +226,19 @@ class Creature {
 
         this.count = 0;
 
-        world.creatures.forEach(neighboor => {
-            this.isNotMe = neighboor != this;
+        for (this.i = 0, this.t = world.creatures.length; this.i < this.t; this.i++) {
+            this.neighboor = world.creatures[this.i];
+            this.isNotMe = this.neighboor != this;
 
             if (this.isNotMe) {
-                this.distance = this.location.dist(neighboor.location);
+                this.distance = this.location.dist(this.neighboor.location);
                 this.isFarEnough = this.distance < this.maxSeparation;
                 this.isCloseEnough = this.distance > this.minSeparation;
-                this.isSameSpecie = this.species === neighboor.species;
+                this.isSameSpecie = this.species === this.neighboor.species;
                 this.intimateDistance = this.minSeparation * world.reproductionChance;
 
                 if (this.isFarEnough && this.isCloseEnough) {
-                    this.diff = this.location.copy().sub(neighboor.location);
+                    this.diff = this.location.copy().sub(this.neighboor.location);
                     this.diff.normalize();
                     this.diff.div(Math.pow(this.distance, 2));
                     this.sum.add(this.diff);
@@ -214,10 +246,10 @@ class Creature {
                 }
 
                 if (this.distance <= this.intimateDistance && this.isSameSpecie) {
-                    this.bothMature = this.mass >= this.topMass && neighboor.mass >= this.topMass;
+                    this.bothMature = this.mass >= this.topMass && this.neighboor.mass >= this.topMass;
                     if (this.bothMature) {
                         this.mass /= 2;
-                        neighboor.mass /= 2;
+                        this.neighboor.mass /= 2;
 
                         world.spawnCreature( // Spawn a new this of the same specie in the same spot
                             this.location.x,
@@ -230,7 +262,7 @@ class Creature {
                     }
                 }
             }
-        });
+        }
 
         if (!this.count) {
             return this.sum;
@@ -244,21 +276,26 @@ class Creature {
         return this.sum;
     }
 
+    /**
+     * @method align
+     * @return {Vector}
+     */
     align() {
         this.sum = new Vector(0, 0);
         this.count = 0;
 
-        world.creatures.forEach(neighboor => {
-            if (neighboor !== this) {
-                if (neighboor.species === this.species) { // Align to same species
-                    this.sum.add(neighboor.velocity);
+        for (this.i = 0, this.t = world.creatures.length; this.i < this.t; this.i++) {
+            this.neighboor = world.creatures[this.i];
+            if (this.neighboor !== this) {
+                if (this.neighboor.species === this.species) { // Align to same species
+                    this.sum.add(this.neighboor.velocity);
                 } else { // Avoid aliens
-                    this.alienVelocity = neighboor.velocity.copy().div(this.speciesAffinity);
+                    this.alienVelocity = this.neighboor.velocity.copy().div(this.speciesAffinity);
                     this.sum.sub(this.alienVelocity);
                 }
                 this.count++
             }
-        });
+        }
 
         if (this.count > 0) {
             this.sum.div(this.count);
@@ -269,20 +306,25 @@ class Creature {
         return this.sum.limit(_.random(0.001, 0.1, true));
     }
 
+    /**
+     * @method cohesion
+     * @return {Vector}
+     */
     cohesion() {
         this.sum = new Vector(0, 0);
         this.count = 0;
 
-        world.creatures.forEach(neighboor => {
-            this.isNotMe = neighboor != this;
+        for (this.i = 0, this.t = world.creatures.length; this.i < this.t; this.i++) {
+            this.neighboor = world.creatures[this.i];
+            this.isNotMe = this.neighboor != this;
             if (this.isNotMe) {
-                this.isSameSpecie = neighboor.species === this.species;
+                this.isSameSpecie = this.neighboor.species === this.species;
                 if (this.isSameSpecie) { // Coerce only to same species
-                    this.sum.add(neighboor.location);
+                    this.sum.add(this.neighboor.location);
                     this.count ++;
                 }
             }
-        });
+        }
 
         if (this.count > 0) {
             this.sum.div(this.count);

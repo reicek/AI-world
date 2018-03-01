@@ -1,5 +1,6 @@
 /**
  * @module World
+ * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
  * @class World
@@ -34,7 +35,7 @@ class World {
 
     /**
      * @method launch
-     * @public
+     * @return {draw}
      */
     launch() {
         while (this.initialPopulation_copy--) {
@@ -43,7 +44,6 @@ class World {
                 _.random(0, this.height)
             );
         }
-        this.logCensus();
 
         delete this.initialPopulation_copy;
 
@@ -51,15 +51,15 @@ class World {
             this.leastPopulated = _.minBy([
                 {
                     species: 'red',
-                    population: this.censusResults.red
+                    population: this.census.red
                 },
                 {
                     species: 'green',
-                    population: this.censusResults.green
+                    population: this.census.green
                 },
                 {
                     species: 'blue',
-                    population: this.censusResults.blue
+                    population: this.census.blue
                 }
             ], 'population');
 
@@ -79,7 +79,7 @@ class World {
             this.removeCreature(this.oldestCreature);
             this.initialPopulation--;
 
-            return false;
+            return false; // Dont show context menu on right click
         });
 
         return this.draw();
@@ -87,7 +87,11 @@ class World {
 
     /**
      * @method spawnCreature
-     * @public
+     * @param [x]
+     * @param [y]
+     * @param {string} [species]
+     * @param {number}[mass]
+     * @return {logCensus}
      */
     spawnCreature(
         x,
@@ -104,11 +108,11 @@ class World {
     /**
      * @method removeCreature
      * @param {Object} creature
-     * @public
+     * @return {logCensus}
      */
     removeCreature(creature) {
-        const index = this.creatures.indexOf(creature);
-        this.creatures.splice(index, 1);
+        this.index = this.creatures.indexOf(creature);
+        this.creatures.splice(this.index, 1);
         this.deaths ++;
 
         return this.logCensus('death', creature.species);
@@ -119,19 +123,18 @@ class World {
      * @method logCensus
      * @param {string} [eventName] - birth | death
      * @param {string} [species]
-     * @public
      */
     logCensus(
         eventName,
         species
     ) {
-        const census = this.getCensus();
+        this.updateCensus();
 
         console.clear();
         console.log('%c==================================', 'color: #777');
-        console.log(`%c Red   : ${census.red}`, 'color: rgb(255, 100, 100)');
-        console.log(`%c Green  : ${census.green}`, 'color: rgb(100, 255, 100)');
-        console.log(`%c Blue : ${census.blue}`, ' color: rgb(100, 100, 255)');
+        console.log(`%c Red   : ${this.census.red}`, 'color: rgb(255, 100, 100)');
+        console.log(`%c Green  : ${this.census.green}`, 'color: rgb(100, 255, 100)');
+        console.log(`%c Blue : ${this.census.blue}`, ' color: rgb(100, 100, 255)');
         console.log(` Population: ${this.creatures.length}`);
         console.log(` Reproduction chance ${this.reproductionChance}`);
         if (this.births > 0) {
@@ -161,44 +164,27 @@ class World {
      * @property {number} green  - Green population
      * @property {number} blue   - Blue population
      */
-    getCensus() {
-        this.censusResults = {
+    updateCensus() {
+        this.census = {
             red: 0,
             green: 0,
             blue: 0
         };
 
-        this.creatures.forEach(creature =>
-            this.censusResults[creature.species] ++);
+        this.creatures.map(creature =>
+            this.census[creature.species] ++);
 
-        return this.censusResults;
+        return this.census;
     }
 
+    /**
+     * @method draw
+     */
     draw() {
         this.cycles ++;
 
         this.ctx.fillStyle = `rgba(0, 0, 0, ${this.pathOpacity})`;
         this.ctx.fillRect(0, 0, this.width, this.height);
-
-        this.creatures.map(creature => {
-            const input = [
-                creature.location.x,
-                creature.location.y,
-                creature.velocity.x,
-                creature.velocity.y
-            ];
-
-            creature.moveTo(creature.network.activate(input)); // Think of where to move (align to others)
-            creature.draw(); // Moves
-
-            const target = [
-                creature.cohesion(this.creatures).x / this.width, // X target
-                creature.cohesion(this).y / this.height, // Y target
-                (creature.align(this.creatures).angle() + Math.PI) / (Math.PI * 2) // Target angle
-            ];
-
-            creature.network.propagate(this.learningRate, target); // Learn to move with others
-        });
 
         switch (true) { // Population control
             case this.creatures.length > (this.initialPopulation * 1.3): // If overpopulation in progress
@@ -214,9 +200,28 @@ class World {
                 break;
         }
 
-        requestAnimationFrame(() => {
-            this.draw();
+        this.creatures.map(creature => {
+            this.input = [
+                creature.location.x,
+                creature.location.y,
+                creature.velocity.x,
+                creature.velocity.y
+            ];
+
+            creature.moveTo(creature.network.activate(this.input)); // Think of where to move (align to others)
+            creature.draw(); // Moves
+
+            this.target = [
+                creature.cohesion(this.creatures).x / this.width, // X target
+                creature.cohesion(this).y / this.height, // Y target
+                (creature.align(this.creatures).angle() + Math.PI) / (Math.PI * 2) // Target angle
+            ];
+
+            creature.network.propagate(this.learningRate, this.target); // Learn to move with others
         });
+
+        requestAnimationFrame(() =>
+            this.draw());
     }
 }
 

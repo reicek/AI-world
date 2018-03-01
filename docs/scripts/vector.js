@@ -1,5 +1,6 @@
 /**
  * @module Vector
+ * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
  * @class Vector
@@ -36,6 +37,7 @@ class Vector {
      * @method set
      * @param {number} [x = 0] - X value
      * @param {number} [y = 0] - Y value
+     * @return {Vector}
      */
     set(
         x = 0,
@@ -49,6 +51,7 @@ class Vector {
 
     /**
      * @method random
+     * @return {Vector}
      */
     random() {
         this.set();
@@ -59,6 +62,8 @@ class Vector {
 
     /**
      * @method add
+     * @param v
+     * @return {Vector}
      */
     add(v) {
         this.x += v.x;
@@ -69,6 +74,8 @@ class Vector {
 
     /**
      * @method sub
+     * @param v
+     * @return {Vector}
      */
     sub(v) {
         this.x -= v.x;
@@ -79,6 +86,8 @@ class Vector {
 
     /**
      * @method mul
+     * @param s
+     * @return {Vector}
      */
     mul(s) {
         this.x *= s;
@@ -89,6 +98,8 @@ class Vector {
 
     /**
      * @method div
+     * @param s
+     * @return {Vector}
      */
     div(s) {
         !s && console.log('Division by zero!');
@@ -101,6 +112,7 @@ class Vector {
 
     /**
      * @method mag
+     * @return {number}
      */
     mag() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
@@ -108,16 +120,17 @@ class Vector {
 
     /**
      * @method normalize
+     * @return {Vector}
      */
     normalize() {
-        const mag = this.mag();
-        mag && this.div(mag);
+        this.magValue = this.mag();
 
-        return this;
+        return this.div(this.magValue);;
     }
 
     /**
      * @method angle
+     * @return {number}
      */
     angle() {
         return Math.atan2(this.y, this.x);
@@ -125,30 +138,36 @@ class Vector {
 
     /**
      * @method setMag
+     * @param m
+     * @return {Vector}
      */
     setMag(m) {
-        const angle = this.angle();
+        this.angleValue = this.angle();
 
-        this.x = m * Math.cos(angle);
-        this.y = m * Math.sin(angle);
+        this.x = m * Math.cos(this.angleValue);
+        this.y = m * Math.sin(this.angleValue);
 
         return this;
     }
 
     /**
      * @method setAngle
+     * @param a
+     * @return {Vector}
      */
     setAngle(a) {
-        const mag = this.mag();
+        this.magValue = this.mag();
 
-        this.x = mag * Math.cos(a);
-        this.y = mag * Math.sin(a);
+        this.x = this.magValue * Math.cos(a);
+        this.y = this.magValue * Math.sin(a);
 
         return this;
     }
 
     /**
      * @method rotate
+     * @param a
+     * @return {Vector}
      */
     rotate(a) {
         this.setAngle(this.angle() + a);
@@ -158,6 +177,8 @@ class Vector {
 
     /**
      * @method limit
+     * @param l
+     * @return {Vector}
      */
     limit(l) {
         if (this.mag() > l) {
@@ -169,6 +190,8 @@ class Vector {
 
     /**
      * @method angleBetween
+     * @param v
+     * @return {number}
      */
     angleBetween(v) {
         return this.angle() - v.angle();
@@ -176,6 +199,8 @@ class Vector {
 
     /**
      * @method dot
+     * @param v
+     * @return {number}
      */
     dot(v) {
         return this.x * v.x + this.y * v.y;
@@ -183,8 +208,14 @@ class Vector {
 
     /**
      * @method lerp
+     * @param v
+     * @param amt
+     * @return {Vector}
      */
-    lerp(v, amt) {
+    lerp(
+        v,
+        amt
+    ) {
         this.x += (v.x - this.x) * amt;
         this.y += (v.y - this.y) * amt;
 
@@ -193,16 +224,19 @@ class Vector {
 
     /**
      * @method dist
+     * @param v
+     * @return {number}
      */
     dist(v) {
-        const dx = this.x - v.x;
-        const dy = this.y - v.y;
+        this.dx = this.x - v.x;
+        this.dy = this.y - v.y;
 
-        return Math.sqrt(dx * dx + dy * dy);
+        return Math.sqrt(this.dx * this.dx + this.dy * this.dy);
     }
 
     /**
      * @method copy
+     * @return {Vector}
      */
     copy() {
         return new Vector(this.x, this.y);
