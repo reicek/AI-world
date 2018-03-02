@@ -80,24 +80,17 @@ class Creature {
             angle: networkOutput[2]
         };
 
-        this.target = new Vector(
-            this.decision.x * world.width,
-            this.decision.y * world.height
+        return this.applyForce(new Vector(0, 0)
+            .add(this.separate()) // Apply force to reduce separation
+            .add(this.seek(new Vector( // Apply force to increase cohesion
+                this.decision.x * world.width,
+                this.decision.y * world.height
+            )))
+            .add(this.align() // Apply force to better align to peers
+                .setAngle((this.decision.angle * this.TWO_PI) - Math.PI)
+            )
+            .limit(this.maxforce)
         );
-
-        this.force = new Vector(0, 0);
-        this.angle = (this.decision.angle * this.TWO_PI) - Math.PI;
-
-        this.separationValue = this.separate();
-        this.cohesionValue = this.seek(this.target);
-        this.alignmentValue = this.align().setAngle(this.angle);
-
-        this.force.add(this.separationValue); // Apply force to reduce separation
-        this.force.add(this.cohesionValue);   // Apply force to increase cohesion
-        this.force.add(this.alignmentValue);  // Apply force to better align to peers
-        this.force.limit(this.maxforce);
-
-        this.applyForce(this.force);
     }
 
     /**
@@ -105,27 +98,27 @@ class Creature {
      */
     draw() {
         this.update();
-
         this.angle = this.velocity.angle();
 
-        this.x1 = this.location.x + Math.cos(this.angle) * this.base * 3;
-        this.y1 = this.location.y + Math.sin(this.angle) * this.base * 3;
-
-        this.x2 = this.location.x + Math.cos(this.angle + this.HALF_PI) * this.base;
-        this.y2 = this.location.y + Math.sin(this.angle + this.HALF_PI) * this.base;
-
-        this.x3 = this.location.x + Math.cos(this.angle - this.HALF_PI) * this.base;
-        this.y3 = this.location.y + Math.sin(this.angle - this.HALF_PI) * this.base;
-
-        world.ctx.lineWidth = 0.7;
         world.ctx.fillStyle = this.color;
         world.ctx.strokeStyle = this.color;
         world.ctx.beginPath();
-        world.ctx.moveTo(this.x1, this.y1);
-        world.ctx.lineTo(this.x2, this.y2);
-        world.ctx.lineTo(this.x3, this.y3);
+        world.ctx.moveTo(
+            this.location.x + Math.cos(this.angle) * this.base * 3, // x1
+            this.location.y + Math.sin(this.angle) * this.base * 3  // y1
+        );
+        world.ctx.lineTo(
+            this.location.x + Math.cos(this.angle + this.HALF_PI) * this.base, // x2
+            this.location.y + Math.sin(this.angle + this.HALF_PI) * this.base  // y2
+        );
+        world.ctx.lineTo(
+            this.location.x + Math.cos(this.angle - this.HALF_PI) * this.base, // x3
+            this.location.y + Math.sin(this.angle - this.HALF_PI) * this.base  // y3
+        );
         world.ctx.stroke();
         world.ctx.fill();
+
+        return this;
     }
 
     /**
@@ -144,27 +137,27 @@ class Creature {
             this.deterioration = this.metabolism / this.metabolismAgingRatio;
             this.maxspeed -= _.random(this.deterioration, this.deterioration * 2);
 
-            if (this.maxspeed < 0.2) { // Highlight older thiss
-                this.colors.red = this.species === 'red' ? this.minColor : 0;
-                this.colors.green = this.species === 'green' ? this.minColor : 0;
-                this.colors.blue = this.species === 'blue' ? this.minColor : 0;
-                this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
-            }
+            if (this.maxspeed < 0.2) // Highlight older thiss
+                this.color = `rgb(${this.species === 'red' ? this.minColor : 0}, ${this.species === 'green' ? this.minColor : 0}, ${this.species === 'blue' ? this.minColor : 0})`;
+
         } else  // Death
-            world.removeCreature(this);
+            return world.removeCreature(this);
 
         this.boundaries();
-        this.velocity.add(this.acceleration);
-        this.velocity.limit(this.maxspeed);
+
+        this.velocity
+            .add(this.acceleration)
+            .limit(this.maxspeed);
 
         if (this.velocity.mag() > this.maxspeed)
             this.velocity.setMag(this.velocity.mag() * 0.9);
-
-        if (this.velocity.mag() < this.maxspeed)
+        else if (this.velocity.mag() < this.maxspeed)
             this.velocity.setMag(this.velocity.mag() * 1.01);
 
         this.location.add(this.velocity);
         this.acceleration.mul(0);
+
+        return this;
     }
 
     /**
@@ -183,22 +176,22 @@ class Creature {
         switch (true) {
             case this.location.x < this.margin:
                 this.applyForce(new Vector(this.velocity.mag(), 0));
-                break;
+                return this;
 
             case this.location.x > (world.width - this.margin):
                 this.applyForce(new Vector(-this.velocity.mag(), 0));
-                break;
+                return this;
 
             case this.location.y < this.margin:
                 this.applyForce(new Vector(0, this.velocity.mag()));
-                break;
+                return this;
 
             case this.location.y > (world.height - this.margin):
                 this.applyForce(new Vector(0, -this.velocity.mag()));
-                break;
+                return this;
 
             default:
-                return;
+                return this;
         }
     }
 
@@ -222,57 +215,49 @@ class Creature {
         this.sum = new Vector(0, 0);
         this.minSeparation = this.mass * 1.2;
         this.maxSeparation = _.random(this.minSeparation * 2, this.minSeparation * 3);
-
         this.count = 0;
 
-        for (this.index = 0, this.total = world.creatures.length; this.index < this.total; this.index++) {
-            this.neighboor = world.creatures[this.index];
-            this.isNotMe = this.neighboor != this;
+        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
+            if (world.creatures[this._index] === this) continue; // Skip to next creatue
 
-            if (this.isNotMe) {
-                this.distance = this.location.dist(this.neighboor.location);
-                this.isFarEnough = this.distance < this.maxSeparation;
-                this.isCloseEnough = this.distance > this.minSeparation;
-                this.isSameSpecie = this.species === this.neighboor.species;
-                this.intimateDistance = this.minSeparation * world.reproductionChance;
+            this.distance = this.location.dist(world.creatures[this._index].location);
 
-                if (this.isFarEnough && this.isCloseEnough) {
-                    this.diff = this.location.copy().sub(this.neighboor.location);
-                    this.diff.normalize();
-                    this.diff.div(Math.pow(this.distance, 2));
-                    this.sum.add(this.diff);
-                    this.count++;
-                }
+            if ((this.distance < this.maxSeparation) && (this.distance > this.minSeparation)) { // is far enough & is close enough
+                this.sum.add(this.location.copy()
+                    .sub(world.creatures[this._index].location)
+                    .normalize()
+                    .div(Math.pow(this.distance, 2))
+                );
+                this.count++;
+            }
 
-                if (this.distance <= this.intimateDistance && this.isSameSpecie) {
-                    this.bothMature = this.mass >= this.topMass && this.neighboor.mass >= this.topMass;
-                    if (this.bothMature) {
-                        this.mass /= 2;
-                        this.neighboor.mass /= 2;
+            if ((this.distance <= (this.minSeparation * world.reproductionChance)) && (this.species === world.creatures[this._index].species)) { // is close enough to reproduce with same specie
+                if ((this.mass >= this.topMass) && (world.creatures[this._index].mass >= this.topMass)) { // both creatures are fully mature
+                    // Both parents loose half their mass
+                    this.mass /= 2;
+                    world.creatures[this._index].mass /= 2;
+                    // Spawn a new this of the same specie in the same spot
+                    world.spawnCreature(
+                        this.location.x,
+                        this.location.y,
+                        this.species,
+                        this.mass / 2 // New borns are 1/4 of the original parents mass
+                    );
 
-                        world.spawnCreature( // Spawn a new this of the same specie in the same spot
-                            this.location.x,
-                            this.location.y,
-                            this.species,
-                            this.mass / 2 // New borns are 1/4 of the parent's mass
-                        );
-
-                        console.log(`A new ${this.species} was born.`);
-                    }
+                    console.log(`A new ${this.species} was born.`);
                 }
             }
         }
 
-        if (!this.count) {
+        if (!this.count){
             return this.sum;
         }
-
-        this.sum.div(this.count);
-        this.sum.normalize();
-        this.sum.sub(this.velocity);
-        this.sum.limit(this.maxforce);
-
-        return this.sum;
+        else {
+            return this.sum
+                .div(this.count)
+                .normalize()
+                .sub(this.velocity);
+        }
     }
 
     /**
@@ -283,25 +268,25 @@ class Creature {
         this.sum = new Vector(0, 0);
         this.count = 0;
 
-        for (this.index = 0, this.total = world.creatures.length; this.index < this.total; this.index++) {
-            this.neighboor = world.creatures[this.index];
-            if (this.neighboor !== this) {
-                if (this.neighboor.species === this.species) { // Align to same species
-                    this.sum.add(this.neighboor.velocity);
-                } else { // Avoid aliens
-                    this.alienVelocity = this.neighboor.velocity.copy().div(this.speciesAffinity);
-                    this.sum.sub(this.alienVelocity);
-                }
-                this.count++
-            }
+        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
+            if (world.creatures[this._index] === this) continue; // Skip to next creatue
+
+            if (world.creatures[this._index].species === this.species) // Align to same species
+                this.sum.add(world.creatures[this._index].velocity);
+            else // Avoid other species
+                this.sum
+                    .sub(world.creatures[this._index].velocity.copy()
+                    .div(this.speciesAffinity));
+
+            this.count++
         }
 
         if (this.count > 0)
-            this.sum.div(this.count);
+            return this.sum
+                .div(this.count)
+                .limit(_.random(0.001, 0.1, true));
         else
-            return this.sum; // Exit on empty count
-
-        return this.sum.limit(_.random(0.001, 0.1, true));
+            return this.sum;
     }
 
     /**
@@ -312,15 +297,13 @@ class Creature {
         this.sum = new Vector(0, 0);
         this.count = 0;
 
-        for (this.index = 0, this.total = world.creatures.length; this.index < this.total; this.index++) {
-            this.neighboor = world.creatures[this.index];
-            this.isNotMe = this.neighboor != this;
-            if (this.isNotMe) {
-                this.isSameSpecie = this.neighboor.species === this.species;
-                if (this.isSameSpecie) { // Coerce only to same species
-                    this.sum.add(this.neighboor.location);
-                    this.count ++;
-                }
+        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
+            if (world.creatures[this._index] === this) continue; // Skip to next creatue
+            this.isNotMe = world.creatures[this._index] != this;
+
+            if (world.creatures[this._index].species === this.species) { // Coerce only to same species
+                this.sum.add(world.creatures[this._index].location);
+                this.count ++;
             }
         }
 
