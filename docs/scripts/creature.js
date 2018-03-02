@@ -150,9 +150,8 @@ class Creature {
                 this.colors.blue = this.species === 'blue' ? this.minColor : 0;
                 this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
             }
-        } else { // Death
+        } else  // Death
             world.removeCreature(this);
-        }
 
         this.boundaries();
         this.velocity.add(this.acceleration);
@@ -226,8 +225,8 @@ class Creature {
 
         this.count = 0;
 
-        for (this.i = 0, this.t = world.creatures.length; this.i < this.t; this.i++) {
-            this.neighboor = world.creatures[this.i];
+        for (this.index = 0, this.total = world.creatures.length; this.index < this.total; this.index++) {
+            this.neighboor = world.creatures[this.index];
             this.isNotMe = this.neighboor != this;
 
             if (this.isNotMe) {
@@ -284,8 +283,8 @@ class Creature {
         this.sum = new Vector(0, 0);
         this.count = 0;
 
-        for (this.i = 0, this.t = world.creatures.length; this.i < this.t; this.i++) {
-            this.neighboor = world.creatures[this.i];
+        for (this.index = 0, this.total = world.creatures.length; this.index < this.total; this.index++) {
+            this.neighboor = world.creatures[this.index];
             if (this.neighboor !== this) {
                 if (this.neighboor.species === this.species) { // Align to same species
                     this.sum.add(this.neighboor.velocity);
@@ -297,11 +296,10 @@ class Creature {
             }
         }
 
-        if (this.count > 0) {
+        if (this.count > 0)
             this.sum.div(this.count);
-        } else {
+        else
             return this.sum; // Exit on empty count
-        }
 
         return this.sum.limit(_.random(0.001, 0.1, true));
     }
@@ -314,8 +312,8 @@ class Creature {
         this.sum = new Vector(0, 0);
         this.count = 0;
 
-        for (this.i = 0, this.t = world.creatures.length; this.i < this.t; this.i++) {
-            this.neighboor = world.creatures[this.i];
+        for (this.index = 0, this.total = world.creatures.length; this.index < this.total; this.index++) {
+            this.neighboor = world.creatures[this.index];
             this.isNotMe = this.neighboor != this;
             if (this.isNotMe) {
                 this.isSameSpecie = this.neighboor.species === this.species;
@@ -326,9 +324,8 @@ class Creature {
             }
         }
 
-        if (this.count > 0) {
+        if (this.count > 0)
             this.sum.div(this.count);
-        }
 
         return this.sum;
     }

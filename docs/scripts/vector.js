@@ -43,10 +43,10 @@ class Vector {
         x = 0,
         y = 0
     ) {
-        vector.x = x;
-        vector.y = y;
+        this.x = x;
+        this.y = y;
 
-        return vector;
+        return this;
     };
 
     /**

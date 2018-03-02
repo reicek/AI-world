@@ -8,7 +8,7 @@
 class World {
     constructor(
         initialPopulation = 10,
-        topPopulation = 100,
+        topPopulation = 500,
         reproductionChance = 2,
         id = 'world',
         pathOpacity = 0.1
@@ -68,14 +68,13 @@ class World {
         });
 
         $(`#${this.id}`).contextmenu(e => { // Remove oldest creature on right click
-            if (!this.oldestCreature) {
-                this.oldestCreature = _.head(this.creatures);;
-            }
-            this.creatures.forEach(creature => {
-                if (creature.maxspeed < this.oldestCreature.maxspeed) {
-                    this.oldestCreature = creature;
-                }
-            });
+            if (!this.oldestCreature)
+                this.oldestCreature = _.head(this.creatures);
+
+            for (this.index = 0, this.total = this.creatures.length; this.index < this.total; this.index++)
+                if (this.creatures[this.index].maxspeed < this.oldestCreature.maxspeed)
+                    this.oldestCreature = this.creatures[this.index];
+
             this.removeCreature(this.oldestCreature);
             this.initialPopulation--;
 
@@ -171,8 +170,8 @@ class World {
             blue: 0
         };
 
-        this.creatures.map(creature =>
-            this.census[creature.species] ++);
+        for (this.index = 0, this.total = this.creatures.length; this.index < this.total; this.index++)
+            this.census[this.creatures[this.index].species] ++;
 
         return this.census;
     }
@@ -200,25 +199,30 @@ class World {
                 break;
         }
 
-        this.creatures.map(creature => {
+        for (this.index = 0, this.total = this.creatures.length; this.index < this.total; this.index++) {
+            if (!!this.creatures[this.index])
+                this.creature = this.creatures[this.index];
+            else
+                break;
+
             this.input = [
-                creature.location.x,
-                creature.location.y,
-                creature.velocity.x,
-                creature.velocity.y
+                this.creature.location.x,
+                this.creature.location.y,
+                this.creature.velocity.x,
+                this.creature.velocity.y
             ];
 
-            creature.moveTo(creature.network.activate(this.input)); // Think of where to move (align to others)
-            creature.draw(); // Moves
+            this.creature.moveTo(this.creature.network.activate(this.input)); // Think of where to move (align to others)
+            this.creature.draw(); // Moves
 
             this.target = [
-                creature.cohesion(this.creatures).x / this.width, // X target
-                creature.cohesion(this).y / this.height, // Y target
-                (creature.align(this.creatures).angle() + Math.PI) / (Math.PI * 2) // Target angle
+                this.creature.cohesion(this.creatures).x / this.width, // X target
+                this.creature.cohesion(this).y / this.height, // Y target
+                (this.creature.align(this.creatures).angle() + Math.PI) / (Math.PI * 2) // Target angle
             ];
 
-            creature.network.propagate(this.learningRate, this.target); // Learn to move with others
-        });
+            this.creature.network.propagate(this.learningRate, this.target); // Learn to move with others
+        }
 
         requestAnimationFrame(() =>
             this.draw());
