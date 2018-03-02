@@ -54,10 +54,8 @@ class Vector {
      * @return {Vector}
      */
     random() {
-        this.set();
-        this.setAngle(_.random(0,  Math.PI * 2));
-
-        return this;
+        return this.set()
+            .setAngle(_.random(0,  Math.PI * 2));
     }
 
     /**
@@ -123,9 +121,7 @@ class Vector {
      * @return {Vector}
      */
     normalize() {
-        this.magValue = this.mag();
-
-        return this.div(this.magValue);;
+        return this.div(this.mag());
     }
 
     /**
@@ -170,9 +166,7 @@ class Vector {
      * @return {Vector}
      */
     rotate(a) {
-        this.setAngle(this.angle() + a);
-
-        return this;
+        return this.setAngle(this.angle() + a);
     }
 
     /**
@@ -181,9 +175,8 @@ class Vector {
      * @return {Vector}
      */
     limit(l) {
-        if (this.mag() > l) {
+        if (this.mag() > l)
             this.setMag(l);
-        }
 
         return this;
     }

@@ -8,7 +8,7 @@
 class World {
     constructor(
         initialPopulation = 10,
-        topPopulation = 500,
+        topPopulation = 200,
         reproductionChance = 2,
         id = 'world',
         pathOpacity = 0.1
@@ -23,6 +23,7 @@ class World {
         this.ctx = this.canvas.getContext('2d', { alpha: false });
         this.ctx.canvas.height = $(`#${id}`).height();
         this.ctx.canvas.width = $(`#${id}`).width();
+        this.ctx.lineWidth = 2;
         this.births = 0;
         this.deaths = 0;
         this.cycles = 0;
@@ -79,9 +80,9 @@ class World {
             if (!this.oldestCreature)
                 this.oldestCreature = _.head(this.creatures);
 
-            for (this.index = 0, this.total = this.creatures.length; this.index < this.total; this.index++)
-                if (this.creatures[this.index].maxspeed < this.oldestCreature.maxspeed)
-                    this.oldestCreature = this.creatures[this.index];
+            for (this._index = world.creatures.length - 1; this._index >= 0; this._index--)
+                if (this.creatures[this._index].maxspeed < this.oldestCreature.maxspeed)
+                    this.oldestCreature = this.creatures[this._index];
 
             this.removeCreature(this.oldestCreature);
             this.initialPopulation--;
@@ -118,8 +119,8 @@ class World {
      * @return {logCensus}
      */
     removeCreature(creature) {
-        this.index = this.creatures.indexOf(creature);
-        this.creatures.splice(this.index, 1);
+        this._index = this.creatures.indexOf(creature);
+        this.creatures.splice(this._index, 1);
         this.deaths ++;
 
         return this.logCensus('death', creature.species);
@@ -178,8 +179,8 @@ class World {
             blue: 0
         };
 
-        for (this.index = 0, this.total = this.creatures.length; this.index < this.total; this.index++)
-            this.census[this.creatures[this.index].species] ++;
+        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--)
+            this.census[this.creatures[this._index].species] ++;
 
         return this.census;
     }
@@ -207,32 +208,36 @@ class World {
                 break;
         }
 
-        for (this.index = 0, this.total = this.creatures.length; this.index < this.total; this.index++) {
-            if (!!this.creatures[this.index])
-                this.creature = this.creatures[this.index];
-            else
-                break;
+        try {
+            for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
+                this.input = [
+                    this.creatures[this._index].location.x,
+                    this.creatures[this._index].location.y,
+                    this.creatures[this._index].velocity.x,
+                    this.creatures[this._index].velocity.y
+                ];
 
-            this.input = [
-                this.creature.location.x,
-                this.creature.location.y,
-                this.creature.velocity.x,
-                this.creature.velocity.y
-            ];
+                this.creatures[this._index].moveTo(this.creatures[this._index]
+                    .network.activate(this.input)); // Think of where to move (align to others)
 
-            this.creature.moveTo(this.creature.network.activate(this.input)); // Think of where to move (align to others)
-            this.creature.draw(); // Moves
+                this.creatures[this._index].draw(); // Move
 
-            this.target = [
-                this.creature.cohesion(this.creatures).x / this.width, // X target
-                this.creature.cohesion(this).y / this.height, // Y target
-                (this.creature.align(this.creatures).angle() + Math.PI) / (Math.PI * 2) // Target angle
-            ];
+                this.creatureCohesion = this.creatures[this._index].cohesion();
 
-            this.creature.network.propagate(this.learningRate, this.target); // Learn to move with others
-        }
+                this.target = [
+                    this.creatureCohesion.x / this.width, // X target
+                    this.creatureCohesion.y / this.height, // Y target
+                    (this.creatures[this._index].align().angle() + Math.PI) / (Math.PI * 2) // Target angle
+                ];
 
-        requestAnimationFrame(() =>
+                this.creatures[this._index].network.propagate(this.learningRate, this.target); // Learn to move with others
+            }
+        } catch(error) {
+            return requestAnimationFrame(() =>
+                this.draw());
+        };
+
+        return requestAnimationFrame(() =>
             this.draw());
     }
 }
