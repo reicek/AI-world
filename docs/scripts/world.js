@@ -31,6 +31,14 @@ class World {
         this.height = this.canvas.height;
         this.learningRate = 0.15;
         this.pathOpacity = pathOpacity;
+
+        $(window).resize(() => { // Update canvas size on screen change
+            this.ctx = this.canvas.getContext('2d', { alpha: false });
+            this.ctx.canvas.height = $(`#${id}`).height();
+            this.ctx.canvas.width = $(`#${id}`).width();
+            this.width = this.canvas.width;
+            this.height = this.canvas.height;
+        });
     }
 
     /**
