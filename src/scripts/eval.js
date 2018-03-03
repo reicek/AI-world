@@ -1,3 +1,4 @@
+'use strict';
 /**
  * @module eval
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.

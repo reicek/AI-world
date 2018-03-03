@@ -1,3 +1,4 @@
+'use strict';
 /**
  * @module World
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
@@ -19,7 +20,7 @@ class World {
         this.initialPopulation_copy = initialPopulation;
         this.topPopulation = topPopulation;
         this.id = id;
-        this.canvas = $(`#${id}`)[0];;
+        this.canvas = $(`#${id}`)[0];
         this.ctx = this.canvas.getContext('2d', { alpha: false });
         this.ctx.canvas.height = $(`#${id}`).height();
         this.ctx.canvas.width = $(`#${id}`).width();
@@ -47,7 +48,7 @@ class World {
      * @return {draw}
      */
     launch() {
-        while (this.initialPopulation_copy--) {
+        while (this.initialPopulation_copy --) {
             this.spawnCreature(
                 _.random(0, this.width),
                 _.random(0, this.height)
@@ -80,7 +81,7 @@ class World {
             if (!this.oldestCreature)
                 this.oldestCreature = _.head(this.creatures);
 
-            for (this._index = world.creatures.length - 1; this._index >= 0; this._index--)
+            for (this._index = this.creatures.length - 1; this._index >= 0; this._index--)
                 if (this.creatures[this._index].maxspeed < this.oldestCreature.maxspeed)
                     this.oldestCreature = this.creatures[this._index];
 
@@ -179,7 +180,7 @@ class World {
             blue: 0
         };
 
-        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--)
+        for (this._index = this.creatures.length - 1; this._index >= 0; this._index--)
             this.census[this.creatures[this._index].species] ++;
 
         return this.census;
@@ -200,16 +201,16 @@ class World {
                 break;
 
             case this.creatures.length < this.initialPopulation * 1.1: // If extintion in progress
-                this.reproductionChance *=  1.0001// Increase reproduction chance
+                this.reproductionChance *=  1.0001; // Increase reproduction chance
                 break;
 
             default:
-                this.reproductionChance = this.initialReproductionChange;;
+                this.reproductionChance = this.initialReproductionChange;
                 break;
         }
 
         try {
-            for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
+            for (this._index = this.creatures.length - 1; this._index >= 0; this._index--) {
                 this.input = [
                     this.creatures[this._index].location.x,
                     this.creatures[this._index].location.y,
@@ -235,12 +236,9 @@ class World {
         } catch(error) {
             return requestAnimationFrame(() =>
                 this.draw());
-        };
+        }
 
         return requestAnimationFrame(() =>
             this.draw());
     }
 }
-
-const world = new World();
-world.launch();

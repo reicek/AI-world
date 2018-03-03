@@ -1,3 +1,4 @@
+'use strict';
 /**
  * @module Creature
  * @requires synaptic
@@ -278,7 +279,7 @@ class Creature {
                     .sub(world.creatures[this._index].velocity.copy()
                     .div(this.speciesAffinity));
 
-            this.count++
+            this.count++;
         }
 
         if (this.count > 0)
@@ -299,7 +300,7 @@ class Creature {
 
         for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
             if (world.creatures[this._index] === this) continue; // Skip to next creatue
-            this.isNotMe = world.creatures[this._index] != this;
+            this.isNotMe = world.creatures[this._index] !== this;
 
             if (world.creatures[this._index].species === this.species) { // Coerce only to same species
                 this.sum.add(world.creatures[this._index].location);
@@ -313,3 +314,6 @@ class Creature {
         return this.sum;
     }
 }
+
+const world = new World();
+world.launch();

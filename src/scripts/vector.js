@@ -1,3 +1,4 @@
+'use strict';
 /**
  * @module Vector
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
@@ -31,7 +32,7 @@ class Vector {
          * @member Vector#y
          */
         this.y = y;
-    };
+    }
 
     /**
      * @method set
@@ -47,7 +48,7 @@ class Vector {
         this.y = y;
 
         return this;
-    };
+    }
 
     /**
      * @method random
@@ -100,8 +101,6 @@ class Vector {
      * @return {Vector}
      */
     div(s) {
-        !s && console.log('Division by zero!');
-
         this.x /= s;
         this.y /= s;
 
