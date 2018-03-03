@@ -9,5 +9,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
   keep-history: false
+  local_dir: docs
   on:
-    branch: gh-pages
+    branch: master

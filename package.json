@@ -28,5 +28,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/reicek/AI-world.git"
-  }
+  },
+  "homepage": "https://reicek.github.io/AI-world/"
 }
