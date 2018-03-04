@@ -1,10 +1,26 @@
 'use strict';
 
 module.exports = function (grunt) {
+
+    grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-vulcanize');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.initConfig({
+        express: {
+            options: {
+                debug: true,
+                port: '8080'
+            },
+            app: {
+                options: {
+                    script: 'server.js',
+                    node_env: 'development'
+                }
+            },
+        },
+
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -29,15 +45,70 @@ module.exports = function (grunt) {
                 },
             },
         },
+
+        watch: {
+            backend: {
+                files: [
+                    'server.js',
+                ],
+                tasks: [
+                    'jshint',
+                ],
+            },
+
+            modules: {
+                files: [
+                    'node_modules'
+                ],
+                tasks: [
+                    'vulcanize',
+                ],
+            },
+
+            scripts: {
+                files: [
+                    'src/**/*.js',
+                    'specs/**/*.js',
+                ],
+                tasks: [
+                    'jshint',
+                    'vulcanize',
+                ]
+            },
+
+            css: {
+                files: [
+                    'src/css/**/*.css',
+                ],
+                tasks: [
+                    'vulcanize',
+                ]
+            },
+
+            html: {
+                files: [
+                    'src/**/*.html',
+                ],
+                tasks: [
+                    'vulcanize',
+                ]
+            },
+
+            options: {
+                livereload: true
+            }
+        },
     });
 
     grunt.registerTask('default', [
+        'express',
         'jshint',
-        'vulcanize'
+        'vulcanize',
+        'watch',
     ]);
 
     grunt.registerTask('travis', [
         'jshint',
-        'vulcanize'
+        'vulcanize',
     ]);
 };

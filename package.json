@@ -1,14 +1,16 @@
 {
   "name": "ai-world",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Life simulation that demonstrates Perceptron neural networks adjusting to a dynamic scenario.",
   "main": "index.js",
   "scripts": {
-    "test": "grunt travis"
+    "test": "grunt travis",
+    "start": "grunt"
   },
   "keywords": [
     "ai",
-    "neuralNetwork"
+    "neuralNetwork",
+    "simulation"
   ],
   "author": "Cesar Anton Dorantes",
   "license": "MIT",
@@ -19,6 +21,8 @@
   "devDependencies": {
     "grunt": "^1.0.2",
     "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-express-server": "^0.5.4",
     "grunt-vulcanize": "^1.0.0",
     "jquery": "^3.3.1",
     "jshint-stylish": "^2.2.1",

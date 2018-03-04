@@ -75,7 +75,7 @@ class Creature {
      * @param networkOutput
      */
     moveTo(networkOutput) {
-        this.decision = {
+        this._decision = {
             x: networkOutput[0],
             y: networkOutput[1],
             angle: networkOutput[2]
@@ -84,11 +84,11 @@ class Creature {
         return this.applyForce(new Vector(0, 0)
             .add(this.separate()) // Apply force to reduce separation
             .add(this.seek(new Vector( // Apply force to increase cohesion
-                this.decision.x * world.width,
-                this.decision.y * world.height
+                this._decision.x * world.width,
+                this._decision.y * world.height
             )))
             .add(this.align() // Apply force to better align to peers
-                .setAngle((this.decision.angle * this.TWO_PI) - Math.PI)
+                .setAngle((this._decision.angle * this.TWO_PI) - Math.PI)
             )
             .limit(this.maxforce)
         );
@@ -99,22 +99,22 @@ class Creature {
      */
     draw() {
         this.update();
-        this.angle = this.velocity.angle();
+        this._angle = this.velocity.angle();
 
         world.ctx.fillStyle = this.color;
         world.ctx.strokeStyle = this.color;
         world.ctx.beginPath();
         world.ctx.moveTo(
-            this.location.x + Math.cos(this.angle) * this.base * 3, // x1
-            this.location.y + Math.sin(this.angle) * this.base * 3  // y1
+            this.location.x + Math.cos(this._angle) * this.base * 3, // x1
+            this.location.y + Math.sin(this._angle) * this.base * 3  // y1
         );
         world.ctx.lineTo(
-            this.location.x + Math.cos(this.angle + this.HALF_PI) * this.base, // x2
-            this.location.y + Math.sin(this.angle + this.HALF_PI) * this.base  // y2
+            this.location.x + Math.cos(this._angle + this.HALF_PI) * this.base, // x2
+            this.location.y + Math.sin(this._angle + this.HALF_PI) * this.base  // y2
         );
         world.ctx.lineTo(
-            this.location.x + Math.cos(this.angle - this.HALF_PI) * this.base, // x3
-            this.location.y + Math.sin(this.angle - this.HALF_PI) * this.base  // y3
+            this.location.x + Math.cos(this._angle - this.HALF_PI) * this.base, // x3
+            this.location.y + Math.sin(this._angle - this.HALF_PI) * this.base  // y3
         );
         world.ctx.stroke();
         world.ctx.fill();
@@ -135,8 +135,8 @@ class Creature {
         }
 
         if (this.maxspeed > 0) { // Aging
-            this.deterioration = this.metabolism / this.metabolismAgingRatio;
-            this.maxspeed -= _.random(this.deterioration, this.deterioration * 2);
+            this._deterioration = this.metabolism / this.metabolismAgingRatio;
+            this.maxspeed -= _.random(this._deterioration, this._deterioration * 2);
 
             if (this.maxspeed < 0.2) // Highlight older thiss
                 this.color = `rgb(${this.species === 'red' ? this.minColor : 0}, ${this.species === 'green' ? this.minColor : 0}, ${this.species === 'blue' ? this.minColor : 0})`;
@@ -213,10 +213,10 @@ class Creature {
      * @return {Vector}
      */
     separate() {
-        this.sum = new Vector(0, 0);
+        this._sum = new Vector(0, 0);
         this.minSeparation = this.mass * 1.2;
         this.maxSeparation = _.random(this.minSeparation * 2, this.minSeparation * 3);
-        this.count = 0;
+        this._count = 0;
 
         for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
             if (world.creatures[this._index] === this) continue; // Skip to next creatue
@@ -224,12 +224,12 @@ class Creature {
             this.distance = this.location.dist(world.creatures[this._index].location);
 
             if ((this.distance < this.maxSeparation) && (this.distance > this.minSeparation)) { // is far enough & is close enough
-                this.sum.add(this.location.copy()
+                this._sum.add(this.location.copy()
                     .sub(world.creatures[this._index].location)
                     .normalize()
                     .div(Math.pow(this.distance, 2))
                 );
-                this.count++;
+                this._count++;
             }
 
             if ((this.distance <= (this.minSeparation * world.reproductionChance)) && (this.species === world.creatures[this._index].species)) { // is close enough to reproduce with same specie
@@ -250,12 +250,12 @@ class Creature {
             }
         }
 
-        if (!this.count){
-            return this.sum;
+        if (!this._count){
+            return this._sum;
         }
         else {
-            return this.sum
-                .div(this.count)
+            return this._sum
+                .div(this._count)
                 .normalize()
                 .sub(this.velocity);
         }
@@ -266,28 +266,28 @@ class Creature {
      * @return {Vector}
      */
     align() {
-        this.sum = new Vector(0, 0);
-        this.count = 0;
+        this._sum = new Vector(0, 0);
+        this._count = 0;
 
         for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
             if (world.creatures[this._index] === this) continue; // Skip to next creatue
 
             if (world.creatures[this._index].species === this.species) // Align to same species
-                this.sum.add(world.creatures[this._index].velocity);
+                this._sum.add(world.creatures[this._index].velocity);
             else // Avoid other species
-                this.sum
+                this._sum
                     .sub(world.creatures[this._index].velocity.copy()
                     .div(this.speciesAffinity));
 
-            this.count++;
+            this._count++;
         }
 
-        if (this.count > 0)
-            return this.sum
-                .div(this.count)
+        if (this._count > 0)
+            return this._sum
+                .div(this._count)
                 .limit(_.random(0.001, 0.1, true));
         else
-            return this.sum;
+            return this._sum;
     }
 
     /**
@@ -295,23 +295,23 @@ class Creature {
      * @return {Vector}
      */
     cohesion() {
-        this.sum = new Vector(0, 0);
-        this.count = 0;
+        this._sum = new Vector(0, 0);
+        this._count = 0;
 
         for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
             if (world.creatures[this._index] === this) continue; // Skip to next creatue
             this.isNotMe = world.creatures[this._index] !== this;
 
             if (world.creatures[this._index].species === this.species) { // Coerce only to same species
-                this.sum.add(world.creatures[this._index].location);
-                this.count ++;
+                this._sum.add(world.creatures[this._index].location);
+                this._count ++;
             }
         }
 
-        if (this.count > 0)
-            this.sum.div(this.count);
+        if (this._count > 0)
+            this._sum.div(this._count);
 
-        return this.sum;
+        return this._sum;
     }
 }
 

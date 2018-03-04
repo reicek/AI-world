@@ -15,4 +15,25 @@ Creatures age on each cycle, aging translates into a loss of maximum possible sp
 
 The simulation attempts to keep creatures alive for as long as possible, without reaching overall overpopulation or full extinction.
 
+### Install
+
+Run from console:
+
+```
+npm install
+```
+
+### Development
+
+Run from console:
+
+```
+npm start
+```
+
+Open [localhost:8080](http://localhost:8080/) on a browser tab.
+
+Install browser extension to use [Live Reload](http://livereload.com/).
+___
+
 *Inpired on [the demo](https://github.com/cazala/synaptic/tree/gh-pages/scripts/homepage) available at the [Synaptic's home page](http://caza.la/synaptic).*

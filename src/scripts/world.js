@@ -17,7 +17,6 @@ class World {
         this.reproductionChance = reproductionChance;
         this.initialReproductionChange = reproductionChance;
         this.initialPopulation = initialPopulation;
-        this.initialPopulation_copy = initialPopulation;
         this.topPopulation = topPopulation;
         this.id = id;
         this.canvas = $(`#${id}`)[0];
@@ -48,7 +47,8 @@ class World {
      * @return {draw}
      */
     launch() {
-        while (this.initialPopulation_copy --) {
+        this._i = this.initialPopulation;
+        while (this._i --) {
             this.spawnCreature(
                 _.random(0, this.width),
                 _.random(0, this.height)
@@ -78,14 +78,14 @@ class World {
         });
 
         $(`#${this.id}`).contextmenu(e => { // Remove oldest creature on right click
-            if (!this.oldestCreature)
-                this.oldestCreature = _.head(this.creatures);
+            if (!this._oldestCreature)
+                this._oldestCreature = _.head(this.creatures);
 
             for (this._index = this.creatures.length - 1; this._index >= 0; this._index--)
-                if (this.creatures[this._index].maxspeed < this.oldestCreature.maxspeed)
-                    this.oldestCreature = this.creatures[this._index];
+                if (this.creatures[this._index].maxspeed < this._oldestCreature.maxspeed)
+                    this._oldestCreature = this.creatures[this._index];
 
-            this.removeCreature(this.oldestCreature);
+            this.removeCreature(this._oldestCreature);
             this.initialPopulation--;
 
             return false; // Dont show context menu on right click
@@ -211,7 +211,7 @@ class World {
 
         try {
             for (this._index = this.creatures.length - 1; this._index >= 0; this._index--) {
-                this.input = [
+                this._input = [
                     this.creatures[this._index].location.x,
                     this.creatures[this._index].location.y,
                     this.creatures[this._index].velocity.x,
@@ -219,15 +219,15 @@ class World {
                 ];
 
                 this.creatures[this._index].moveTo(this.creatures[this._index]
-                    .network.activate(this.input)); // Think of where to move (align to others)
+                    .network.activate(this._input)); // Think of where to move (align to others)
 
                 this.creatures[this._index].draw(); // Move
 
-                this.creatureCohesion = this.creatures[this._index].cohesion();
+                this._creatureCohesion = this.creatures[this._index].cohesion();
 
                 this.target = [
-                    this.creatureCohesion.x / this.width, // X target
-                    this.creatureCohesion.y / this.height, // Y target
+                    this._creatureCohesion.x / this.width, // X target
+                    this._creatureCohesion.y / this.height, // Y target
                     (this.creatures[this._index].align().angle() + Math.PI) / (Math.PI * 2) // Target angle
                 ];
 
