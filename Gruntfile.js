@@ -78,7 +78,7 @@ module.exports = function (grunt) {
 
             css: {
                 files: [
-                    'src/css/**/*.css',
+                    'src/**/*.css',
                 ],
                 tasks: [
                     'vulcanize',

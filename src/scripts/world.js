@@ -32,14 +32,6 @@ class World {
         this.height = this.canvas.height;
         this.learningRate = 0.15;
         this.pathOpacity = pathOpacity;
-
-        $(window).resize(() => { // Update canvas size on screen change
-            this.ctx = this.canvas.getContext('2d', { alpha: false });
-            this.ctx.canvas.height = $(`#${id}`).height();
-            this.ctx.canvas.width = $(`#${id}`).width();
-            this.width = this.canvas.width;
-            this.height = this.canvas.height;
-        });
     }
 
     /**
@@ -55,10 +47,44 @@ class World {
             );
         }
 
-        delete this.initialPopulation_copy;
+        $(`button.add, #${this.id}`).click(e => // Add new creature to the less populated species on left click
+            this.increasePopulation(e.clientX, e.clientY));
 
-        $(`#${this.id}`).click(e => { // Add new creature to the less populated species on left click
-            this.leastPopulated = _.minBy([
+        $(`button.remove`).click(() =>
+            this.decreasePopulation());
+
+        $(`#${this.id}`).contextmenu(() => { // Remove oldest creature on right click
+            this.decreasePopulation();
+
+            return false; // Dont show context menu on right click
+        });
+
+        $(window).resize(() => { // Update canvas size on screen change
+            this.ctx = this.canvas.getContext('2d', { alpha: false });
+            this.ctx.canvas.height = $(`#${this.id}`).height();
+            this.ctx.canvas.width = $(`#${this.id}`).width();
+            this.width = this.canvas.width;
+            this.height = this.canvas.height;
+        });
+
+        return this.draw();
+    }
+
+    /**
+     * Increases the least populated species if none is specified
+     * @method increasePopulation
+     * @param [x]
+     * @param [y]
+     * @param {string} [species]
+     * @return {logCensus}
+     */
+    increasePopulation(
+        x,
+        y,
+        species
+    ) {
+        this.leastPopulated = !!species ? species : _.minBy(
+            [
                 {
                     species: 'red',
                     population: this.census.red
@@ -71,27 +97,31 @@ class World {
                     species: 'blue',
                     population: this.census.blue
                 }
-            ], 'population');
+            ],
+            'population'
+        );
 
-            this.spawnCreature(e.clientX, e.clientY, this.leastPopulated.species);
-            this.initialPopulation++;
-        });
+        this.spawnCreature(x, y, this.leastPopulated.species);
 
-        $(`#${this.id}`).contextmenu(e => { // Remove oldest creature on right click
-            if (!this._oldestCreature)
-                this._oldestCreature = _.head(this.creatures);
+        return this.initialPopulation++; // Permanently increase the ideal population
+    }
 
-            for (this._index = this.creatures.length - 1; this._index >= 0; this._index--)
-                if (this.creatures[this._index].maxspeed < this._oldestCreature.maxspeed)
-                    this._oldestCreature = this.creatures[this._index];
+    /**
+     * Removes oldest creature
+     * @method increasePopulation
+     * @return {logCensus}
+     */
+    decreasePopulation() {
+        if (!this._oldestCreature)
+            this._oldestCreature = _.head(this.creatures);
 
-            this.removeCreature(this._oldestCreature);
-            this.initialPopulation--;
+        for (this._index = this.creatures.length - 1; this._index >= 0; this._index--)
+            if (this.creatures[this._index].maxspeed < this._oldestCreature.maxspeed)
+                this._oldestCreature = this.creatures[this._index];
 
-            return false; // Dont show context menu on right click
-        });
+        this.removeCreature(this._oldestCreature);
 
-        return this.draw();
+        return this.initialPopulation--; // Permanently decrease the ideal population
     }
 
     /**
@@ -138,6 +168,7 @@ class World {
         species
     ) {
         this.updateCensus();
+        $('#population').text(this.creatures.length);
 
         console.clear();
         console.log('%c==================================', 'color: #777');
