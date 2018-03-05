@@ -107,19 +107,12 @@ class World {
     }
 
     /**
-     * Removes oldest creature
+     * Removes oldest (slowest) creature
      * @method increasePopulation
      * @return {logCensus}
      */
     decreasePopulation() {
-        if (!this._oldestCreature)
-            this._oldestCreature = _.head(this.creatures);
-
-        for (this._index = this.creatures.length - 1; this._index >= 0; this._index--)
-            if (this.creatures[this._index].maxspeed < this._oldestCreature.maxspeed)
-                this._oldestCreature = this.creatures[this._index];
-
-        this.removeCreature(this._oldestCreature);
+        this.removeCreature(_.minBy(this.creatures, 'maxspeed'));
 
         return this.initialPopulation--; // Permanently decrease the ideal population
     }
