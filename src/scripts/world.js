@@ -220,6 +220,15 @@ class World {
         this.ctx.fillStyle = `rgba(0, 0, 0, ${this.pathOpacity})`;
         this.ctx.fillRect(0, 0, this.width, this.height);
 
+        this.adjustPopulationGrowth();
+
+        return this.updateCreatures();
+    }
+
+    /**
+     * @method adjustPopulationGrowth
+     */
+    adjustPopulationGrowth() {
         switch (true) { // Population control
             case this.creatures.length > (this.initialPopulation * 1.3): // If overpopulation in progress
                 this.reproductionChance *=  0.9999; // Reduce reproduction chance
@@ -234,6 +243,13 @@ class World {
                 break;
         }
 
+        return this.reproductionChance;
+    }
+
+    /**
+     * @method updateCreatures
+     */
+    updateCreatures() {
         try {
             this._index = this.creatures.length;
             while (this._index--) {
@@ -259,12 +275,12 @@ class World {
 
                 this.creatures[this._index].network.propagate(this.learningRate, this.target); // Learn to move with others
             }
-        } catch(error) {
+
+            return requestAnimationFrame(() =>
+                this.draw());
+        } catch(err) {
             return requestAnimationFrame(() =>
                 this.draw());
         }
-
-        return requestAnimationFrame(() =>
-            this.draw());
     }
 }

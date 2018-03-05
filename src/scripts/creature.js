@@ -126,7 +126,7 @@ class Creature {
      * @method update
      */
     update() {
-        if (this.mass < this.topMass){ // Grow
+        if (this.mass < this.topMass) { // Grow
             this.mass += _.random(this.metabolism, this.metabolism * 2, true);
             this.maxspeed = _.random(this.minSpeed / this.mass, this.maxSpeed / this.mass, true);
             this.maxforce = _.random(0.3 * (this.mass / 2), 0.4 * (this.mass / 2), true);
