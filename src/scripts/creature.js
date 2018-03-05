@@ -218,7 +218,8 @@ class Creature {
         this.maxSeparation = _.random(this.minSeparation * 2, this.minSeparation * 3);
         this._count = 0;
 
-        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
+        this._index = world.creatures.length;
+        while (this._index--) {
             if (world.creatures[this._index] === this) continue; // Skip to next creatue
 
             this.distance = this.location.dist(world.creatures[this._index].location);
@@ -269,8 +270,10 @@ class Creature {
         this._sum = new Vector(0, 0);
         this._count = 0;
 
-        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
-            if (world.creatures[this._index] === this) continue; // Skip to next creatue
+        this._index = world.creatures.length;
+        while (this._index--) {
+            if (world.creatures[this._index] === this)
+                continue; // Skip to next creatue
 
             if (world.creatures[this._index].species === this.species) // Align to same species
                 this._sum.add(world.creatures[this._index].velocity);
@@ -283,10 +286,12 @@ class Creature {
         }
 
         if (this._count > 0)
+
             return this._sum
                 .div(this._count)
                 .limit(_.random(0.001, 0.1, true));
         else
+
             return this._sum;
     }
 
@@ -298,7 +303,8 @@ class Creature {
         this._sum = new Vector(0, 0);
         this._count = 0;
 
-        for (this._index = world.creatures.length - 1; this._index >= 0; this._index--) {
+        this._index = world.creatures.length;
+        while (this._index--) {
             if (world.creatures[this._index] === this) continue; // Skip to next creatue
             this.isNotMe = world.creatures[this._index] !== this;
 

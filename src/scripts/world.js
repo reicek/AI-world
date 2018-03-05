@@ -204,7 +204,8 @@ class World {
             blue: 0
         };
 
-        for (this._index = this.creatures.length - 1; this._index >= 0; this._index--)
+        this._index = this.creatures.length;
+        while (this._index--)
             this.census[this.creatures[this._index].species] ++;
 
         return this.census;
@@ -234,7 +235,8 @@ class World {
         }
 
         try {
-            for (this._index = this.creatures.length - 1; this._index >= 0; this._index--) {
+            this._index = this.creatures.length;
+            while (this._index--) {
                 this._input = [
                     this.creatures[this._index].location.x,
                     this.creatures[this._index].location.y,
