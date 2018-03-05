@@ -170,18 +170,14 @@ class World {
         console.log(`%c Blue : ${this.census.blue}`, ' color: rgb(100, 100, 255)');
         console.log(` Population: ${this.creatures.length}`);
         console.log(` Reproduction chance ${this.reproductionChance}`);
-        if (this.births > 0) {
+        if (this.births > 0)
             console.log(` Births: ${this.births}`);
-        }
-        if (this.deaths > 0) {
+        if (this.deaths > 0)
             console.log(` Deaths ${this.deaths}`);
-        }
-        if (this.creatures.length >= this.topPopulation) {
+        if (this.creatures.length >= this.topPopulation)
             console.log(`%c Overpopulation after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
-        }
-        if (this.creatures.length === 0) {
+        if (this.creatures.length === 0)
             console.log(`%c Extintion after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
-        }
         console.log('%c==================================', 'color: #777');
     }
 
@@ -256,27 +252,23 @@ class World {
         try {
             this._index = this.creatures.length;
             while (this._index--) {
-                this._input = [
-                    this.creatures[this._index].location.x,
-                    this.creatures[this._index].location.y,
-                    this.creatures[this._index].velocity.x,
-                    this.creatures[this._index].velocity.y
-                ];
-
                 this.creatures[this._index].moveTo(this.creatures[this._index]
-                    .network.activate(this._input)); // Think of where to move (align to others)
+                    .network.activate([ // Think of where to move from current location (align to others)
+                        this.creatures[this._index].location.x,
+                        this.creatures[this._index].location.y,
+                        this.creatures[this._index].velocity.x,
+                        this.creatures[this._index].velocity.y
+                    ]));
 
-                this.creatures[this._index].draw(); // Move
+                this.creatures[this._index].draw(); // Move creature
 
                 this._creatureCohesion = this.creatures[this._index].cohesion();
 
-                this.target = [
+                this.creatures[this._index].network.propagate(this.learningRate, [
                     this._creatureCohesion.x / this.width, // X target
                     this._creatureCohesion.y / this.height, // Y target
                     (this.creatures[this._index].align().angle() + Math.PI) / (Math.PI * 2) // Target angle
-                ];
-
-                this.creatures[this._index].network.propagate(this.learningRate, this.target); // Learn to move with others
+                ]); // Learn to move with others
             }
 
             return requestAnimationFrame(() =>

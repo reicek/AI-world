@@ -3732,18 +3732,14 @@ class World {
         console.log(`%c Blue : ${this.census.blue}`, ' color: rgb(100, 100, 255)');
         console.log(` Population: ${this.creatures.length}`);
         console.log(` Reproduction chance ${this.reproductionChance}`);
-        if (this.births > 0) {
+        if (this.births > 0)
             console.log(` Births: ${this.births}`);
-        }
-        if (this.deaths > 0) {
+        if (this.deaths > 0)
             console.log(` Deaths ${this.deaths}`);
-        }
-        if (this.creatures.length >= this.topPopulation) {
+        if (this.creatures.length >= this.topPopulation)
             console.log(`%c Overpopulation after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
-        }
-        if (this.creatures.length === 0) {
+        if (this.creatures.length === 0)
             console.log(`%c Extintion after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
-        }
         console.log('%c==================================', 'color: #777');
     }
 
@@ -3818,27 +3814,23 @@ class World {
         try {
             this._index = this.creatures.length;
             while (this._index--) {
-                this._input = [
-                    this.creatures[this._index].location.x,
-                    this.creatures[this._index].location.y,
-                    this.creatures[this._index].velocity.x,
-                    this.creatures[this._index].velocity.y
-                ];
-
                 this.creatures[this._index].moveTo(this.creatures[this._index]
-                    .network.activate(this._input)); // Think of where to move (align to others)
+                    .network.activate([ // Think of where to move from current location (align to others)
+                        this.creatures[this._index].location.x,
+                        this.creatures[this._index].location.y,
+                        this.creatures[this._index].velocity.x,
+                        this.creatures[this._index].velocity.y
+                    ]));
 
-                this.creatures[this._index].draw(); // Move
+                this.creatures[this._index].draw(); // Move creature
 
                 this._creatureCohesion = this.creatures[this._index].cohesion();
 
-                this.target = [
+                this.creatures[this._index].network.propagate(this.learningRate, [
                     this._creatureCohesion.x / this.width, // X target
                     this._creatureCohesion.y / this.height, // Y target
                     (this.creatures[this._index].align().angle() + Math.PI) / (Math.PI * 2) // Target angle
-                ];
-
-                this.creatures[this._index].network.propagate(this.learningRate, this.target); // Learn to move with others
+                ]); // Learn to move with others
             }
 
             return requestAnimationFrame(() =>
@@ -3923,6 +3915,7 @@ class Creature {
     }
 
     /**
+     * Applies creature's movement
      * @method moveTo
      * @param networkOutput
      */
@@ -3947,6 +3940,7 @@ class Creature {
     }
 
     /**
+     * Draws current's creature position and direction
      * @method draw
      */
     draw() {
@@ -3992,7 +3986,6 @@ class Creature {
 
             if (this.maxspeed < 0.2) // Highlight older thiss
                 this.color = `rgb(${this.species === 'red' ? this.minColor : 0}, ${this.species === 'green' ? this.minColor : 0}, ${this.species === 'blue' ? this.minColor : 0})`;
-
         } else  // Death
             return world.removeCreature(this);
 
@@ -4014,6 +4007,7 @@ class Creature {
     }
 
     /**
+     * Applies a vector force to the creature's momentum
      * @method applyForce
      * @param force
      * @return {Vector}
@@ -4023,6 +4017,7 @@ class Creature {
     }
 
     /**
+     * Prevents creatures from going beyond the edges
      * @method boundaries
      */
     boundaries() {
@@ -4049,6 +4044,7 @@ class Creature {
     }
 
     /**
+     * Returns the force needed to move towards specific crature
      * @method seek
      * @param target
      * @return {Vector}
@@ -4057,10 +4053,12 @@ class Creature {
         return target.copy()
             .sub(this.location)
             .sub(this.velocity)
-            .limit(_.random(0.1, 0.01, true));
+            .limit(this.maxforce / 5);
     }
 
     /**
+     * Makes creature attempt to stay within resonable distance
+     * Triggers reproduction when creatures touch, depending on world reproduction chance
      * @method separate
      * @return {Vector}
      */
@@ -4072,7 +4070,8 @@ class Creature {
 
         this._index = world.creatures.length;
         while (this._index--) {
-            if (world.creatures[this._index] === this) continue; // Skip to next creatue
+            if (world.creatures[this._index] === this)
+                continue; // Skip to next creatue
 
             this.distance = this.location.dist(world.creatures[this._index].location);
 
@@ -4098,23 +4097,22 @@ class Creature {
                         this.mass / 2 // New borns are 1/4 of the original parents mass
                     );
 
-                    console.log(`A new ${this.species} was born.`);
+                    console.log(`A new ${this.species} creature was born.`);
                 }
             }
         }
 
-        if (!this._count){
+        if (!this._count)
             return this._sum;
-        }
-        else {
+        else
             return this._sum
                 .div(this._count)
                 .normalize()
                 .sub(this.velocity);
-        }
     }
 
     /**
+     * Align to same species direction,
      * @method align
      * @return {Vector}
      */
@@ -4138,16 +4136,15 @@ class Creature {
         }
 
         if (this._count > 0)
-
             return this._sum
                 .div(this._count)
                 .limit(_.random(0.001, 0.1, true));
         else
-
             return this._sum;
     }
 
     /**
+     * Makes creature group with same species
      * @method cohesion
      * @return {Vector}
      */
@@ -4167,9 +4164,9 @@ class Creature {
         }
 
         if (this._count > 0)
-            this._sum.div(this._count);
-
-        return this._sum;
+            return this._sum.div(this._count);
+        else
+            return this._sum;
     }
 }
 

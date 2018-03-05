@@ -71,6 +71,7 @@ class Creature {
     }
 
     /**
+     * Applies creature's movement
      * @method moveTo
      * @param networkOutput
      */
@@ -95,6 +96,7 @@ class Creature {
     }
 
     /**
+     * Draws current's creature position and direction
      * @method draw
      */
     draw() {
@@ -140,7 +142,6 @@ class Creature {
 
             if (this.maxspeed < 0.2) // Highlight older thiss
                 this.color = `rgb(${this.species === 'red' ? this.minColor : 0}, ${this.species === 'green' ? this.minColor : 0}, ${this.species === 'blue' ? this.minColor : 0})`;
-
         } else  // Death
             return world.removeCreature(this);
 
@@ -162,6 +163,7 @@ class Creature {
     }
 
     /**
+     * Applies a vector force to the creature's momentum
      * @method applyForce
      * @param force
      * @return {Vector}
@@ -171,6 +173,7 @@ class Creature {
     }
 
     /**
+     * Prevents creatures from going beyond the edges
      * @method boundaries
      */
     boundaries() {
@@ -197,6 +200,7 @@ class Creature {
     }
 
     /**
+     * Returns the force needed to move towards specific crature
      * @method seek
      * @param target
      * @return {Vector}
@@ -205,10 +209,12 @@ class Creature {
         return target.copy()
             .sub(this.location)
             .sub(this.velocity)
-            .limit(_.random(0.1, 0.01, true));
+            .limit(this.maxforce / 5);
     }
 
     /**
+     * Makes creature attempt to stay within resonable distance
+     * Triggers reproduction when creatures touch, depending on world reproduction chance
      * @method separate
      * @return {Vector}
      */
@@ -220,7 +226,8 @@ class Creature {
 
         this._index = world.creatures.length;
         while (this._index--) {
-            if (world.creatures[this._index] === this) continue; // Skip to next creatue
+            if (world.creatures[this._index] === this)
+                continue; // Skip to next creatue
 
             this.distance = this.location.dist(world.creatures[this._index].location);
 
@@ -246,23 +253,22 @@ class Creature {
                         this.mass / 2 // New borns are 1/4 of the original parents mass
                     );
 
-                    console.log(`A new ${this.species} was born.`);
+                    console.log(`A new ${this.species} creature was born.`);
                 }
             }
         }
 
-        if (!this._count){
+        if (!this._count)
             return this._sum;
-        }
-        else {
+        else
             return this._sum
                 .div(this._count)
                 .normalize()
                 .sub(this.velocity);
-        }
     }
 
     /**
+     * Align to same species direction,
      * @method align
      * @return {Vector}
      */
@@ -286,16 +292,15 @@ class Creature {
         }
 
         if (this._count > 0)
-
             return this._sum
                 .div(this._count)
                 .limit(_.random(0.001, 0.1, true));
         else
-
             return this._sum;
     }
 
     /**
+     * Makes creature group with same species
      * @method cohesion
      * @return {Vector}
      */
@@ -315,9 +320,9 @@ class Creature {
         }
 
         if (this._count > 0)
-            this._sum.div(this._count);
-
-        return this._sum;
+            return this._sum.div(this._count);
+        else
+            return this._sum;
     }
 }
 
