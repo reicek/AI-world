@@ -36,7 +36,7 @@ class World {
 
     /**
      * @method launch
-     * @return {draw}
+     * @return {drawNextFrame}
      */
     launch() {
         this._i = this.initialPopulation;
@@ -67,7 +67,7 @@ class World {
             this.height = this.canvas.height;
         });
 
-        return this.draw();
+        return this.drawNextFrame();
     }
 
     /**
@@ -212,9 +212,10 @@ class World {
     }
 
     /**
-     * @method draw
+     * Adjust population and draws creatures next move
+     * @method drawNextFrame
      */
-    draw() {
+    drawNextFrame() {
         this.cycles ++;
 
         this.ctx.fillStyle = `rgba(0, 0, 0, ${this.pathOpacity})`;
@@ -226,6 +227,7 @@ class World {
     }
 
     /**
+     * Adjust world population growth to prevent overpopulation or full extintion
      * @method adjustPopulationGrowth
      */
     adjustPopulationGrowth() {
@@ -247,6 +249,7 @@ class World {
     }
 
     /**
+     * Draws creatures next move
      * @method updateCreatures
      */
     updateCreatures() {
@@ -277,10 +280,10 @@ class World {
             }
 
             return requestAnimationFrame(() =>
-                this.draw());
+                this.drawNextFrame());
         } catch(err) {
             return requestAnimationFrame(() =>
-                this.draw());
+                this.drawNextFrame());
         }
     }
 }
