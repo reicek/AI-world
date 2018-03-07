@@ -16,12 +16,12 @@ class Creature {
         species = false,
         mass = false,
         inputNeurons = 4,
-        hiddenNeurons = 6,
+        hiddenNeurons = 4,
         outputNeurons = 3
     ) {
         this.metabolism = 0.0005; // Bigger means shorter life
         this.metabolismAgingRatio = 1.2; // Bigger means longer life
-        this.speciesAffinity = 20; // Higher makes creature pay less attention to other species
+        this.speciesAffinity = 4; // Higher makes creature pay less attention to other species
         this.minColor = 100;
         this.maxColor = 255;
         this.minMass = 1;
@@ -91,7 +91,6 @@ class Creature {
             .add(this.align() // Apply force to better align to peers
                 .setAngle((this._decision.angle * this.TWO_PI) - Math.PI)
             )
-            .limit(this.maxforce)
         );
     }
 
@@ -129,9 +128,9 @@ class Creature {
      */
     update() {
         if (this.mass < this.topMass) { // Grow
-            this.mass += _.random(this.metabolism, this.metabolism * 2, true);
+            this.mass += this.metabolism;
             this.maxspeed = _.random(this.minSpeed / this.mass, this.maxSpeed / this.mass, true);
-            this.maxforce = _.random(0.3 * (this.mass / 2), 0.4 * (this.mass / 2), true);
+            this.maxforce = 0.3 * (this.mass / 2);
             this.length = this.mass * 2;
             this.base = this.length / 3;
         }
@@ -206,14 +205,15 @@ class Creature {
      * @return {Vector}
      */
     seek(target) {
-        return target.copy()
+        this.target = target.copy();
+        return this.target
             .sub(this.location)
             .sub(this.velocity)
             .limit(this.maxforce / 5);
     }
 
     /**
-     * Makes creature attempt to stay within resonable distance
+     * Makes creature attempt to stay within reasonable distance
      * Triggers reproduction when creatures touch, depending on world reproduction chance
      * @method separate
      * @return {Vector}
@@ -221,7 +221,6 @@ class Creature {
     separate() {
         this._sum = new Vector(0, 0);
         this.minSeparation = this.mass * 1.2;
-        this.maxSeparation = _.random(this.minSeparation * 2, this.minSeparation * 3);
         this._count = 0;
 
         this._index = world.creatures.length;
@@ -232,7 +231,8 @@ class Creature {
             this.distance = this.location.dist(world.creatures[this._index].location);
 
             if ((this.distance < this.maxSeparation) && (this.distance > this.minSeparation)) { // is far enough & is close enough
-                this._sum.add(this.location.copy()
+                this.target = this.location.copy();
+                this._sum.add(this.target
                     .sub(world.creatures[this._index].location)
                     .normalize()
                     .div(Math.pow(this.distance, 2))
@@ -240,7 +240,7 @@ class Creature {
                 this._count++;
             }
 
-            if ((this.distance <= (this.minSeparation * world.reproductionChance)) && (this.species === world.creatures[this._index].species)) { // is close enough to reproduce with same specie
+            if (this.distance <= (this.minSeparation * world.reproductionChance)) { // is close enough to reproduce with same specie
                 if ((this.mass >= this.topMass) && (world.creatures[this._index].mass >= this.topMass)) { // both creatures are fully mature
                     // Both parents loose half their mass
                     this.mass /= 2;
@@ -268,7 +268,7 @@ class Creature {
     }
 
     /**
-     * Align to same species direction,
+     * Align to other creatures
      * @method align
      * @return {Vector}
      */
@@ -281,20 +281,19 @@ class Creature {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
-            if (world.creatures[this._index].species === this.species) // Align to same species
+            if (world.creatures[this._index].species === this.species) // Align more to same species
                 this._sum.add(world.creatures[this._index].velocity);
-            else // Avoid other species
-                this._sum
-                    .sub(world.creatures[this._index].velocity.copy()
-                    .div(this.speciesAffinity));
+            else { // Align less to other species
+                this.target = world.creatures[this._index].velocity.copy();
+                this._sum.add(this.target.div(this.speciesAffinity));
+            }
 
             this._count++;
         }
 
         if (this._count > 0)
             return this._sum
-                .div(this._count)
-                .limit(_.random(0.001, 0.1, true));
+                .mul(0.003);
         else
             return this._sum;
     }

@@ -8,11 +8,11 @@
  */
 class World {
     constructor(
-        initialPopulation = 10,
+        initialPopulation = 15,
         topPopulation = 200,
         reproductionChance = 2,
         id = 'world',
-        pathOpacity = 0.1
+        pathOpacity = 0.3
     ) {
         this.reproductionChance = reproductionChance;
         this.initialReproductionChange = reproductionChance;
@@ -35,17 +35,14 @@ class World {
     }
 
     /**
+     * Start simulation
      * @method launch
      * @return {drawNextFrame}
      */
     launch() {
         this._i = this.initialPopulation;
-        while (this._i --) {
-            this.spawnCreature(
-                _.random(0, this.width),
-                _.random(0, this.height)
-            );
-        }
+        while (this._i --)
+            this.spawnCreature(_.random(0, this.width), _.random(0, this.height));
 
         $(`button.add, #${this.id}`).click(e => // Add new creature to the less populated species on left click
             this.increasePopulation(e.clientX, e.clientY));
@@ -56,7 +53,7 @@ class World {
         $(`#${this.id}`).contextmenu(() => { // Remove oldest creature on right click
             this.decreasePopulation();
 
-            return false; // Dont show context menu on right click
+            return false; // Don't show context menu on right click
         });
 
         $(window).resize(() => { // Update canvas size on screen change
