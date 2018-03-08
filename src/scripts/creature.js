@@ -19,16 +19,14 @@ class Creature {
         hiddenNeurons = 4,
         outputNeurons = 3
     ) {
-        this.metabolism = 0.0005; // Bigger means shorter life
-        this.metabolismAgingRatio = 1.2; // Bigger means longer life
+        this.metabolism = 0.001; // Bigger means shorter life
+        this.metabolismAgingRatio = 0.75; // Bigger means longer life
         this.speciesAffinity = 4; // Higher makes creature pay less attention to other species
         this.minColor = 100;
         this.maxColor = 255;
         this.minMass = 1;
         this.maxMass = 1.1;
         this.topMass = 2;
-        this.minSpeed = 3;
-        this.maxSpeed = 4;
         this.margin = 5; // Minimum separation from walls
         /**
          * Perceptron architecture allows to create multilayer perceptrons (feed-forward neural networks).
@@ -43,7 +41,7 @@ class Creature {
             outputNeurons
         );
         this.mass = !!mass ? mass : _.random(this.minMass, this.maxMass, true);
-        this.maxspeed = _.random(this.minSpeed / this.mass, this.maxSpeed / this.mass, true);
+        this.maxSpeed = this.mass * 2;
         this.maxforce = _.random(0.3 * (this.mass / 2), 0.4 * (this.mass / 2), true);
         this.length = this.mass * 2;
         this.base = this.length / 3;
@@ -63,9 +61,9 @@ class Creature {
             this.colors.green === this.maxColor ? 'green' :
             'blue';
         this.colors = {
-            red: this.species === 'red' ? this.colors.red : this.minColor,
-            green: this.species === 'green' ? this.colors.green : this.minColor,
-            blue: this.species === 'blue' ? this.colors.blue : this.minColor
+            red: this.species === 'red' ? 255 : this.minColor,
+            green: this.species === 'green' ? 255 : this.minColor,
+            blue: this.species === 'blue' ? 255 : this.minColor
         };
         this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
     }
@@ -129,18 +127,19 @@ class Creature {
     update() {
         if (this.mass < this.topMass) { // Grow
             this.mass += this.metabolism;
-            this.maxspeed = _.random(this.minSpeed / this.mass, this.maxSpeed / this.mass, true);
+            this.maxSpeed = this.mass * 2;
             this.maxforce = 0.3 * (this.mass / 2);
             this.length = this.mass * 2;
             this.base = this.length / 3;
         }
 
-        if (this.maxspeed > 0) { // Aging
+        if (this.maxSpeed > 0.1) { // Aging
             this._deterioration = this.metabolism / this.metabolismAgingRatio;
-            this.maxspeed -= _.random(this._deterioration, this._deterioration * 2);
-
-            if (this.maxspeed < 0.2) // Highlight older thiss
-                this.color = `rgb(${this.species === 'red' ? this.minColor : 0}, ${this.species === 'green' ? this.minColor : 0}, ${this.species === 'blue' ? this.minColor : 0})`;
+            this.maxSpeed -= this._deterioration;
+            this.colors[this.species] = this.colors[this.species] > this.minColor ?
+                Math.round(this.maxSpeed * 255 / (this.topMass * 2)) :
+                this.minColor;
+            this.color = `rgb(${Math.round(this.colors.red)}, ${Math.round(this.colors.green)}, ${Math.round(this.colors.blue)})`;
         } else  // Death
             return world.removeCreature(this);
 
@@ -148,11 +147,11 @@ class Creature {
 
         this.velocity
             .add(this.acceleration)
-            .limit(this.maxspeed);
+            .limit(this.maxSpeed);
 
-        if (this.velocity.mag() > this.maxspeed)
+        if (this.velocity.mag() > this.maxSpeed)
             this.velocity.setMag(this.velocity.mag() * 0.9);
-        else if (this.velocity.mag() < this.maxspeed)
+        else if (this.velocity.mag() < this.maxSpeed)
             this.velocity.setMag(this.velocity.mag() * 1.01);
 
         this.location.add(this.velocity);
@@ -199,17 +198,18 @@ class Creature {
     }
 
     /**
-     * Returns the force needed to move towards specific crature
+     * Returns the force needed to move towards specific creature
      * @method seek
      * @param target
      * @return {Vector}
      */
     seek(target) {
         this.target = target.copy();
+
         return this.target
             .sub(this.location)
             .sub(this.velocity)
-            .limit(this.maxforce / 5);
+            .limit(this.maxforce / 4);
     }
 
     /**
@@ -221,6 +221,7 @@ class Creature {
     separate() {
         this._sum = new Vector(0, 0);
         this.minSeparation = this.mass * 1.2;
+        this.maxSeparation = this.minSeparation * 2;
         this._count = 0;
 
         this._index = world.creatures.length;
@@ -240,12 +241,12 @@ class Creature {
                 this._count++;
             }
 
-            if (this.distance <= (this.minSeparation * world.reproductionChance)) { // is close enough to reproduce with same specie
+            if (this.distance <= (this.minSeparation * world.reproductionChance)) { // is close enough to reproduce
                 if ((this.mass >= this.topMass) && (world.creatures[this._index].mass >= this.topMass)) { // both creatures are fully mature
                     // Both parents loose half their mass
                     this.mass /= 2;
                     world.creatures[this._index].mass /= 2;
-                    // Spawn a new this of the same specie in the same spot
+                    // Spawn a new this of the same species in the same spot
                     world.spawnCreature(
                         this.location.x,
                         this.location.y,

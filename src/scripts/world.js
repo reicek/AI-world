@@ -10,9 +10,9 @@ class World {
     constructor(
         initialPopulation = 15,
         topPopulation = 200,
-        reproductionChance = 2,
+        reproductionChance = 1.5,
         id = 'world',
-        pathOpacity = 0.3
+        pathOpacity = 0.4
     ) {
         this.reproductionChance = reproductionChance;
         this.initialReproductionChange = reproductionChance;
@@ -225,11 +225,11 @@ class World {
      */
     adjustPopulationGrowth() {
         switch (true) { // Population control
-            case this.creatures.length > (this.initialPopulation * 1.3): // If overpopulation in progress
+            case this.creatures.length > this.initialPopulation * 1.3: // If overpopulation in progress
                 this.reproductionChance *=  0.9999; // Reduce reproduction chance
                 break;
 
-            case this.creatures.length < this.initialPopulation * 1.1: // If extintion in progress
+            case this.creatures.length < this.initialPopulation: // If extintion in progress
                 this.reproductionChance *=  1.0001; // Increase reproduction chance
                 break;
 
