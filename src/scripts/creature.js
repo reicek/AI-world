@@ -19,15 +19,6 @@ class Creature {
         hiddenNeurons = 4,
         outputNeurons = 3
     ) {
-        this.metabolism = 0.001; // Bigger means shorter life
-        this.metabolismAgingRatio = 0.75; // Bigger means longer life
-        this.speciesAffinity = 4; // Higher makes creature pay less attention to other species
-        this.minColor = 100;
-        this.maxColor = 255;
-        this.minMass = 1;
-        this.maxMass = 1.1;
-        this.topMass = 2;
-        this.margin = 5; // Minimum separation from walls
         /**
          * Perceptron architecture allows to create multilayer perceptrons (feed-forward neural networks).
          * They consist of a sequence of layers, each fully connected to the next one.
@@ -40,9 +31,16 @@ class Creature {
             hiddenNeurons,
             outputNeurons
         );
-        this.mass = !!mass ? mass : _.random(this.minMass, this.maxMass, true);
+
+        this.metabolism = 0.001; // Bigger means shorter life
+        this.metabolismAgingRatio = 0.75; // Bigger means longer life
+        this.speciesAffinity = 4; // Higher makes creature pay less attention to other species
+        this.minMass = 1;
+        this.maxMass = 2;
+        this.margin = 5; // Minimum separation from walls
+        this.mass = !!mass ? mass : this.minMass;
         this.maxSpeed = this.mass * 2;
-        this.maxforce = _.random(0.3 * (this.mass / 2), 0.4 * (this.mass / 2), true);
+        this.maxforce = 0.33 * (this.mass / 2);
         this.length = this.mass * 2;
         this.base = this.length / 3;
         this.HALF_PI = Math.PI / 2;
@@ -50,6 +48,9 @@ class Creature {
         this.location = new Vector(x, y);
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
+
+        this.minColor = 100;
+        this.maxColor = 255;
         this.colors = {
             red: _.random(this.minColor, this.maxColor),
             green: _.random(this.minColor, this.maxColor),
@@ -60,10 +61,11 @@ class Creature {
             this.colors.red === this.maxColor ? 'red' :
             this.colors.green === this.maxColor ? 'green' :
             'blue';
+        this.maxColor = 255;
         this.colors = {
-            red: this.species === 'red' ? 255 : this.minColor,
-            green: this.species === 'green' ? 255 : this.minColor,
-            blue: this.species === 'blue' ? 255 : this.minColor
+            red: this.species === 'red' ? this.maxColor : this.minColor,
+            green: this.species === 'green' ? this.maxColor : this.minColor,
+            blue: this.species === 'blue' ? this.maxColor : this.minColor
         };
         this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
     }
@@ -125,10 +127,10 @@ class Creature {
      * @method update
      */
     update() {
-        if (this.mass < this.topMass) { // Grow
+        if (this.mass < this.maxMass) { // Grow
             this.mass += this.metabolism;
             this.maxSpeed = this.mass * 2;
-            this.maxforce = 0.3 * (this.mass / 2);
+            this.maxforce = 0.33 * (this.mass / 2);
             this.length = this.mass * 2;
             this.base = this.length / 3;
         }
@@ -136,9 +138,7 @@ class Creature {
         if (this.maxSpeed > 0.1) { // Aging
             this._deterioration = this.metabolism / this.metabolismAgingRatio;
             this.maxSpeed -= this._deterioration;
-            this.colors[this.species] = this.colors[this.species] > this.minColor ?
-                Math.round(this.maxSpeed * 255 / (this.topMass * 2)) :
-                this.minColor;
+            this.colors[this.species] = Math.round(this.maxSpeed * 255 / (this.maxMass * 2)) + 110;
             this.color = `rgb(${Math.round(this.colors.red)}, ${Math.round(this.colors.green)}, ${Math.round(this.colors.blue)})`;
         } else  // Death
             return world.removeCreature(this);
@@ -242,7 +242,7 @@ class Creature {
             }
 
             if (this.distance <= (this.minSeparation * world.reproductionChance)) { // is close enough to reproduce
-                if ((this.mass >= this.topMass) && (world.creatures[this._index].mass >= this.topMass)) { // both creatures are fully mature
+                if ((this.mass >= this.maxMass) && (world.creatures[this._index].mass >= this.maxMass)) { // both creatures are fully mature
                     // Both parents loose half their mass
                     this.mass /= 2;
                     world.creatures[this._index].mass /= 2;

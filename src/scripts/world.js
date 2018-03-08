@@ -10,9 +10,9 @@ class World {
     constructor(
         initialPopulation = 15,
         topPopulation = 200,
-        reproductionChance = 1.5,
+        reproductionChance = 2,
         id = 'world',
-        pathOpacity = 0.4
+        pathOpacity = 0.5
     ) {
         this.reproductionChance = reproductionChance;
         this.initialReproductionChange = reproductionChance;
@@ -106,10 +106,10 @@ class World {
     /**
      * Removes oldest (slowest) creature
      * @method increasePopulation
-     * @return {logCensus}
+     * @return {number}
      */
     decreasePopulation() {
-        this.removeCreature(_.minBy(this.creatures, 'maxspeed'));
+        this.removeCreature(_.minBy(this.creatures, 'maxSpeed'));
 
         return this.initialPopulation--; // Permanently decrease the ideal population
     }
@@ -226,11 +226,11 @@ class World {
     adjustPopulationGrowth() {
         switch (true) { // Population control
             case this.creatures.length > this.initialPopulation * 1.3: // If overpopulation in progress
-                this.reproductionChance *=  0.9999; // Reduce reproduction chance
+                this.reproductionChance *=  0.999; // Reduce reproduction chance
                 break;
 
-            case this.creatures.length < this.initialPopulation: // If extintion in progress
-                this.reproductionChance *=  1.0001; // Increase reproduction chance
+            case this.creatures.length < this.initialPopulation * 0.8: // If extintion in progress
+                this.reproductionChance *=  1.001; // Increase reproduction chance
                 break;
 
             default:
