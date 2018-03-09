@@ -1,7 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
-
+const tasks = grunt => {
     grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-vulcanize');
@@ -111,4 +110,6 @@ module.exports = function (grunt) {
         'jshint',
         'vulcanize',
     ]);
-};
+}
+
+module.exports = tasks;
