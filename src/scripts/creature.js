@@ -2,6 +2,8 @@
 /**
  * @module Creature
  * @requires synaptic
+ * @requires World
+ * @requires Vector
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 const { Architect } = synaptic;
@@ -286,7 +288,8 @@ class Creature {
                 world.creatures[this._index],
                 this._distance,
                 this.location.copy(),
-                this._count, this._sum
+                this._sum,
+                this._count
             );
         }
 
@@ -307,8 +310,8 @@ class Creature {
         target,
         distance,
         currentPosition,
-        count,
-        sum
+        sum,
+        count
     ) {
         if ((distance < this.maxSeparation) && (distance > this.minSeparation)) { // is far enough & is close enough
             sum.add(currentPosition
@@ -400,19 +403,37 @@ class Creature {
 
         this._index = world.creatures.length;
         while (this._index--) {
-            if (world.creatures[this._index] === this) continue; // Skip to next creatue
-            this.isNotMe = world.creatures[this._index] !== this;
+            if (world.creatures[this._index] === this)
+                continue; // Skip to next creatue
 
-            if (world.creatures[this._index].species === this.species) { // Coerce only to same species
-                this._sum.add(world.creatures[this._index].location);
-                this._count ++;
-            }
+            [this._sum, this._count] = this.applyCohesion(world.creatures[this._index], this._sum, this._count);
         }
 
         if (this._count > 0)
             return this._sum.div(this._count);
         else
             return this._sum;
+    }
+
+    /**
+     * Makes creature attempt to stay within reasonable distance
+     * Triggers reproduction when creatures touch, depending on world reproduction chance
+     * @method separate
+     */
+    applyCohesion(
+        creature,
+        sum,
+        count
+    ) {
+        if (creature.species === this.species) { // Coerce only to same species
+            sum.add(creature.location);
+            count ++;
+        }
+
+        return [
+            sum,
+            count
+        ];
     }
 }
 
