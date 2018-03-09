@@ -50,18 +50,12 @@ class Creature {
         this.acceleration = new Vector(0, 0);
 
         this.initializeCreatureSpecies();
-
-        this.colors = {
-            red: this.species === 'red' ? this.maxColor : this.minColor,
-            green: this.species === 'green' ? this.maxColor : this.minColor,
-            blue: this.species === 'blue' ? this.maxColor : this.minColor
-        };
-        this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
+        this.initializeCreatureColor();
     }
 
     /**
-     * Initializes creature's color parameters
-     * @method initializeCreature
+     * Initializes creature's species
+     * @method initializeCreatureSpecies
      */
     initializeCreatureSpecies() {
         if (!!this.species)
@@ -77,7 +71,6 @@ class Creature {
         };
 
         this.dominantColor = _.max([this.colors.red, this.colors.green, this.colors.blue]);
-
         switch (true) {
             case (this.colors.red === this.dominantColor):
                 this.species = 'red';
@@ -91,8 +84,25 @@ class Creature {
                 this.species = 'blue';
                 break;
         }
+        delete this.dominantColor;
 
-        return delete this.dominantColor;
+        return this.species;
+    }
+
+    /**
+     * Initializes creature's color parameters
+     * @method initializeCreatureColor
+     */
+    initializeCreatureColor() {
+        this.colors = {
+            red: this.species === 'red' ? this.maxColor : this.minColor,
+            green: this.species === 'green' ? this.maxColor : this.minColor,
+            blue: this.species === 'blue' ? this.maxColor : this.minColor
+        };
+
+        this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
+
+        return this.color;
     }
 
     /**
