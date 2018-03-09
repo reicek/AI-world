@@ -4222,12 +4222,7 @@ class Creature {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
-            if (world.creatures[this._index].species === this.species) // Align more to same species
-                this._sum.add(world.creatures[this._index].velocity);
-            else { // Align less to other species
-                this.target = world.creatures[this._index].velocity.copy();
-                this._sum.add(this.target.div(this.speciesAffinity));
-            }
+            this._sum = this.addAlignmentTo(world.creatures[this._index], this._sum);
 
             this._count++;
         }
@@ -4237,6 +4232,21 @@ class Creature {
                 .mul(0.003);
         else
             return this._sum;
+    }
+
+    /**
+     * Adds force required to align to another creature
+     * @method addAlignmentTo
+     */
+    addAlignmentTo(target, sum) {
+        if (target.species === this.species) // Align more to same species
+            sum.add(target.velocity);
+        else { // Align less to other species
+            this._targetVelocity = target.velocity.copy();
+            sum.add(this._targetVelocity.div(this.speciesAffinity));
+        }
+
+        return sum;
     }
 
     /**
