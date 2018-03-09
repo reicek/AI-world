@@ -3997,8 +3997,8 @@ class Creature {
         this.update();
         this._angle = this.velocity.angle();
 
-        this.initCreatureDraw();
-        this.drawCreatureShape();
+        this.initCreatureDraw(this._angle);
+        this.drawCreatureShape(this._angle);
 
         return this;
     }
@@ -4007,14 +4007,14 @@ class Creature {
      * Initializes canvas settings and moves starting point to the creature's position
      * @method initCreatureDraw
      */
-    initCreatureDraw() {
+    initCreatureDraw(angle) {
         world.ctx.fillStyle = this.color;
         world.ctx.strokeStyle = this.color;
         world.ctx.beginPath();
 
         return world.ctx.moveTo(
-            this.location.x + Math.cos(this._angle) * this.base * 3, // x1
-            this.location.y + Math.sin(this._angle) * this.base * 3  // y1
+            this.location.x + Math.cos(angle) * this.base * 3, // x1
+            this.location.y + Math.sin(angle) * this.base * 3  // y1
         );
     }
 
@@ -4022,13 +4022,11 @@ class Creature {
      * Creates creature's shape
      * @method drawCreatureShape
      */
-    drawCreatureShape() {
-        this._i = 2;
-        while (this._i --)
-            world.ctx.lineTo(
-                this.location.x + Math.cos(this._angle + this.HALF_PI) * this.base,
-                this.location.y + Math.sin(this._angle + this.HALF_PI) * this.base
-            );
+    drawCreatureShape(angle) {
+        world.ctx.lineTo(
+            this.location.x + Math.cos(angle + this.HALF_PI) * this.base,
+            this.location.y + Math.sin(angle + this.HALF_PI) * this.base
+        );
 
         world.ctx.stroke();
 
@@ -4143,13 +4141,13 @@ class Creature {
                 continue; // Skip to next creatue
 
             this._distance = this.location.dist(world.creatures[this._index].location);
+            this.attemptReproduction(world.creatures[this._index], this._distance);
             [this._sum, this._count] = this.normalizeSeparation(
                 world.creatures[this._index],
                 this._distance,
                 this.location.copy(),
                 this._count, this._sum
             );
-            this.attemptReproduction(world.creatures[this._index], this._distance);
         }
 
         if (!this._count)
