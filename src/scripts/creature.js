@@ -49,25 +49,50 @@ class Creature {
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-        this.minColor = 100;
-        this.maxColor = 255;
-        this.colors = {
-            red: _.random(this.minColor, this.maxColor),
-            green: _.random(this.minColor, this.maxColor),
-            blue: _.random(this.minColor, this.maxColor)
-        };
-        this.maxColor = _.max([this.colors.red, this.colors.green, this.colors.blue]);
-        this.species = !!species ? species :
-            this.colors.red === this.maxColor ? 'red' :
-            this.colors.green === this.maxColor ? 'green' :
-            'blue';
-        this.maxColor = 255;
+        this.initializeCreatureSpecies();
+
         this.colors = {
             red: this.species === 'red' ? this.maxColor : this.minColor,
             green: this.species === 'green' ? this.maxColor : this.minColor,
             blue: this.species === 'blue' ? this.maxColor : this.minColor
         };
         this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
+    }
+
+    /**
+     * Initializes creature's color parameters
+     * @method initializeCreature
+     */
+    initializeCreatureSpecies() {
+        if (!!this.species)
+            return; // skip if already defined
+
+        this.minColor = 100;
+        this.maxColor = 255;
+
+        this.colors = {
+            red: _.random(this.minColor, this.maxColor),
+            green: _.random(this.minColor, this.maxColor),
+            blue: _.random(this.minColor, this.maxColor)
+        };
+
+        this.dominantColor = _.max([this.colors.red, this.colors.green, this.colors.blue]);
+
+        switch (true) {
+            case (this.colors.red === this.dominantColor):
+                this.species = 'red';
+                break;
+
+            case (this.colors.green === this.dominantColor):
+                this.species = 'green';
+                break;
+
+            case (this.colors.blue === this.dominantColor):
+                this.species = 'blue';
+                break;
+        }
+
+        return delete this.dominantColor;
     }
 
     /**
@@ -102,28 +127,46 @@ class Creature {
         this.update();
         this._angle = this.velocity.angle();
 
-        world.ctx.fillStyle = this.color;
-        world.ctx.strokeStyle = this.color;
-        world.ctx.beginPath();
-        world.ctx.moveTo(
-            this.location.x + Math.cos(this._angle) * this.base * 3, // x1
-            this.location.y + Math.sin(this._angle) * this.base * 3  // y1
-        );
-        world.ctx.lineTo(
-            this.location.x + Math.cos(this._angle + this.HALF_PI) * this.base, // x2
-            this.location.y + Math.sin(this._angle + this.HALF_PI) * this.base  // y2
-        );
-        world.ctx.lineTo(
-            this.location.x + Math.cos(this._angle - this.HALF_PI) * this.base, // x3
-            this.location.y + Math.sin(this._angle - this.HALF_PI) * this.base  // y3
-        );
-        world.ctx.stroke();
-        world.ctx.fill();
+        this.initCreatureDraw();
+        this.drawCreatureShape();
 
         return this;
     }
 
     /**
+     * Initializes canvas settings and moves starting point to the creature's position
+     * @method initCreatureDraw
+     */
+    initCreatureDraw() {
+        world.ctx.fillStyle = this.color;
+        world.ctx.strokeStyle = this.color;
+        world.ctx.beginPath();
+
+        return world.ctx.moveTo(
+            this.location.x + Math.cos(this._angle) * this.base * 3, // x1
+            this.location.y + Math.sin(this._angle) * this.base * 3  // y1
+        );
+    }
+
+    /**
+     * Creates creature's shape
+     * @method drawCreatureShape
+     */
+    drawCreatureShape() {
+        this._i = 2;
+        while (this._i --)
+            world.ctx.lineTo(
+                this.location.x + Math.cos(this._angle + this.HALF_PI) * this.base,
+                this.location.y + Math.sin(this._angle + this.HALF_PI) * this.base
+            );
+
+        world.ctx.stroke();
+
+        return world.ctx.fill();
+    }
+
+    /**
+     * Update's creature
      * @method update
      */
     update() {
