@@ -272,9 +272,9 @@ class Creature {
      * @return {Vector}
      */
     separate() {
-        this._sum = new Vector(0, 0);
         this.minSeparation = this.mass * 1.2;
         this.maxSeparation = this.minSeparation * 2;
+        this._sum = new Vector(0, 0);
         this._count = 0;
 
         this._index = world.creatures.length;
@@ -282,34 +282,14 @@ class Creature {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
-            this.distance = this.location.dist(world.creatures[this._index].location);
-
-            if ((this.distance < this.maxSeparation) && (this.distance > this.minSeparation)) { // is far enough & is close enough
-                this.target = this.location.copy();
-                this._sum.add(this.target
-                    .sub(world.creatures[this._index].location)
-                    .normalize()
-                    .div(Math.pow(this.distance, 2))
-                );
-                this._count++;
-            }
-
-            if (this.distance <= (this.minSeparation * world.reproductionChance)) { // is close enough to reproduce
-                if ((this.mass >= this.maxMass) && (world.creatures[this._index].mass >= this.maxMass)) { // both creatures are fully mature
-                    // Both parents loose half their mass
-                    this.mass /= 2;
-                    world.creatures[this._index].mass /= 2;
-                    // Spawn a new this of the same species in the same spot
-                    world.spawnCreature(
-                        this.location.x,
-                        this.location.y,
-                        this.species,
-                        this.mass / 2 // New borns are 1/4 of the original parents mass
-                    );
-
-                    console.log(`A new ${this.species} creature was born.`);
-                }
-            }
+            this._distance = this.location.dist(world.creatures[this._index].location);
+            [this._sum, this._count] = this.normalizeSeparation(
+                world.creatures[this._index],
+                this._distance,
+                this.location.copy(),
+                this._count, this._sum
+            );
+            this.attemptReproduction(world.creatures[this._index], this._distance);
         }
 
         if (!this._count)
@@ -319,6 +299,55 @@ class Creature {
                 .div(this._count)
                 .normalize()
                 .sub(this.velocity);
+    }
+
+    /**
+     * Normalizes creature separation if they are within range
+     * @method normalizeSeparation
+     */
+    normalizeSeparation(
+        target,
+        distance,
+        currentPosition,
+        count,
+        sum
+    ) {
+        if ((distance < this.maxSeparation) && (distance > this.minSeparation)) { // is far enough & is close enough
+            sum.add(currentPosition
+                .sub(target.location)
+                .normalize()
+                .div(Math.pow(distance, 2))
+            );
+            count++;
+        }
+
+        return [
+            sum,
+            count
+        ];
+    }
+
+    /**
+     * Attempt to reproduce creature
+     * @method attemptReproduction
+     * @param {Object} target
+     * @param {number} distance
+     */
+    attemptReproduction(target, distance) {
+        if (distance <= (this.minSeparation * world.reproductionChance)) { // is close enough to reproduce
+            if ((this.mass >= this.maxMass) && (target.mass >= this.maxMass)) { // both creatures are fully mature
+                // Both parents loose half their mass
+                this.mass /= 2;
+                target.mass /= 2;
+                // Spawn a new this of the same species in the same spot
+                world.spawnCreature(
+                    this.location.x,
+                    this.location.y,
+                    this.species,
+                    this.mass / 2 // New borns are 1/4 of the original parents mass
+                );
+            }
+        }
     }
 
     /**
