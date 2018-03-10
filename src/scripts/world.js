@@ -1,10 +1,12 @@
 'use strict';
 /**
  * @module World
+ * @requires lodash
+ * @requires Creature
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
- * @class World
+ * 2D environment for creatures
  */
 class World {
     constructor(
@@ -36,8 +38,6 @@ class World {
 
     /**
      * Start simulation
-     * @method launch
-     * @return {drawNextFrame}
      */
     launch() {
         this._i = this.initialPopulation;
@@ -69,11 +69,9 @@ class World {
 
     /**
      * Increases the least populated species if none is specified
-     * @method increasePopulation
-     * @param [x]
-     * @param [y]
+     * @param {number} [x]
+     * @param {number} [y]
      * @param {string} [species]
-     * @return {logCensus}
      */
     increasePopulation(
         x,
@@ -105,7 +103,6 @@ class World {
 
     /**
      * Removes oldest (slowest) creature
-     * @method increasePopulation
      * @return {number}
      */
     decreasePopulation() {
@@ -115,12 +112,11 @@ class World {
     }
 
     /**
-     * @method spawnCreature
-     * @param [x]
-     * @param [y]
+	 * Adds a new crature to the simulation
+     * @param {number} [x]
+     * @param {number} [y]
      * @param {string} [species]
      * @param {number}[mass]
-     * @return {logCensus}
      */
     spawnCreature(
         x,
@@ -135,9 +131,8 @@ class World {
     }
 
     /**
-     * @method removeCreature
+	 * Removes a creature from the simulation
      * @param {Object} creature
-     * @return {logCensus}
      */
     removeCreature(creature) {
         this._index = this.creatures.indexOf(creature);
@@ -149,7 +144,6 @@ class World {
 
     /**
      * Clears the log and shows the census results
-     * @method logCensus
      * @param {string} [eventName] - birth | death
      * @param {string} [species]
      */
@@ -180,7 +174,6 @@ class World {
 
     /**
      * Returns the current population by species
-     * @method _getCensus
      * @extends logCensus
      * @return {Census}
      */
@@ -206,7 +199,6 @@ class World {
 
     /**
      * Adjust population and draws creatures next move
-     * @method drawNextFrame
      */
     drawNextFrame() {
         this.cycles ++;
@@ -221,7 +213,6 @@ class World {
 
     /**
      * Adjust world population growth to prevent overpopulation or full extintion
-     * @method adjustPopulationGrowth
      */
     adjustPopulationGrowth() {
         switch (true) { // Population control
@@ -243,7 +234,6 @@ class World {
 
     /**
      * Draws creatures next move
-     * @method updateCreatures
      */
     updateCreatures() {
         try {

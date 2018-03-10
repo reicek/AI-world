@@ -3345,14 +3345,14 @@ else self.onmessage = code => eval(code.data);</script>
 <script>'use strict';
 /**
  * @module Vector
+ * @requires lodash
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
- * @class Vector
+ * 2D Matrix position
  */
 class Vector {
     /**
-     * Vector constructor
      * @constructs Vector
      * @param {number} [x = 0] - X value
      * @param {number} [y = 0] - Y value
@@ -3379,7 +3379,6 @@ class Vector {
     }
 
     /**
-     * @method set
      * @param {number} [x = 0] - X value
      * @param {number} [y = 0] - Y value
      * @return {Vector}
@@ -3395,7 +3394,6 @@ class Vector {
     }
 
     /**
-     * @method random
      * @return {Vector}
      */
     random() {
@@ -3404,8 +3402,6 @@ class Vector {
     }
 
     /**
-     * @method add
-     * @param v
      * @return {Vector}
      */
     add(v) {
@@ -3416,8 +3412,6 @@ class Vector {
     }
 
     /**
-     * @method sub
-     * @param v
      * @return {Vector}
      */
     sub(v) {
@@ -3428,8 +3422,6 @@ class Vector {
     }
 
     /**
-     * @method mul
-     * @param s
      * @return {Vector}
      */
     mul(s) {
@@ -3440,8 +3432,6 @@ class Vector {
     }
 
     /**
-     * @method div
-     * @param s
      * @return {Vector}
      */
     div(s) {
@@ -3452,7 +3442,6 @@ class Vector {
     }
 
     /**
-     * @method mag
      * @return {number}
      */
     mag() {
@@ -3460,7 +3449,6 @@ class Vector {
     }
 
     /**
-     * @method normalize
      * @return {Vector}
      */
     normalize() {
@@ -3468,7 +3456,6 @@ class Vector {
     }
 
     /**
-     * @method angle
      * @return {number}
      */
     angle() {
@@ -3476,8 +3463,6 @@ class Vector {
     }
 
     /**
-     * @method setMag
-     * @param m
      * @return {Vector}
      */
     setMag(m) {
@@ -3490,8 +3475,6 @@ class Vector {
     }
 
     /**
-     * @method setAngle
-     * @param a
      * @return {Vector}
      */
     setAngle(a) {
@@ -3504,8 +3487,6 @@ class Vector {
     }
 
     /**
-     * @method rotate
-     * @param a
      * @return {Vector}
      */
     rotate(a) {
@@ -3513,8 +3494,6 @@ class Vector {
     }
 
     /**
-     * @method limit
-     * @param l
      * @return {Vector}
      */
     limit(l) {
@@ -3525,8 +3504,6 @@ class Vector {
     }
 
     /**
-     * @method angleBetween
-     * @param v
      * @return {number}
      */
     angleBetween(v) {
@@ -3534,8 +3511,6 @@ class Vector {
     }
 
     /**
-     * @method dot
-     * @param v
      * @return {number}
      */
     dot(v) {
@@ -3543,9 +3518,6 @@ class Vector {
     }
 
     /**
-     * @method lerp
-     * @param v
-     * @param amt
      * @return {Vector}
      */
     lerp(
@@ -3559,19 +3531,18 @@ class Vector {
     }
 
     /**
-     * @method dist
-     * @param v
+	 * Calculates distance between current vector and the target
      * @return {number}
      */
-    dist(v) {
-        this.dx = this.x - v.x;
-        this.dy = this.y - v.y;
+    dist(target) {
+        this.dx = this.x - target.x;
+        this.dy = this.y - target.y;
 
-        return Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+        return Math.sqrt(_.add(this.dx * this.dx, this.dy * this.dy));
     }
 
     /**
-     * @method copy
+	 * Builds a new vector with the same caractestics as this
      * @return {Vector}
      */
     copy() {
@@ -3582,10 +3553,12 @@ class Vector {
 <script>'use strict';
 /**
  * @module World
+ * @requires lodash
+ * @requires Creature
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
- * @class World
+ * 2D environment for creatures
  */
 class World {
     constructor(
@@ -3617,8 +3590,6 @@ class World {
 
     /**
      * Start simulation
-     * @method launch
-     * @return {drawNextFrame}
      */
     launch() {
         this._i = this.initialPopulation;
@@ -3650,11 +3621,9 @@ class World {
 
     /**
      * Increases the least populated species if none is specified
-     * @method increasePopulation
-     * @param [x]
-     * @param [y]
+     * @param {number} [x]
+     * @param {number} [y]
      * @param {string} [species]
-     * @return {logCensus}
      */
     increasePopulation(
         x,
@@ -3686,7 +3655,6 @@ class World {
 
     /**
      * Removes oldest (slowest) creature
-     * @method increasePopulation
      * @return {number}
      */
     decreasePopulation() {
@@ -3696,12 +3664,11 @@ class World {
     }
 
     /**
-     * @method spawnCreature
-     * @param [x]
-     * @param [y]
+	 * Adds a new crature to the simulation
+     * @param {number} [x]
+     * @param {number} [y]
      * @param {string} [species]
      * @param {number}[mass]
-     * @return {logCensus}
      */
     spawnCreature(
         x,
@@ -3716,9 +3683,8 @@ class World {
     }
 
     /**
-     * @method removeCreature
+	 * Removes a creature from the simulation
      * @param {Object} creature
-     * @return {logCensus}
      */
     removeCreature(creature) {
         this._index = this.creatures.indexOf(creature);
@@ -3730,7 +3696,6 @@ class World {
 
     /**
      * Clears the log and shows the census results
-     * @method logCensus
      * @param {string} [eventName] - birth | death
      * @param {string} [species]
      */
@@ -3761,7 +3726,6 @@ class World {
 
     /**
      * Returns the current population by species
-     * @method _getCensus
      * @extends logCensus
      * @return {Census}
      */
@@ -3787,7 +3751,6 @@ class World {
 
     /**
      * Adjust population and draws creatures next move
-     * @method drawNextFrame
      */
     drawNextFrame() {
         this.cycles ++;
@@ -3802,7 +3765,6 @@ class World {
 
     /**
      * Adjust world population growth to prevent overpopulation or full extintion
-     * @method adjustPopulationGrowth
      */
     adjustPopulationGrowth() {
         switch (true) { // Population control
@@ -3824,7 +3786,6 @@ class World {
 
     /**
      * Draws creatures next move
-     * @method updateCreatures
      */
     updateCreatures() {
         try {
@@ -3862,21 +3823,24 @@ class World {
 /**
  * @module Creature
  * @requires synaptic
+ * @requires lodash
  * @requires World
  * @requires Vector
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 const { Architect } = synaptic;
 
+const world = new World();
+
 /**
- * @class Creature
+ * Artificial Intelligence based in perceptron neural networks that lives in a 2D world
  */
 class Creature {
     constructor(
         x,
         y,
-        species = false,
-        mass = false,
+        species,
+        mass,
         inputNeurons = 4,
         hiddenNeurons = 4,
         outputNeurons = 3
@@ -3884,7 +3848,6 @@ class Creature {
         /**
          * Perceptron architecture allows to create multilayer perceptrons (feed-forward neural networks).
          * They consist of a sequence of layers, each fully connected to the next one.
-         * @var network
          * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
          * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
          */
@@ -3896,7 +3859,6 @@ class Creature {
 
         this.metabolism = 0.001; // Bigger means shorter life
         this.metabolismAgingRatio = 0.75; // Bigger means longer life
-        this.speciesAffinity = 4; // Higher makes creature pay less attention to other species
         this.minMass = 1;
         this.maxMass = 2;
         this.margin = 5; // Minimum separation from walls
@@ -3911,15 +3873,14 @@ class Creature {
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-        this.initializeCreatureSpecies();
-        this.initializeCreatureColor();
+        this.initializeSpecies();
+        this.initializeColor();
     }
 
     /**
      * Initializes creature's species
-     * @method initializeCreatureSpecies
      */
-    initializeCreatureSpecies() {
+    initializeSpecies() {
         if (!!this.species)
             return; // skip if already defined
 
@@ -3953,9 +3914,8 @@ class Creature {
 
     /**
      * Initializes creature's color parameters
-     * @method initializeCreatureColor
      */
-    initializeCreatureColor() {
+    initializeColor() {
         this.colors = {
             red: this.species === 'red' ? this.maxColor : this.minColor,
             green: this.species === 'green' ? this.maxColor : this.minColor,
@@ -3969,8 +3929,6 @@ class Creature {
 
     /**
      * Applies creature's movement
-     * @method moveTo
-     * @param networkOutput
      */
     moveTo(networkOutput) {
         this._decision = {
@@ -3993,7 +3951,6 @@ class Creature {
 
     /**
      * Draws current's creature position and direction
-     * @method draw
      */
     draw() {
         this.update();
@@ -4007,7 +3964,6 @@ class Creature {
 
     /**
      * Initializes canvas settings and moves starting point to the creature's position
-     * @method initCreatureDraw
      */
     initCreatureDraw(angle) {
         world.ctx.fillStyle = this.color;
@@ -4022,7 +3978,6 @@ class Creature {
 
     /**
      * Creates creature's shape
-     * @method drawCreatureShape
      */
     drawCreatureShape(angle) {
         world.ctx.lineTo(
@@ -4037,7 +3992,6 @@ class Creature {
 
     /**
      * Update's creature
-     * @method update
      */
     update() {
         if (this.mass < this.maxMass) { // Grow
@@ -4074,10 +4028,7 @@ class Creature {
     }
 
     /**
-     * Applies a vector force to the creature's momentum
-     * @method applyForce
-     * @param force
-     * @return {Vector}
+     * Applies a vector force to the creature's momentum=
      */
     applyForce(force) {
         return this.acceleration.add(force);
@@ -4085,7 +4036,6 @@ class Creature {
 
     /**
      * Prevents creatures from going beyond the edges
-     * @method boundaries
      */
     boundaries() {
         switch (true) {
@@ -4112,8 +4062,7 @@ class Creature {
 
     /**
      * Returns the force needed to move towards specific creature
-     * @method seek
-     * @param target
+     * @param {Vector} target
      * @return {Vector}
      */
     seek(target) {
@@ -4128,7 +4077,6 @@ class Creature {
     /**
      * Makes creature attempt to stay within reasonable distance
      * Triggers reproduction when creatures touch, depending on world reproduction chance
-     * @method separate
      * @return {Vector}
      */
     separate() {
@@ -4164,7 +4112,6 @@ class Creature {
 
     /**
      * Normalizes creature separation if they are within range
-     * @method normalizeSeparation
      */
     normalizeSeparation(
         target,
@@ -4182,15 +4129,11 @@ class Creature {
             count++;
         }
 
-        return [
-            sum,
-            count
-        ];
+        return [sum, count];
     }
 
     /**
      * Attempt to reproduce creature
-     * @method attemptReproduction
      * @param {Object} target
      * @param {number} distance
      */
@@ -4213,7 +4156,6 @@ class Creature {
 
     /**
      * Align to other creatures
-     * @method align
      * @return {Vector}
      */
     align() {
@@ -4239,14 +4181,13 @@ class Creature {
 
     /**
      * Adds force required to align to another creature
-     * @method addAlignmentTo
      */
     addAlignmentTo(target, sum) {
         if (target.species === this.species) // Align more to same species
             sum.add(target.velocity);
         else { // Align less to other species
             this._targetVelocity = target.velocity.copy();
-            sum.add(this._targetVelocity.div(this.speciesAffinity));
+            sum.add(this._targetVelocity.div(4));
         }
 
         return sum;
@@ -4254,7 +4195,6 @@ class Creature {
 
     /**
      * Makes creature group with same species
-     * @method cohesion
      * @return {Vector}
      */
     cohesion() {
@@ -4278,7 +4218,6 @@ class Creature {
     /**
      * Makes creature attempt to stay within reasonable distance
      * Triggers reproduction when creatures touch, depending on world reproduction chance
-     * @method separate
      */
     applyCohesion(
         creature,
@@ -4290,13 +4229,10 @@ class Creature {
             count ++;
         }
 
-        return [
-            sum,
-            count
-        ];
+        return [sum, count];
     }
 }
 
-const world = new World();
-world.launch();</script>
+world.launch();
+</script>
 </div></body></html>

@@ -2,21 +2,24 @@
 /**
  * @module Creature
  * @requires synaptic
+ * @requires lodash
  * @requires World
  * @requires Vector
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 const { Architect } = synaptic;
 
+const world = new World();
+
 /**
- * @class Creature
+ * Artificial Intelligence based in perceptron neural networks that lives in a 2D world
  */
 class Creature {
     constructor(
         x,
         y,
-        species = false,
-        mass = false,
+        species,
+        mass,
         inputNeurons = 4,
         hiddenNeurons = 4,
         outputNeurons = 3
@@ -24,7 +27,6 @@ class Creature {
         /**
          * Perceptron architecture allows to create multilayer perceptrons (feed-forward neural networks).
          * They consist of a sequence of layers, each fully connected to the next one.
-         * @var network
          * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
          * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
          */
@@ -36,7 +38,6 @@ class Creature {
 
         this.metabolism = 0.001; // Bigger means shorter life
         this.metabolismAgingRatio = 0.75; // Bigger means longer life
-        this.speciesAffinity = 4; // Higher makes creature pay less attention to other species
         this.minMass = 1;
         this.maxMass = 2;
         this.margin = 5; // Minimum separation from walls
@@ -51,15 +52,14 @@ class Creature {
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-        this.initializeCreatureSpecies();
-        this.initializeCreatureColor();
+        this.initializeSpecies();
+        this.initializeColor();
     }
 
     /**
      * Initializes creature's species
-     * @method initializeCreatureSpecies
      */
-    initializeCreatureSpecies() {
+    initializeSpecies() {
         if (!!this.species)
             return; // skip if already defined
 
@@ -93,9 +93,8 @@ class Creature {
 
     /**
      * Initializes creature's color parameters
-     * @method initializeCreatureColor
      */
-    initializeCreatureColor() {
+    initializeColor() {
         this.colors = {
             red: this.species === 'red' ? this.maxColor : this.minColor,
             green: this.species === 'green' ? this.maxColor : this.minColor,
@@ -109,8 +108,6 @@ class Creature {
 
     /**
      * Applies creature's movement
-     * @method moveTo
-     * @param networkOutput
      */
     moveTo(networkOutput) {
         this._decision = {
@@ -133,7 +130,6 @@ class Creature {
 
     /**
      * Draws current's creature position and direction
-     * @method draw
      */
     draw() {
         this.update();
@@ -147,7 +143,6 @@ class Creature {
 
     /**
      * Initializes canvas settings and moves starting point to the creature's position
-     * @method initCreatureDraw
      */
     initCreatureDraw(angle) {
         world.ctx.fillStyle = this.color;
@@ -162,7 +157,6 @@ class Creature {
 
     /**
      * Creates creature's shape
-     * @method drawCreatureShape
      */
     drawCreatureShape(angle) {
         world.ctx.lineTo(
@@ -177,7 +171,6 @@ class Creature {
 
     /**
      * Update's creature
-     * @method update
      */
     update() {
         if (this.mass < this.maxMass) { // Grow
@@ -214,10 +207,7 @@ class Creature {
     }
 
     /**
-     * Applies a vector force to the creature's momentum
-     * @method applyForce
-     * @param force
-     * @return {Vector}
+     * Applies a vector force to the creature's momentum=
      */
     applyForce(force) {
         return this.acceleration.add(force);
@@ -225,7 +215,6 @@ class Creature {
 
     /**
      * Prevents creatures from going beyond the edges
-     * @method boundaries
      */
     boundaries() {
         switch (true) {
@@ -252,8 +241,7 @@ class Creature {
 
     /**
      * Returns the force needed to move towards specific creature
-     * @method seek
-     * @param target
+     * @param {Vector} target
      * @return {Vector}
      */
     seek(target) {
@@ -268,7 +256,6 @@ class Creature {
     /**
      * Makes creature attempt to stay within reasonable distance
      * Triggers reproduction when creatures touch, depending on world reproduction chance
-     * @method separate
      * @return {Vector}
      */
     separate() {
@@ -304,7 +291,6 @@ class Creature {
 
     /**
      * Normalizes creature separation if they are within range
-     * @method normalizeSeparation
      */
     normalizeSeparation(
         target,
@@ -322,15 +308,11 @@ class Creature {
             count++;
         }
 
-        return [
-            sum,
-            count
-        ];
+        return [sum, count];
     }
 
     /**
      * Attempt to reproduce creature
-     * @method attemptReproduction
      * @param {Object} target
      * @param {number} distance
      */
@@ -353,7 +335,6 @@ class Creature {
 
     /**
      * Align to other creatures
-     * @method align
      * @return {Vector}
      */
     align() {
@@ -379,14 +360,13 @@ class Creature {
 
     /**
      * Adds force required to align to another creature
-     * @method addAlignmentTo
      */
     addAlignmentTo(target, sum) {
         if (target.species === this.species) // Align more to same species
             sum.add(target.velocity);
         else { // Align less to other species
             this._targetVelocity = target.velocity.copy();
-            sum.add(this._targetVelocity.div(this.speciesAffinity));
+            sum.add(this._targetVelocity.div(4));
         }
 
         return sum;
@@ -394,7 +374,6 @@ class Creature {
 
     /**
      * Makes creature group with same species
-     * @method cohesion
      * @return {Vector}
      */
     cohesion() {
@@ -418,7 +397,6 @@ class Creature {
     /**
      * Makes creature attempt to stay within reasonable distance
      * Triggers reproduction when creatures touch, depending on world reproduction chance
-     * @method separate
      */
     applyCohesion(
         creature,
@@ -430,12 +408,8 @@ class Creature {
             count ++;
         }
 
-        return [
-            sum,
-            count
-        ];
+        return [sum, count];
     }
 }
 
-const world = new World();
 world.launch();

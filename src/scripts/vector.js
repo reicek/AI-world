@@ -1,14 +1,14 @@
 'use strict';
 /**
  * @module Vector
+ * @requires lodash
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
- * @class Vector
+ * 2D Matrix position
  */
 class Vector {
     /**
-     * Vector constructor
      * @constructs Vector
      * @param {number} [x = 0] - X value
      * @param {number} [y = 0] - Y value
@@ -35,7 +35,6 @@ class Vector {
     }
 
     /**
-     * @method set
      * @param {number} [x = 0] - X value
      * @param {number} [y = 0] - Y value
      * @return {Vector}
@@ -51,7 +50,6 @@ class Vector {
     }
 
     /**
-     * @method random
      * @return {Vector}
      */
     random() {
@@ -60,8 +58,6 @@ class Vector {
     }
 
     /**
-     * @method add
-     * @param v
      * @return {Vector}
      */
     add(v) {
@@ -72,8 +68,6 @@ class Vector {
     }
 
     /**
-     * @method sub
-     * @param v
      * @return {Vector}
      */
     sub(v) {
@@ -84,8 +78,6 @@ class Vector {
     }
 
     /**
-     * @method mul
-     * @param s
      * @return {Vector}
      */
     mul(s) {
@@ -96,8 +88,6 @@ class Vector {
     }
 
     /**
-     * @method div
-     * @param s
      * @return {Vector}
      */
     div(s) {
@@ -108,7 +98,6 @@ class Vector {
     }
 
     /**
-     * @method mag
      * @return {number}
      */
     mag() {
@@ -116,7 +105,6 @@ class Vector {
     }
 
     /**
-     * @method normalize
      * @return {Vector}
      */
     normalize() {
@@ -124,7 +112,6 @@ class Vector {
     }
 
     /**
-     * @method angle
      * @return {number}
      */
     angle() {
@@ -132,8 +119,6 @@ class Vector {
     }
 
     /**
-     * @method setMag
-     * @param m
      * @return {Vector}
      */
     setMag(m) {
@@ -146,8 +131,6 @@ class Vector {
     }
 
     /**
-     * @method setAngle
-     * @param a
      * @return {Vector}
      */
     setAngle(a) {
@@ -160,8 +143,6 @@ class Vector {
     }
 
     /**
-     * @method rotate
-     * @param a
      * @return {Vector}
      */
     rotate(a) {
@@ -169,8 +150,6 @@ class Vector {
     }
 
     /**
-     * @method limit
-     * @param l
      * @return {Vector}
      */
     limit(l) {
@@ -181,8 +160,6 @@ class Vector {
     }
 
     /**
-     * @method angleBetween
-     * @param v
      * @return {number}
      */
     angleBetween(v) {
@@ -190,8 +167,6 @@ class Vector {
     }
 
     /**
-     * @method dot
-     * @param v
      * @return {number}
      */
     dot(v) {
@@ -199,9 +174,6 @@ class Vector {
     }
 
     /**
-     * @method lerp
-     * @param v
-     * @param amt
      * @return {Vector}
      */
     lerp(
@@ -215,19 +187,18 @@ class Vector {
     }
 
     /**
-     * @method dist
-     * @param v
+	 * Calculates distance between current vector and the target
      * @return {number}
      */
-    dist(v) {
-        this.dx = this.x - v.x;
-        this.dy = this.y - v.y;
+    dist(target) {
+        this.dx = this.x - target.x;
+        this.dy = this.y - target.y;
 
-        return Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+        return Math.sqrt(_.add(this.dx * this.dx, this.dy * this.dy));
     }
 
     /**
-     * @method copy
+	 * Builds a new vector with the same caractestics as this
      * @return {Vector}
      */
     copy() {
