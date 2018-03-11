@@ -5,6 +5,7 @@
  * @requires lodash
  * @requires World
  * @requires Vector
+ * @requires DrawCreature
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 const { Architect } = synaptic;
@@ -46,7 +47,6 @@ class Creature {
         this.maxforce = 0.33 * (this.mass / 2);
         this.length = this.mass * 2;
         this.base = this.length / 3;
-        this.HALF_PI = Math.PI / 2;
         this.TWO_PI = Math.PI * 2;
         this.location = new Vector(x, y);
         this.velocity = new Vector(0, 0);
@@ -135,38 +135,10 @@ class Creature {
         this.update();
         this._angle = this.velocity.angle();
 
-        this.initCreatureDraw(this._angle);
-        this.drawCreatureShape(this._angle);
+        DrawCreature.base(this.base, this._angle, this.location, this.color, world);
+        DrawCreature.shape(this.base, this._angle, this.location, world);
 
         return this;
-    }
-
-    /**
-     * Initializes canvas settings and moves starting point to the creature's position
-     */
-    initCreatureDraw(angle) {
-        world.ctx.fillStyle = this.color;
-        world.ctx.strokeStyle = this.color;
-        world.ctx.beginPath();
-
-        return world.ctx.moveTo(
-            this.location.x + Math.cos(angle) * this.base * 3, // x1
-            this.location.y + Math.sin(angle) * this.base * 3  // y1
-        );
-    }
-
-    /**
-     * Creates creature's shape
-     */
-    drawCreatureShape(angle) {
-        world.ctx.lineTo(
-            this.location.x + Math.cos(angle + this.HALF_PI) * this.base,
-            this.location.y + Math.sin(angle + this.HALF_PI) * this.base
-        );
-
-        world.ctx.stroke();
-
-        return world.ctx.fill();
     }
 
     /**

@@ -69,6 +69,7 @@
 		"Census": false,
         "synaptic": false,
         "Creature": false,
+		"DrawCreature": false,
         "_": false,
         "$": false,
         "after": false,
