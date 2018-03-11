@@ -245,9 +245,7 @@ class Creature {
      * @return {Vector}
      */
     seek(target) {
-        this.target = target.copy();
-
-        return this.target
+        return target.copy()
             .sub(this.location)
             .sub(this.velocity)
             .limit(this.maxforce / 4);
@@ -280,13 +278,8 @@ class Creature {
             );
         }
 
-        if (!this._count)
-            return this._sum;
-        else
-            return this._sum
-                .div(this._count)
-                .normalize()
-                .sub(this.velocity);
+		return !this._count ? this._sum :
+			this._sum.div(this._count).normalize().sub(this.velocity);
     }
 
     /**
@@ -351,11 +344,7 @@ class Creature {
             this._count++;
         }
 
-        if (this._count > 0)
-            return this._sum
-                .mul(0.003);
-        else
-            return this._sum;
+		return this._count > 0 ? this._sum.mul(0.003) : this._sum;
     }
 
     /**
@@ -388,10 +377,7 @@ class Creature {
             [this._sum, this._count] = this.applyCohesion(world.creatures[this._index], this._sum, this._count);
         }
 
-        if (this._count > 0)
-            return this._sum.div(this._count);
-        else
-            return this._sum;
+		return this._count > 0 ? this._sum.div(this._count) : this._sum;
     }
 
     /**

@@ -3,6 +3,7 @@
  * @module World
  * @requires lodash
  * @requires Creature
+ * @requires Census
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
@@ -16,24 +17,23 @@ class World {
         id = 'world',
         pathOpacity = 0.5
     ) {
+        this.id = id;
+        this.topPopulation = topPopulation;
+        this.initialPopulation = initialPopulation;
         this.reproductionChance = reproductionChance;
         this.initialReproductionChange = reproductionChance;
-        this.initialPopulation = initialPopulation;
-        this.topPopulation = topPopulation;
-        this.id = id;
         this.canvas = $(`#${id}`)[0];
         this.ctx = this.canvas.getContext('2d', { alpha: false });
         this.ctx.canvas.height = $(`#${id}`).height();
         this.ctx.canvas.width = $(`#${id}`).width();
-        this.ctx.lineWidth = 2;
-        this.births = 0;
-        this.deaths = 0;
-        this.cycles = 0;
-        this.creatures = [];
         this.width = this.canvas.width;
         this.height = this.canvas.height;
+        this.ctx.lineWidth = 2;
+        this.creatures = [];
         this.learningRate = 0.15;
         this.pathOpacity = pathOpacity;
+		this.census = new Census();
+        this.cycles = 0;
     }
 
     /**
@@ -78,25 +78,7 @@ class World {
         y,
         species
     ) {
-        this.leastPopulated = !!species ? species : _.minBy(
-            [
-                {
-                    species: 'red',
-                    population: this.census.red
-                },
-                {
-                    species: 'green',
-                    population: this.census.green
-                },
-                {
-                    species: 'blue',
-                    population: this.census.blue
-                }
-            ],
-            'population'
-        );
-
-        this.spawnCreature(x, y, this.leastPopulated.species);
+        this.spawnCreature(x, y, this.census.minority());
 
         return this.initialPopulation++; // Permanently increase the ideal population
     }
@@ -127,7 +109,7 @@ class World {
         this.creatures.push(new Creature(x, y, species, mass));
         this.births ++;
 
-        return this.logCensus('birth', species);
+        return this.census.log(this);
     }
 
     /**
@@ -139,62 +121,7 @@ class World {
         this.creatures.splice(this._index, 1);
         this.deaths ++;
 
-        return this.logCensus('death', creature.species);
-    }
-
-    /**
-     * Clears the log and shows the census results
-     * @param {string} [eventName] - birth | death
-     * @param {string} [species]
-     */
-    logCensus(
-        eventName,
-        species
-    ) {
-        this.updateCensus();
-        $('#population').text(this.creatures.length);
-
-        console.clear();
-        console.log('%c==================================', 'color: #777');
-        console.log(`%c Red   : ${this.census.red}`, 'color: rgb(255, 100, 100)');
-        console.log(`%c Green  : ${this.census.green}`, 'color: rgb(100, 255, 100)');
-        console.log(`%c Blue : ${this.census.blue}`, ' color: rgb(100, 100, 255)');
-        console.log(` Population: ${this.creatures.length}`);
-        console.log(` Reproduction chance ${this.reproductionChance}`);
-        if (this.births > 0)
-            console.log(` Births: ${this.births}`);
-        if (this.deaths > 0)
-            console.log(` Deaths ${this.deaths}`);
-        if (this.creatures.length >= this.topPopulation)
-            console.log(`%c Overpopulation after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
-        if (this.creatures.length === 0)
-            console.log(`%c Extintion after ${this.cycles} cycles!`, 'color: rgb(255, 150, 150)');
-        console.log('%c==================================', 'color: #777');
-    }
-
-    /**
-     * Returns the current population by species
-     * @extends logCensus
-     * @return {Census}
-     */
-    /**
-     * @typedef  {Object} Census - Population by species
-     * @property {number} red    - Red population
-     * @property {number} green  - Green population
-     * @property {number} blue   - Blue population
-     */
-    updateCensus() {
-        this.census = {
-            red: 0,
-            green: 0,
-            blue: 0
-        };
-
-        this._index = this.creatures.length;
-        while (this._index--)
-            this.census[this.creatures[this._index].species] ++;
-
-        return this.census;
+        return this.census.log(this);
     }
 
     /**
