@@ -1,6 +1,6 @@
 {
   "name": "ai-world",
-  "version": "1.2.9",
+  "version": "1.2.11",
   "description": "Life simulation that demonstrates Perceptron neural networks adjusting to a dynamic scenario.",
   "main": "index.js",
   "scripts": {

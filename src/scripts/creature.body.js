@@ -90,7 +90,7 @@ class CreatureBody {
             creature.colors[creature.species] = Math.round(creature.maxSpeed * 255 / (creature.maxMass * 2)) + 110;
             creature.color = `rgb(${Math.round(creature.colors.red)}, ${Math.round(creature.colors.green)}, ${Math.round(creature.colors.blue)})`;
         } else  // Death
-            return world.removeCreature(this);
+            return world.removeCreature(creature);
 	}
 
     /**
