@@ -22,7 +22,7 @@ class Creature {
         hiddenNeurons,
         outputNeurons
     ) {
-        this.brain = CreatureBrain.initialize(inputNeurons, hiddenNeurons, outputNeurons);
+        this.brain = new CreatureBrain(inputNeurons, hiddenNeurons, outputNeurons);
         this.metabolism = 0.001; // Bigger means shorter life
         this.metabolismAgingRatio = 0.75; // Bigger means longer life
         this.minMass = 1;

@@ -16,38 +16,44 @@ class CreatureBrain {
 	 * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
 	 * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
      */
-    static initialize(
+	constructor (
         inputNeurons = 4,
         hiddenNeurons = 4,
         outputNeurons = 3
 	) {
-		return new Architect.Perceptron(
-				inputNeurons,
-				hiddenNeurons,
-				outputNeurons
-			);
+		this.network = new Architect.Perceptron(
+			inputNeurons,
+			hiddenNeurons,
+			outputNeurons
+		);
     }
 
     /**
      * Think of where to move from current location (align to others)
      */
-    static think(creature) {
-		return creature.brain.activate([
-				creature.location.x,
-				creature.location.y,
-				creature.velocity.x,
-				creature.velocity.y
-			]);
+    think(
+		location,
+		velocity
+	) {
+		return this.network.activate([
+			location.x,
+			location.y,
+			velocity.x,
+			velocity.y
+		]);
     }
 
     /**
      * Learn how to move
      */
-    static learn(creature, creatureCohesion, world) {
-		creature.brain.propagate(world.learningRate, [
-				creatureCohesion.x / world.width, // X target
-				creatureCohesion.y / world.height, // Y target
-				(creature.align().angle() + Math.PI) / (Math.PI * 2) // Target angle
-			]);
+    learn(cohesion, angle, world) {
+		this.network.propagate(
+			world.learningRate,
+			[
+				cohesion.x / world.width, // X target
+				cohesion.y / world.height, // Y target
+				(angle + Math.PI) / (Math.PI * 2) // Target angle
+			]
+		);
     }
 }

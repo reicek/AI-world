@@ -192,11 +192,20 @@ class World {
         try {
             this._index = this.creatures.length;
             while (this._index--) {
-                this.creatures[this._index].moveTo(CreatureBrain.think(this.creatures[this._index]));
+                this.creatures[this._index].moveTo(
+					this.creatures[this._index].brain.think(
+						this.creatures[this._index].location,
+						this.creatures[this._index].velocity
+					)
+				);
                 this.creatures[this._index].draw(); // Move creature
                 this._creatureCohesion = this.creatures[this._index].cohesion();
 
-                CreatureBrain.learn(this.creatures[this._index],this._creatureCohesion, this); // Learn to move with others
+                this.creatures[this._index].brain.learn( // Learn to move with others
+					this._creatureCohesion,
+					this.creatures[this._index].align().angle(),
+					this
+				);
             }
 
             return requestAnimationFrame(() =>
