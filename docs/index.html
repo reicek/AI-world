@@ -4024,7 +4024,6 @@ class Creature {
         this.maxforce = 0.33 * (this.mass / 2);
         this.length = this.mass * 2;
         this.base = this.length / 3;
-        this.TWO_PI = Math.PI * 2;
         this.location = new Vector(x, y);
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
@@ -4103,7 +4102,7 @@ class Creature {
                 this._decision.y * world.height
             )))
             .add(this.align() // Apply force to better align to peers
-                .setAngle((this._decision.angle * this.TWO_PI) - Math.PI)
+                .setAngle((this._decision.angle * (Math.PI * 2)) - Math.PI)
             )
         );
     }
@@ -4125,6 +4124,29 @@ class Creature {
      * Update's creature
      */
     update() {
+		this.grow();
+		this.age();
+
+        this.boundaries();
+        this.velocity
+            .add(this.acceleration)
+            .limit(this.maxSpeed);
+
+        if (this.velocity.mag() > this.maxSpeed)
+            this.accelerate();
+        else if (this.velocity.mag() < this.maxSpeed)
+            this.decelerate();
+
+        this.location.add(this.velocity);
+        this.acceleration.mul(0);
+
+        return this;
+    }
+
+    /**
+     * Add growth depending on metabolism
+     */
+	grow() {
         if (this.mass < this.maxMass) { // Grow
             this.mass += this.metabolism;
             this.maxSpeed = this.mass * 2;
@@ -4132,7 +4154,13 @@ class Creature {
             this.length = this.mass * 2;
             this.base = this.length / 3;
         }
+	}
 
+    /**
+     * Aging translates into the creature's max speed reduction
+	 * or death (deletion) when none speed is left
+     */
+	age() {
         if (this.maxSpeed > 0.1) { // Aging
             this._deterioration = this.metabolism / this.metabolismAgingRatio;
             this.maxSpeed -= this._deterioration;
@@ -4140,23 +4168,21 @@ class Creature {
             this.color = `rgb(${Math.round(this.colors.red)}, ${Math.round(this.colors.green)}, ${Math.round(this.colors.blue)})`;
         } else  // Death
             return world.removeCreature(this);
+	}
 
-        this.boundaries();
+    /**
+     * Increase velocity
+     */
+	accelerate(rate = 0.9) {
+		this.velocity.setMag(this.velocity.mag() * rate);
+	}
 
-        this.velocity
-            .add(this.acceleration)
-            .limit(this.maxSpeed);
-
-        if (this.velocity.mag() > this.maxSpeed)
-            this.velocity.setMag(this.velocity.mag() * 0.9);
-        else if (this.velocity.mag() < this.maxSpeed)
-            this.velocity.setMag(this.velocity.mag() * 1.01);
-
-        this.location.add(this.velocity);
-        this.acceleration.mul(0);
-
-        return this;
-    }
+    /**
+     * Decrease velocity
+     */
+	decelerate(rate = 1.01) {
+		this.velocity.setMag(this.velocity.mag() * rate);
+	}
 
     /**
      * Applies a vector force to the creature's momentum=
