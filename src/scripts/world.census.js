@@ -31,10 +31,12 @@ class Census {
         console.clear();
         console.log('%c==================================', 'color: #777');
         console.log(`%c Red   : ${this.red}`, 'color: rgb(255, 100, 100)');
+        console.log(`%c Reproduction chance ${world.reproductionChance.red}`, 'color: rgb(255, 100, 100)');
         console.log(`%c Green  : ${this.green}`, 'color: rgb(100, 255, 100)');
+        console.log(`%c Reproduction chance ${world.reproductionChance.green}`, 'color: rgb(100, 255, 100)');
         console.log(`%c Blue : ${this.blue}`, ' color: rgb(100, 100, 255)');
+        console.log(`%c Reproduction chance ${world.reproductionChance.blue}`, 'color: rgb(100, 100, 255)');
         console.log(` Population: ${world.creatures.length}`);
-        console.log(` Reproduction chance ${world.reproductionChance}`);
         if (this.births > 0)
             console.log(` Births: ${this.births}`);
         if (this.deaths > 0)

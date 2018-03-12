@@ -11,38 +11,49 @@
  */
 class World {
     constructor(
-        initialPopulation = 15,
-        topPopulation = 200,
+        topPopulation = 100,
         reproductionChance = 2,
         id = 'world',
-        pathOpacity = 0.5
+        pathOpacity = 0.6
     ) {
-        this.id = id;
-        this.topPopulation = topPopulation;
-        this.initialPopulation = initialPopulation;
-        this.reproductionChance = reproductionChance;
-        this.initialReproductionChange = reproductionChance;
-        this.canvas = $(`#${id}`)[0];
-        this.ctx = this.canvas.getContext('2d', { alpha: false });
-        this.ctx.canvas.height = $(`#${id}`).height();
-        this.ctx.canvas.width = $(`#${id}`).width();
-        this.width = this.canvas.width;
-        this.height = this.canvas.height;
-        this.ctx.lineWidth = 2;
-        this.creatures = [];
-        this.learningRate = 0.15;
-        this.pathOpacity = pathOpacity;
-		this.census = new Census();
         this.cycles = 0;
+        this.learningRate = 0.15;
+
+        this.id = id;
+        this.creatures = [];
+		this.species = [
+			'red',
+			'green',
+			'blue'
+		];
+
+        this.pathOpacity = pathOpacity;
+        this.topPopulation = topPopulation;
+		this.census = new Census();
+        this.initialReproductionChange = {
+			red: reproductionChance,
+			green: reproductionChance,
+			blue: reproductionChance
+		};
+        this.reproductionChance = _.clone(this.initialReproductionChange);
+        this.initialPopulation = this.species.length * 2;
     }
 
     /**
      * Start simulation
      */
     launch() {
-        this._i = this.initialPopulation;
+        this.canvas = $(`#${this.id}`)[0];
+        this.ctx = this.canvas.getContext('2d', { alpha: false });
+        this.ctx.canvas.height = $(`#${this.id}`).height();
+        this.ctx.canvas.width = $(`#${this.id}`).width();
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+        this.ctx.lineWidth = 2;
+
+        this._i = this.species.length * 3;
         while (this._i --)
-            this.spawnCreature(_.random(0, this.width), _.random(0, this.height));
+            this.spawnCreature(_.random(0, this.width), _.random(0, this.height), this.species[Math.round((this._i + 1) / 3) - 1]);
 
         $(`button.add, #${this.id}`).click(e => // Add new creature to the less populated species on left click
             this.increasePopulation(e.clientX, e.clientY));
@@ -69,18 +80,15 @@ class World {
 
     /**
      * Increases the least populated species if none is specified
-     * @param {number} [x]
-     * @param {number} [y]
-     * @param {string} [species]
+     * @param {number} [x] - New creature's coordinate on the X axis
+     * @param {number} [y] - New creature's coordinate on the Y axis
+     * @param {string} [species] - New creature's species
      */
     increasePopulation(
         x,
-        y,
-        species
+        y
     ) {
-        this.spawnCreature(x, y, this.census.minority());
-
-        return this.initialPopulation++; // Permanently increase the ideal population
+        this.spawnCreature(x, y, this.census.minority().species);
     }
 
     /**
@@ -89,8 +97,6 @@ class World {
      */
     decreasePopulation() {
         this.removeCreature(_.minBy(this.creatures, 'maxSpeed'));
-
-        return this.initialPopulation--; // Permanently decrease the ideal population
     }
 
     /**
@@ -142,21 +148,22 @@ class World {
      * Adjust world population growth to prevent overpopulation or full extintion
      */
     adjustPopulationGrowth() {
-        switch (true) { // Population control
-            case this.creatures.length > this.initialPopulation * 1.3: // If overpopulation in progress
-                this.reproductionChance *=  0.999; // Reduce reproduction chance
-                break;
+		this._i = this.species.length;
+		while (this._i --) {
+			switch (true) { // Population control
+				case this.census[this.species[this._i]] > this.initialPopulation * 1.3: // If overpopulation in progress
+					this.reproductionChance[this.species[this._i]] *=  0.999; // Reduce reproduction chance
+					break;
 
-            case this.creatures.length < this.initialPopulation * 0.8: // If extintion in progress
-                this.reproductionChance *=  1.001; // Increase reproduction chance
-                break;
+				case this.census[this.species[this._i]] < this.initialPopulation * 0.8: // If extintion in progress
+					this.reproductionChance[this.species[this._i]] *=  1.001; // Increase reproduction chance
+					break;
 
-            default:
-                this.reproductionChance = this.initialReproductionChange;
-                break;
-        }
-
-        return this.reproductionChance;
+				default:
+					this.reproductionChance[this.species[this._i]] = this.initialReproductionChange[this.species[this._i]];
+					break;
+			}
+		}
     }
 
     /**

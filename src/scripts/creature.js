@@ -52,19 +52,22 @@ class Creature {
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-        this.initializeSpecies();
+        this.initializeSpecies(species);
         this.initializeColor();
     }
 
     /**
      * Initializes creature's species
      */
-    initializeSpecies() {
-        if (!!this.species)
-            return; // skip if already defined
-
+    initializeSpecies(species) {
         this.minColor = 100;
         this.maxColor = 255;
+
+        if (!!species) {
+            this.species = species; // skip if already defined
+
+            return this.species; // skip if already defined
+		}
 
         this.colors = {
             red: _.random(this.minColor, this.maxColor),
@@ -282,7 +285,7 @@ class Creature {
      * @param {number} distance
      */
     attemptReproduction(target, distance) {
-        if (distance <= (this.minSeparation * world.reproductionChance)) { // is close enough to reproduce
+        if (distance <= (this.minSeparation * world.reproductionChance[this.species]) && (target.species === this.species)) { // is close enough to reproduce
             if ((this.mass >= this.maxMass) && (target.mass >= this.maxMass)) { // both creatures are fully mature
                 // Both parents loose half their mass
                 this.mass /= 2;
