@@ -1,14 +1,11 @@
 'use strict';
 /**
  * @module Creature
- * @requires synaptic
  * @requires lodash
  * @requires World
  * @requires Vector
  * @requires DrawCreature
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
-const { Architect } = synaptic;
 
 const world = new World();
 
@@ -21,22 +18,11 @@ class Creature {
         y,
         species,
         mass,
-        inputNeurons = 4,
-        hiddenNeurons = 4,
-        outputNeurons = 3
+        inputNeurons,
+        hiddenNeurons,
+        outputNeurons
     ) {
-        /**
-         * Perceptron architecture allows to create multilayer perceptrons (feed-forward neural networks).
-         * They consist of a sequence of layers, each fully connected to the next one.
-         * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
-         * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
-         */
-        this.network = new Architect.Perceptron(
-            inputNeurons,
-            hiddenNeurons,
-            outputNeurons
-        );
-
+        this.brain = CreatureBrain.initialize(inputNeurons, hiddenNeurons, outputNeurons);
         this.metabolism = 0.001; // Bigger means shorter life
         this.metabolismAgingRatio = 0.75; // Bigger means longer life
         this.minMass = 1;

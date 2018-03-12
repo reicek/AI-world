@@ -3669,7 +3669,6 @@ class Census {
  * @requires lodash
  * @requires Creature
  * @requires Census
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
  * 2D environment for creatures
@@ -3858,23 +3857,11 @@ class World {
         try {
             this._index = this.creatures.length;
             while (this._index--) {
-                this.creatures[this._index].moveTo(this.creatures[this._index]
-                    .network.activate([ // Think of where to move from current location (align to others)
-                        this.creatures[this._index].location.x,
-                        this.creatures[this._index].location.y,
-                        this.creatures[this._index].velocity.x,
-                        this.creatures[this._index].velocity.y
-                    ]));
-
+                this.creatures[this._index].moveTo(CreatureBrain.think(this.creatures[this._index]));
                 this.creatures[this._index].draw(); // Move creature
-
                 this._creatureCohesion = this.creatures[this._index].cohesion();
 
-                this.creatures[this._index].network.propagate(this.learningRate, [
-                    this._creatureCohesion.x / this.width, // X target
-                    this._creatureCohesion.y / this.height, // Y target
-                    (this.creatures[this._index].align().angle() + Math.PI) / (Math.PI * 2) // Target angle
-                ]); // Learn to move with others
+                CreatureBrain.learn(this.creatures[this._index],this._creatureCohesion, this); // Learn to move with others
             }
 
             return requestAnimationFrame(() =>
@@ -3935,15 +3922,66 @@ class DrawCreature {
 </script>
 <script>'use strict';
 /**
- * @module Creature
+ * @module CreatureBrain
  * @requires synaptic
+ * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
+ */
+
+const { Architect } = synaptic;
+
+/**
+ * Creature's mind
+ */
+class CreatureBrain {
+    /**
+     * Creates a new neural network
+	 * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
+	 * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
+     */
+    static initialize(
+        inputNeurons = 4,
+        hiddenNeurons = 4,
+        outputNeurons = 3
+	) {
+		return new Architect.Perceptron(
+				inputNeurons,
+				hiddenNeurons,
+				outputNeurons
+			);
+    }
+
+    /**
+     * Think of where to move from current location (align to others)
+     */
+    static think(creature) {
+		return creature.brain.activate([
+				creature.location.x,
+				creature.location.y,
+				creature.velocity.x,
+				creature.velocity.y
+			]);
+    }
+
+    /**
+     * Learn how to move
+     */
+    static learn(creature, creatureCohesion, world) {
+		creature.brain.propagate(world.learningRate, [
+				creatureCohesion.x / world.width, // X target
+				creatureCohesion.y / world.height, // Y target
+				(creature.align().angle() + Math.PI) / (Math.PI * 2) // Target angle
+			]);
+    }
+}
+</script>
+<script>'use strict';
+/**
+ * @module Creature
  * @requires lodash
  * @requires World
  * @requires Vector
  * @requires DrawCreature
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
-const { Architect } = synaptic;
 
 const world = new World();
 
@@ -3956,22 +3994,11 @@ class Creature {
         y,
         species,
         mass,
-        inputNeurons = 4,
-        hiddenNeurons = 4,
-        outputNeurons = 3
+        inputNeurons,
+        hiddenNeurons,
+        outputNeurons
     ) {
-        /**
-         * Perceptron architecture allows to create multilayer perceptrons (feed-forward neural networks).
-         * They consist of a sequence of layers, each fully connected to the next one.
-         * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
-         * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
-         */
-        this.network = new Architect.Perceptron(
-            inputNeurons,
-            hiddenNeurons,
-            outputNeurons
-        );
-
+        this.brain = CreatureBrain.initialize(inputNeurons, hiddenNeurons, outputNeurons);
         this.metabolism = 0.001; // Bigger means shorter life
         this.metabolismAgingRatio = 0.75; // Bigger means longer life
         this.minMass = 1;

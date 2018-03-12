@@ -70,6 +70,7 @@
         "synaptic": false,
         "Creature": false,
 		"DrawCreature": false,
+		"CreatureBrain": false,
         "_": false,
         "$": false,
         "after": false,

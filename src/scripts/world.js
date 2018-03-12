@@ -4,7 +4,6 @@
  * @requires lodash
  * @requires Creature
  * @requires Census
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 /**
  * 2D environment for creatures
@@ -193,23 +192,11 @@ class World {
         try {
             this._index = this.creatures.length;
             while (this._index--) {
-                this.creatures[this._index].moveTo(this.creatures[this._index]
-                    .network.activate([ // Think of where to move from current location (align to others)
-                        this.creatures[this._index].location.x,
-                        this.creatures[this._index].location.y,
-                        this.creatures[this._index].velocity.x,
-                        this.creatures[this._index].velocity.y
-                    ]));
-
+                this.creatures[this._index].moveTo(CreatureBrain.think(this.creatures[this._index]));
                 this.creatures[this._index].draw(); // Move creature
-
                 this._creatureCohesion = this.creatures[this._index].cohesion();
 
-                this.creatures[this._index].network.propagate(this.learningRate, [
-                    this._creatureCohesion.x / this.width, // X target
-                    this._creatureCohesion.y / this.height, // Y target
-                    (this.creatures[this._index].align().angle() + Math.PI) / (Math.PI * 2) // Target angle
-                ]); // Learn to move with others
+                CreatureBrain.learn(this.creatures[this._index],this._creatureCohesion, this); // Learn to move with others
             }
 
             return requestAnimationFrame(() =>
