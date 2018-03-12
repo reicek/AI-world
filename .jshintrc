@@ -71,6 +71,7 @@
         "Creature": false,
 		"DrawCreature": false,
 		"CreatureBrain": false,
+		"CreatureBody": false,
         "_": false,
         "$": false,
         "after": false,

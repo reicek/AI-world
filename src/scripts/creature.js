@@ -5,6 +5,8 @@
  * @requires World
  * @requires Vector
  * @requires DrawCreature
+ * @requires CreatureBrain
+ * @requires CreatureBody
  */
 
 const world = new World();
@@ -37,61 +39,8 @@ class Creature {
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-        this.initializeSpecies(species);
-        this.initializeColor();
-    }
-
-    /**
-     * Initializes creature's species
-     */
-    initializeSpecies(species) {
-        this.minColor = 100;
-        this.maxColor = 255;
-
-        if (!!species) {
-            this.species = species; // skip if already defined
-
-            return this.species; // skip if already defined
-		}
-
-        this.colors = {
-            red: _.random(this.minColor, this.maxColor),
-            green: _.random(this.minColor, this.maxColor),
-            blue: _.random(this.minColor, this.maxColor)
-        };
-
-        this.dominantColor = _.max([this.colors.red, this.colors.green, this.colors.blue]);
-        switch (true) {
-            case (this.colors.red === this.dominantColor):
-                this.species = 'red';
-                break;
-
-            case (this.colors.green === this.dominantColor):
-                this.species = 'green';
-                break;
-
-            case (this.colors.blue === this.dominantColor):
-                this.species = 'blue';
-                break;
-        }
-        delete this.dominantColor;
-
-        return this.species;
-    }
-
-    /**
-     * Initializes creature's color parameters
-     */
-    initializeColor() {
-        this.colors = {
-            red: this.species === 'red' ? this.maxColor : this.minColor,
-            green: this.species === 'green' ? this.maxColor : this.minColor,
-            blue: this.species === 'blue' ? this.maxColor : this.minColor
-        };
-
-        this.color = `rgb(${this.colors.red}, ${this.colors.green}, ${this.colors.blue})`;
-
-        return this.color;
+        CreatureBody.initializeSpecies(this, species);
+        CreatureBody.initializeColor(this);
     }
 
     /**
@@ -117,6 +66,13 @@ class Creature {
     }
 
     /**
+     * Applies a vector force to the creature's momentum=
+     */
+    applyForce(force) {
+        return this.acceleration.add(force);
+    }
+
+    /**
      * Draws current's creature position and direction
      */
     draw() {
@@ -133,90 +89,14 @@ class Creature {
      * Update's creature
      */
     update() {
-		this.grow();
-		this.age();
-		this.adjustSpeed();
+		CreatureBody.grow(this);
+		CreatureBody.age(this, world);
+		CreatureBody.boundaries(this, world);
+		CreatureBody.adjustSpeed(this);
         this.location.add(this.velocity);
         this.acceleration.mul(0);
 
         return this;
-    }
-
-    /**
-     * Add growth depending on metabolism
-     */
-	grow() {
-        if (this.mass < this.maxMass) { // Grow
-            this.mass += this.metabolism;
-            this.maxSpeed = this.mass * 2;
-            this.maxforce = 0.33 * (this.mass / 2);
-            this.length = this.mass * 2;
-            this.base = this.length / 3;
-        }
-	}
-
-    /**
-     * Aging translates into the creature's max speed reduction
-	 * or death (deletion) when none speed is left
-     */
-	age() {
-        if (this.maxSpeed > 0.1) { // Aging
-            this._deterioration = this.metabolism / this.metabolismAgingRatio;
-            this.maxSpeed -= this._deterioration;
-            this.colors[this.species] = Math.round(this.maxSpeed * 255 / (this.maxMass * 2)) + 110;
-            this.color = `rgb(${Math.round(this.colors.red)}, ${Math.round(this.colors.green)}, ${Math.round(this.colors.blue)})`;
-        } else  // Death
-            return world.removeCreature(this);
-	}
-
-
-    /**
-     * Adjust velocity to stay close to maxSpeed
-     */
-	adjustSpeed() {
-        this.boundaries(); // Look for edges
-
-        this.velocity
-            .add(this.acceleration)
-            .limit(this.maxSpeed);
-
-        if (this.velocity.mag() > this.maxSpeed)
-            this.velocity.setMag(this.velocity.mag() * 0.9);
-        else if (this.velocity.mag() < this.maxSpeed)
-            this.velocity.setMag(this.velocity.mag() * 1.01);
-	}
-
-    /**
-     * Applies a vector force to the creature's momentum=
-     */
-    applyForce(force) {
-        return this.acceleration.add(force);
-    }
-
-    /**
-     * Prevents creatures from going beyond the edges
-     */
-    boundaries() {
-        switch (true) {
-            case this.location.x < this.margin:
-                this.applyForce(new Vector(this.velocity.mag(), 0));
-                return this;
-
-            case this.location.x > (world.width - this.margin):
-                this.applyForce(new Vector(-this.velocity.mag(), 0));
-                return this;
-
-            case this.location.y < this.margin:
-                this.applyForce(new Vector(0, this.velocity.mag()));
-                return this;
-
-            case this.location.y > (world.height - this.margin):
-                this.applyForce(new Vector(0, -this.velocity.mag()));
-                return this;
-
-            default:
-                return this;
-        }
     }
 
     /**
@@ -248,7 +128,7 @@ class Creature {
                 continue; // Skip to next creatue
 
             this._distance = this.location.dist(world.creatures[this._index].location);
-            this.attemptReproduction(world.creatures[this._index], this._distance);
+            CreatureBody.attemptReproduction(this, world, world.creatures[this._index], this._distance);
             [this._sum, this._count] = this.normalizeSeparation(
                 world.creatures[this._index],
                 this._distance,
@@ -282,28 +162,6 @@ class Creature {
         }
 
         return [sum, count];
-    }
-
-    /**
-     * Attempt to reproduce creature
-     * @param {Object} target
-     * @param {number} distance
-     */
-    attemptReproduction(target, distance) {
-        if (distance <= (this.minSeparation * world.reproductionChance[this.species]) && (target.species === this.species)) { // is close enough to reproduce
-            if ((this.mass >= this.maxMass) && (target.mass >= this.maxMass)) { // both creatures are fully mature
-                // Both parents loose half their mass
-                this.mass /= 2;
-                target.mass /= 2;
-                // Spawn a new this of the same species in the same spot
-                world.spawnCreature(
-                    this.location.x,
-                    this.location.y,
-                    this.species,
-                    this.mass / 2 // New borns are 1/4 of the original parents mass
-                );
-            }
-        }
     }
 
     /**
