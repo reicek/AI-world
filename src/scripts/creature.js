@@ -135,17 +135,7 @@ class Creature {
     update() {
 		this.grow();
 		this.age();
-
-        this.boundaries();
-        this.velocity
-            .add(this.acceleration)
-            .limit(this.maxSpeed);
-
-        if (this.velocity.mag() > this.maxSpeed)
-            this.accelerate();
-        else if (this.velocity.mag() < this.maxSpeed)
-            this.decelerate();
-
+		this.adjustSpeed();
         this.location.add(this.velocity);
         this.acceleration.mul(0);
 
@@ -179,18 +169,21 @@ class Creature {
             return world.removeCreature(this);
 	}
 
-    /**
-     * Increase velocity
-     */
-	accelerate(rate = 0.9) {
-		this.velocity.setMag(this.velocity.mag() * rate);
-	}
 
     /**
-     * Decrease velocity
+     * Adjust velocity to stay close to maxSpeed
      */
-	decelerate(rate = 1.01) {
-		this.velocity.setMag(this.velocity.mag() * rate);
+	adjustSpeed() {
+        this.boundaries(); // Look for edges
+
+        this.velocity
+            .add(this.acceleration)
+            .limit(this.maxSpeed);
+
+        if (this.velocity.mag() > this.maxSpeed)
+            this.velocity.setMag(this.velocity.mag() * 0.9);
+        else if (this.velocity.mag() < this.maxSpeed)
+            this.velocity.setMag(this.velocity.mag() * 1.01);
 	}
 
     /**
