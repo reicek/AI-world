@@ -12,30 +12,24 @@
 class World {
     constructor(
         topPopulation = 100,
-        reproductionChance = 2,
         id = 'world',
-        pathOpacity = 0.6
+        pathOpacity = 0.6,
+		species = [
+			'red',
+			'green',
+			'blue'
+		]
     ) {
         this.cycles = 0;
         this.learningRate = 0.15;
 
         this.id = id;
         this.creatures = [];
-		this.species = [
-			'red',
-			'green',
-			'blue'
-		];
+		this.species = species;
 
         this.pathOpacity = pathOpacity;
         this.topPopulation = topPopulation;
 		this.census = new Census();
-        this.initialReproductionChange = {
-			red: reproductionChance,
-			green: reproductionChance,
-			blue: reproductionChance
-		};
-        this.reproductionChance = _.clone(this.initialReproductionChange);
         this.initialPopulation = this.species.length * 2;
     }
 
@@ -43,6 +37,17 @@ class World {
      * Start simulation
      */
     launch() {
+		this.initializeCanvas();
+		this.initializePopulation();
+		this.startListeners();
+
+        return this.drawNextFrame();
+    }
+
+    /**
+     * Canvas Setup
+     */
+	initializeCanvas() {
         this.canvas = $(`#${this.id}`)[0];
         this.ctx = this.canvas.getContext('2d', { alpha: false });
         this.ctx.canvas.height = $(`#${this.id}`).height();
@@ -50,11 +55,28 @@ class World {
         this.width = this.canvas.width;
         this.height = this.canvas.height;
         this.ctx.lineWidth = 2;
+	}
+
+    /**
+     * Spawn first creatures
+     */
+	initializePopulation() {
+        this.initialReproductionChange = {
+			red: 2,
+			green: 2,
+			blue: 2
+		};
+        this.reproductionChance = _.clone(this.initialReproductionChange);
 
         this._i = this.species.length * 3;
         while (this._i --)
             this.spawnCreature(_.random(0, this.width), _.random(0, this.height), this.species[Math.round((this._i + 1) / 3) - 1]);
+	}
 
+    /**
+     * Events listeners
+     */
+	startListeners() {
         $(`button.add, #${this.id}`).click(e => // Add new creature to the less populated species on left click
             this.increasePopulation(e.clientX, e.clientY));
 
@@ -74,9 +96,7 @@ class World {
             this.width = this.canvas.width;
             this.height = this.canvas.height;
         });
-
-        return this.drawNextFrame();
-    }
+	}
 
     /**
      * Increases the least populated species if none is specified

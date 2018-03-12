@@ -37,6 +37,7 @@ class Census {
         console.log(`%c Blue : ${this.blue}`, ' color: rgb(100, 100, 255)');
         console.log(`%c Reproduction chance ${world.reproductionChance.blue}`, 'color: rgb(100, 100, 255)');
         console.log(` Population: ${world.creatures.length}`);
+
         if (this.births > 0)
             console.log(` Births: ${this.births}`);
         if (this.deaths > 0)
@@ -45,6 +46,7 @@ class Census {
             console.log(`%c Overpopulation after ${world.cycles} cycles!`, 'color: rgb(255, 150, 150)');
         if (world.creatures.length === 0)
             console.log(`%c Extintion after ${world.cycles} cycles!`, 'color: rgb(255, 150, 150)');
+
         console.log('%c==================================', 'color: #777');
     }
 
