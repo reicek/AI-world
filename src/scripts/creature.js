@@ -89,10 +89,10 @@ class Creature {
      * Update's creature
      */
     update() {
-		CreatureBody.grow(this);
-		CreatureBody.age(this, world);
-		CreatureBody.boundaries(this, world);
-		CreatureBody.adjustSpeed(this);
+    CreatureBody.grow(this);
+    CreatureBody.age(this, world);
+    CreatureBody.boundaries(this, world);
+    CreatureBody.adjustSpeed(this);
         this.location.add(this.velocity);
         this.acceleration.mul(0);
 
@@ -138,8 +138,8 @@ class Creature {
             );
         }
 
-		return !this._count ? this._sum :
-			this._sum.div(this._count).normalize().sub(this.velocity);
+    return !this._count ? this._sum :
+      this._sum.div(this._count).normalize().sub(this.velocity);
     }
 
     /**
@@ -182,7 +182,7 @@ class Creature {
             this._count++;
         }
 
-		return this._count > 0 ? this._sum.mul(0.003) : this._sum;
+    return this._count > 0 ? this._sum.mul(0.003) : this._sum;
     }
 
     /**
@@ -215,7 +215,7 @@ class Creature {
             [this._sum, this._count] = this.applyCohesion(world.creatures[this._index], this._sum, this._count);
         }
 
-		return this._count > 0 ? this._sum.div(this._count) : this._sum;
+    return this._count > 0 ? this._sum.div(this._count) : this._sum;
     }
 
     /**

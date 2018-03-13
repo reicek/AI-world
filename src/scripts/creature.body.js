@@ -11,9 +11,9 @@ class CreatureBody {
      * Initializes creature's species
      */
     static initializeSpecies(
-		creature,
-		species
-	) {
+    creature,
+    species
+  ) {
         creature.minColor = 100;
         creature.maxColor = 255;
 
@@ -21,7 +21,7 @@ class CreatureBody {
             creature.species = species; // skip if already defined
 
             return creature.species; // skip if already defined
-		}
+    }
 
         creature.colors = {
             red: _.random(creature.minColor, creature.maxColor),
@@ -66,7 +66,7 @@ class CreatureBody {
     /**
      * Add growth depending on metabolism
      */
-	static grow(creature) {
+  static grow(creature) {
         if (creature.mass < creature.maxMass) { // Grow
             creature.mass += creature.metabolism;
             creature.maxSpeed = creature.mass * 2;
@@ -74,16 +74,16 @@ class CreatureBody {
             creature.length = creature.mass * 2;
             creature.base = creature.length / 3;
         }
-	}
+  }
 
     /**
      * Aging translates into the creature's max speed reduction
-	 * or death (deletion) when none speed is left
+   * or death (deletion) when none speed is left
      */
-	static age(
-		creature,
-		world
-	) {
+  static age(
+    creature,
+    world
+  ) {
         if (creature.maxSpeed > 0.1) { // Aging
             creature._deterioration = creature.metabolism / creature.metabolismAgingRatio;
             creature.maxSpeed -= creature._deterioration;
@@ -91,12 +91,12 @@ class CreatureBody {
             creature.color = `rgb(${Math.round(creature.colors.red)}, ${Math.round(creature.colors.green)}, ${Math.round(creature.colors.blue)})`;
         } else  // Death
             return world.removeCreature(creature);
-	}
+  }
 
     /**
      * Adjust velocity to stay close to maxSpeed
      */
-	static adjustSpeed(creature) {
+  static adjustSpeed(creature) {
         creature.velocity
             .add(creature.acceleration)
             .limit(creature.maxSpeed);
@@ -105,15 +105,15 @@ class CreatureBody {
             creature.velocity.setMag(creature.velocity.mag() * 0.9);
         else if (creature.velocity.mag() < creature.maxSpeed)
             creature.velocity.setMag(creature.velocity.mag() * 1.01);
-	}
+  }
 
     /**
      * Prevents creatures from going beyond the edges
      */
     static boundaries(
-		creature,
-		world
-	) {
+    creature,
+    world
+  ) {
         switch (true) {
             case creature.location.x < creature.margin:
                 creature.applyForce(new Vector(creature.velocity.mag(), 0));
@@ -142,11 +142,11 @@ class CreatureBody {
      * @param {number} distance
      */
     static attemptReproduction(
-		creature,
-		world,
-		target,
-		distance
-	) {
+    creature,
+    world,
+    target,
+    distance
+  ) {
         if (distance <= (creature.minSeparation * world.reproductionChance[creature.species]) && (target.species === creature.species)) { // is close enough to reproduce
             if ((creature.mass >= creature.maxMass) && (target.mass >= creature.maxMass)) { // both creatures are fully mature
                 // Both parents loose half their mass

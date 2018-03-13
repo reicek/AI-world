@@ -187,7 +187,7 @@ class Vector {
     }
 
     /**
-	 * Calculates distance between current vector and the target
+   * Calculates distance between current vector and the target
      * @return {number}
      */
     dist(target) {
@@ -198,7 +198,7 @@ class Vector {
     }
 
     /**
-	 * Builds a new vector with the same caractestics as this
+   * Builds a new vector with the same caractestics as this
      * @return {Vector}
      */
     copy() {
