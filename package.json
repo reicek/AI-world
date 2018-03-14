@@ -27,7 +27,7 @@
     "jquery": "^3.3.1",
     "jshint-stylish": "^2.2.1",
     "lodash": "^4.17.5",
-    "synaptic": "^1.1.4"
+    "synaptic": "git+https://github.com/reicek/synaptic.git"
   },
   "repository": {
     "type": "git",
