@@ -18,7 +18,10 @@ const gruntConfig = {
         options: {
             jshintrc: '.jshintrc',
             reporterOutput: '',
-            reporter: require('jshint-stylish')
+            reporter: require('jshint-stylish'),
+            ignores: [
+                'src/scripts/**/*.min.js',
+            ]
         },
         all: [
             'src/scripts/**/*.js',
