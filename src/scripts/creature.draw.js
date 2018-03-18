@@ -16,14 +16,9 @@ class DrawCreature {
         color,
         world
     ) {
-        world.ctx.fillStyle = color;
+        world.ctx.fillStyle = 'rgba(0,0,0)';
         world.ctx.strokeStyle = color;
         world.ctx.beginPath();
-
-        world.ctx.moveTo(
-            location.x + Math.cos(angle) * size * 3, // x1
-            location.y + Math.sin(angle) * size * 3  // y1
-        );
     }
 
     /**
@@ -35,9 +30,17 @@ class DrawCreature {
         location,
         world
     ) {
-        world.ctx.lineTo(
-            location.x + Math.cos(angle + (Math.PI / 2)) * size,
-            location.y + Math.sin(angle + (Math.PI / 2)) * size
+        world.ctx.moveTo(
+            location.x, // x1
+            location.y  // y1
+        );
+        world.ctx.arc(
+            location.x,
+            location.y,
+            size,
+            0,
+            Math.PI * 2,
+            true
         );
 
         world.ctx.stroke();

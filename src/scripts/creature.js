@@ -60,7 +60,7 @@ class Creature {
                 this._decision.y * world.height
             )))
             .add(this.align() // Apply force to better align to peers
-                .setAngle((this._decision.angle * (Math.PI * 2)) - Math.PI)
+                //.setAngle((this._decision.angle * (Math.PI * 2)) - Math.PI)
             )
         );
     }
