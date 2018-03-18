@@ -60,7 +60,7 @@ class Creature {
                 this._decision.y * world.height
             )))
             .add(this.align() // Apply force to better align to peers
-                //.setAngle((this._decision.angle * (Math.PI * 2)) - Math.PI)
+                .setAngle((this._decision.angle * (Math.PI * 2)) - Math.PI)
             )
         );
     }
@@ -91,10 +91,11 @@ class Creature {
      * Update's creature
      */
     update() {
-    CreatureBody.grow(this);
-    CreatureBody.age(this, world);
-    CreatureBody.boundaries(this, world);
-    CreatureBody.adjustSpeed(this);
+        CreatureBody.grow(this);
+        CreatureBody.age(this, world);
+        CreatureBody.boundaries(this, world);
+        CreatureBody.adjustSpeed(this);
+
         this.location.add(this.velocity);
         this.acceleration.mul(0);
 
@@ -123,14 +124,21 @@ class Creature {
         this.maxSeparation = this.minSeparation * 2;
         this._sum = new Vector(0, 0);
         this._count = 0;
-
         this._index = world.creatures.length;
+
         while (this._index--) {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
             this._distance = this.location.dist(world.creatures[this._index].location);
-            CreatureBody.attemptReproduction(this, world, world.creatures[this._index], this._distance);
+
+            CreatureBody.attemptReproduction(
+                this,
+                world,
+                world.creatures[this._index],
+                this._distance
+            );
+
             [this._sum, this._count] = this.normalizeSeparation(
                 world.creatures[this._index],
                 this._distance,
@@ -140,8 +148,11 @@ class Creature {
             );
         }
 
-    return !this._count ? this._sum :
-      this._sum.div(this._count).normalize().sub(this.velocity);
+        return !this._count ? this._sum :
+            this._sum
+                .div(this._count)
+                .normalize()
+                .sub(this.velocity);
     }
 
     /**
@@ -173,18 +184,17 @@ class Creature {
     align() {
         this._sum = new Vector(0, 0);
         this._count = 0;
-
         this._index = world.creatures.length;
+
         while (this._index--) {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
             this._sum = this.addAlignmentTo(world.creatures[this._index], this._sum);
-
             this._count++;
         }
 
-    return this._count > 0 ? this._sum.mul(0.003) : this._sum;
+        return this._count > 0 ? this._sum.mul(0.003) : this._sum;
     }
 
     /**
@@ -208,8 +218,8 @@ class Creature {
     cohesion() {
         this._sum = new Vector(0, 0);
         this._count = 0;
-
         this._index = world.creatures.length;
+
         while (this._index--) {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
@@ -217,25 +227,22 @@ class Creature {
             [this._sum, this._count] = this.applyCohesion(world.creatures[this._index], this._sum, this._count);
         }
 
-    return this._count > 0 ? this._sum.div(this._count) : this._sum;
+        return this._count > 0 ? this._sum.div(this._count) : this._sum;
     }
 
     /**
      * Makes creature attempt to stay within reasonable distance
-     * Triggers reproduction when creatures touch, depending on world reproduction chance
      */
     applyCohesion(
         creature,
         sum,
         count
     ) {
-        if (creature.species === this.species) { // Coerce only to same species
-            sum.add(creature.location);
-            count ++;
-        }
+        sum.add(creature.location);
+        count ++;
 
         return [sum, count];
     }
 }
 
-world.launch();
+world.launch(); // Start simulation
