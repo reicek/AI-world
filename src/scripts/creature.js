@@ -77,10 +77,12 @@ class Creature {
      */
     draw() {
         this.update();
-        this._angle = this.velocity.angle();
-
-        DrawCreature.base(this.base, this._angle, this.location, this.color, world);
-        DrawCreature.shape(this.base, this._angle, this.location, world);
+        DrawCreature.shape(
+            this.base,
+            this.color,
+            this.location,
+            world
+        );
 
         return this;
     }
