@@ -10,12 +10,12 @@ class DrawCreature {
      * Initializes canvas settings and moves starting point to the creature's position
      */
     static base(
-    size,
-    angle,
-    location,
-    color,
-    world
-  ) {
+        size,
+        angle,
+        location,
+        color,
+        world
+    ) {
         world.ctx.fillStyle = color;
         world.ctx.strokeStyle = color;
         world.ctx.beginPath();
@@ -30,17 +30,17 @@ class DrawCreature {
      * Creates creature's shape
      */
     static shape(
-    size,
-    angle,
-    location,
-    world
-  ) {
+        size,
+        angle,
+        location,
+        world
+    ) {
         world.ctx.lineTo(
             location.x + Math.cos(angle + (Math.PI / 2)) * size,
             location.y + Math.sin(angle + (Math.PI / 2)) * size
         );
 
         world.ctx.stroke();
-    world.ctx.fill();
+        world.ctx.fill();
     }
 }

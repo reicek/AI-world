@@ -3513,8 +3513,12 @@ exports.default = Hopfield;
  * @namespace isNode
  */
 const isNode = typeof module !== 'undefined' && module.exports;
-if (isNode) process.once('message', code => eval(JSON.parse(code).data));
-else self.onmessage = code => eval(code.data);</script>
+
+if (isNode)
+    process.once('message', code => eval(JSON.parse(code).data));
+else
+    self.onmessage = code => eval(code.data);
+</script>
 <script>'use strict';
 /**
  * @module Vector
@@ -3742,8 +3746,8 @@ class Census {
         this.red = 0;
         this.green = 0;
         this.blue = 0;
-    this.births = 0;
-    this.deaths = 0;
+        this.births = 0;
+        this.deaths = 0;
     }
 
     /**
@@ -3789,51 +3793,51 @@ class Census {
     /**
      * Return counts results to inital state
      */
-  reset() {
+    reset() {
         this.red = 0;
         this.green = 0;
         this.blue = 0;
-  }
+    }
 
     /**
      * Returns the least populated species
      */
-  minority() {
+    minority() {
         return _.minBy(
-      this.list(),
+            this.list(),
             'population'
         );
-  }
+    }
 
     /**
      * Returns the most populated species
      */
-  mayority() {
+    mayority() {
         return _.maxBy(
-      this.list(),
+            this.list(),
             'population'
         );
-  }
+    }
 
     /**
      * Census list
      */
-  list() {
-    return [
-                {
-                    species: 'red',
-                    population: this.red
-                },
-                {
-                    species: 'green',
-                    population: this.green
-                },
-                {
-                    species: 'blue',
-                    population: this.blue
-                }
-            ];
-  }
+    list() {
+        return [
+            {
+                species: 'red',
+                population: this.red
+            },
+            {
+                species: 'green',
+                population: this.green
+            },
+            {
+                species: 'blue',
+                population: this.blue
+            }
+        ];
+    }
 }
 </script>
 <script>'use strict';
@@ -3851,22 +3855,22 @@ class World {
         topPopulation = 100,
         id = 'world',
         pathOpacity = 0.6,
-    species = [
-      'red',
-      'green',
-      'blue'
-    ]
+        species = [
+          'red',
+          'green',
+          'blue'
+        ]
     ) {
         this.cycles = 0;
         this.learningRate = 0.15;
 
         this.id = id;
         this.creatures = [];
-    this.species = species;
+        this.species = species;
 
         this.pathOpacity = pathOpacity;
         this.topPopulation = topPopulation;
-    this.census = new Census();
+        this.census = new Census();
         this.initialPopulation = this.species.length * 2;
     }
 
@@ -3874,9 +3878,9 @@ class World {
      * Start simulation
      */
     launch() {
-    this.initializeCanvas();
-    this.initializePopulation();
-    this.startListeners();
+        this.initializeCanvas();
+        this.initializePopulation();
+        this.startListeners();
 
         return this.drawNextFrame();
     }
@@ -3884,7 +3888,7 @@ class World {
     /**
      * Canvas Setup
      */
-  initializeCanvas() {
+    initializeCanvas() {
         this.canvas = $(`#${this.id}`)[0];
         this.ctx = this.canvas.getContext('2d', { alpha: false });
         this.ctx.canvas.height = $(`#${this.id}`).height();
@@ -3892,28 +3896,28 @@ class World {
         this.width = this.canvas.width;
         this.height = this.canvas.height;
         this.ctx.lineWidth = 2;
-  }
+    }
 
     /**
      * Spawn first creatures
      */
-  initializePopulation() {
+    initializePopulation() {
         this.initialReproductionChange = {
-      red: 2,
-      green: 2,
-      blue: 2
-    };
+            red: 2,
+            green: 2,
+            blue: 2
+        };
         this.reproductionChance = _.clone(this.initialReproductionChange);
 
         this._i = this.species.length * 3;
         while (this._i --)
             this.spawnCreature(_.random(0, this.width), _.random(0, this.height), this.species[Math.round((this._i + 1) / 3) - 1]);
-  }
+    }
 
     /**
      * Events listeners
      */
-  startListeners() {
+    startListeners() {
         $(`button.add, #${this.id}`).click(e => // Add new creature to the less populated species on left click
             this.increasePopulation(e.clientX, e.clientY));
 
@@ -3933,7 +3937,7 @@ class World {
             this.width = this.canvas.width;
             this.height = this.canvas.height;
         });
-  }
+    }
 
     /**
      * Increases the least populated species if none is specified
@@ -3957,7 +3961,7 @@ class World {
     }
 
     /**
-   * Adds a new crature to the simulation
+     * Adds a new crature to the simulation
      * @param {number} [x]
      * @param {number} [y]
      * @param {string} [species]
@@ -3976,7 +3980,7 @@ class World {
     }
 
     /**
-   * Removes a creature from the simulation
+     * Removes a creature from the simulation
      * @param {Object} creature
      */
     removeCreature(creature) {
@@ -4005,22 +4009,23 @@ class World {
      * Adjust world population growth to prevent overpopulation or full extintion
      */
     adjustPopulationGrowth() {
-    this._i = this.species.length;
-    while (this._i --) {
-      switch (true) { // Population control
-        case this.census[this.species[this._i]] > this.initialPopulation * 1.3: // If overpopulation in progress
-          this.reproductionChance[this.species[this._i]] *=  0.999; // Reduce reproduction chance
-          break;
+        this._i = this.species.length;
 
-        case this.census[this.species[this._i]] < this.initialPopulation * 0.8: // If extintion in progress
-          this.reproductionChance[this.species[this._i]] *=  1.001; // Increase reproduction chance
-          break;
+        while (this._i --) {
+          switch (true) { // Population control
+            case this.census[this.species[this._i]] > this.initialPopulation * 1.3: // If overpopulation in progress
+                this.reproductionChance[this.species[this._i]] *=  0.999; // Reduce reproduction chance
+                break;
 
-        default:
-          this.reproductionChance[this.species[this._i]] = this.initialReproductionChange[this.species[this._i]];
-          break;
-      }
-    }
+            case this.census[this.species[this._i]] < this.initialPopulation * 0.8: // If extintion in progress
+                this.reproductionChance[this.species[this._i]] *=  1.001; // Increase reproduction chance
+                break;
+
+            default:
+                this.reproductionChance[this.species[this._i]] = this.initialReproductionChange[this.species[this._i]];
+                break;
+          }
+        }
     }
 
     /**
@@ -4031,19 +4036,20 @@ class World {
             this._index = this.creatures.length;
             while (this._index--) {
                 this.creatures[this._index].moveTo(
-          this.creatures[this._index].brain.think(
-            this.creatures[this._index].location,
-            this.creatures[this._index].velocity
-          )
-        );
+                    this.creatures[this._index].brain.think(
+                        this.creatures[this._index].location,
+                        this.creatures[this._index].velocity
+                    )
+                );
+
                 this.creatures[this._index].draw(); // Move creature
                 this._creatureCohesion = this.creatures[this._index].cohesion();
 
                 this.creatures[this._index].brain.learn( // Learn to move with others
-          this._creatureCohesion,
-          this.creatures[this._index].align().angle(),
-          this
-        );
+                    this._creatureCohesion,
+                    this.creatures[this._index].align().angle(),
+                    this
+                );
             }
 
             return requestAnimationFrame(() =>
@@ -4068,9 +4074,9 @@ class CreatureBody {
      * Initializes creature's species
      */
     static initializeSpecies(
-    creature,
-    species
-  ) {
+        creature,
+        species
+    ) {
         creature.minColor = 100;
         creature.maxColor = 255;
 
@@ -4078,7 +4084,7 @@ class CreatureBody {
             creature.species = species; // skip if already defined
 
             return creature.species; // skip if already defined
-    }
+        }
 
         creature.colors = {
             red: _.random(creature.minColor, creature.maxColor),
@@ -4123,24 +4129,25 @@ class CreatureBody {
     /**
      * Add growth depending on metabolism
      */
-  static grow(creature) {
-        if (creature.mass < creature.maxMass) { // Grow
-            creature.mass += creature.metabolism;
-            creature.maxSpeed = creature.mass * 2;
-            creature.maxforce = 0.33 * (creature.mass / 2);
-            creature.length = creature.mass * 2;
-            creature.base = creature.length / 3;
-        }
-  }
+    static grow(creature) {
+        if (creature.mass >= creature.maxMass)
+            return;
+
+        creature.mass += creature.metabolism;
+        creature.maxSpeed = creature.mass * 2;
+        creature.maxforce = 0.33 * (creature.mass / 2);
+        creature.length = creature.mass * 2;
+        creature.base = creature.length / 3;
+    }
 
     /**
      * Aging translates into the creature's max speed reduction
-   * or death (deletion) when none speed is left
+     * or death (deletion) when none speed is left
      */
   static age(
-    creature,
-    world
-  ) {
+        creature,
+        world
+    ) {
         if (creature.maxSpeed > 0.1) { // Aging
             creature._deterioration = creature.metabolism / creature.metabolismAgingRatio;
             creature.maxSpeed -= creature._deterioration;
@@ -4148,29 +4155,31 @@ class CreatureBody {
             creature.color = `rgb(${Math.round(creature.colors.red)}, ${Math.round(creature.colors.green)}, ${Math.round(creature.colors.blue)})`;
         } else  // Death
             return world.removeCreature(creature);
-  }
+    }
 
     /**
      * Adjust velocity to stay close to maxSpeed
      */
-  static adjustSpeed(creature) {
+    static adjustSpeed(creature) {
         creature.velocity
             .add(creature.acceleration)
             .limit(creature.maxSpeed);
 
-        if (creature.velocity.mag() > creature.maxSpeed)
-            creature.velocity.setMag(creature.velocity.mag() * 0.9);
-        else if (creature.velocity.mag() < creature.maxSpeed)
-            creature.velocity.setMag(creature.velocity.mag() * 1.01);
-  }
+        switch(true) {
+            case (creature.velocity.mag() > creature.maxSpeed):
+                return creature.velocity.setMag(creature.velocity.mag() * 0.9);
+            case (creature.velocity.mag() < creature.maxSpeed) :
+                return creature.velocity.setMag(creature.velocity.mag() * 1.01);
+        }
+    }
 
     /**
      * Prevents creatures from going beyond the edges
      */
     static boundaries(
-    creature,
-    world
-  ) {
+        creature,
+        world
+    ) {
         switch (true) {
             case creature.location.x < creature.margin:
                 creature.applyForce(new Vector(creature.velocity.mag(), 0));
@@ -4199,11 +4208,11 @@ class CreatureBody {
      * @param {number} distance
      */
     static attemptReproduction(
-    creature,
-    world,
-    target,
-    distance
-  ) {
+        creature,
+        world,
+        target,
+        distance
+    ) {
         if (distance <= (creature.minSeparation * world.reproductionChance[creature.species]) && (target.species === creature.species)) { // is close enough to reproduce
             if ((creature.mass >= creature.maxMass) && (target.mass >= creature.maxMass)) { // both creatures are fully mature
                 // Both parents loose half their mass
@@ -4232,12 +4241,12 @@ class DrawCreature {
      * Initializes canvas settings and moves starting point to the creature's position
      */
     static base(
-    size,
-    angle,
-    location,
-    color,
-    world
-  ) {
+        size,
+        angle,
+        location,
+        color,
+        world
+    ) {
         world.ctx.fillStyle = color;
         world.ctx.strokeStyle = color;
         world.ctx.beginPath();
@@ -4252,18 +4261,18 @@ class DrawCreature {
      * Creates creature's shape
      */
     static shape(
-    size,
-    angle,
-    location,
-    world
-  ) {
+        size,
+        angle,
+        location,
+        world
+    ) {
         world.ctx.lineTo(
             location.x + Math.cos(angle + (Math.PI / 2)) * size,
             location.y + Math.sin(angle + (Math.PI / 2)) * size
         );
 
         world.ctx.stroke();
-    world.ctx.fill();
+        world.ctx.fill();
     }
 }
 </script>
@@ -4282,48 +4291,48 @@ const { Architect } = synaptic;
 class CreatureBrain {
     /**
      * Creates a new neural network
-   * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
-   * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
+     * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
+     * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
      */
-  constructor (
+    constructor (
         inputNeurons = 4,
         hiddenNeurons = 4,
         outputNeurons = 3
-  ) {
-    this.network = new Architect.Perceptron(
-      inputNeurons,
-      hiddenNeurons,
-      outputNeurons
-    );
+    ) {
+        this.network = new Architect.Perceptron(
+            inputNeurons,
+            hiddenNeurons,
+            outputNeurons
+        );
     }
 
     /**
      * Think of where to move from current location (align to others)
      */
     think(
-    location,
-    velocity
-  ) {
-    return this.network.activate([
-      location.x,
-      location.y,
-      velocity.x,
-      velocity.y
-    ]);
+        location,
+        velocity
+    ) {
+        return this.network.activate([
+            location.x,
+            location.y,
+            velocity.x,
+            velocity.y
+        ]);
     }
 
     /**
      * Learn how to move
      */
     learn(cohesion, angle, world) {
-    this.network.propagate(
-      world.learningRate,
-      [
-        cohesion.x / world.width, // X target
-        cohesion.y / world.height, // Y target
-        (angle + Math.PI) / (Math.PI * 2) // Target angle
-      ]
-    );
+        this.network.propagate(
+            world.learningRate,
+            [
+                cohesion.x / world.width, // X target
+                cohesion.y / world.height, // Y target
+                (angle + Math.PI) / (Math.PI * 2) // Target angle
+            ]
+        );
     }
 }
 </script>

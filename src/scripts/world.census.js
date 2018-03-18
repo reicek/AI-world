@@ -17,8 +17,8 @@ class Census {
         this.red = 0;
         this.green = 0;
         this.blue = 0;
-    this.births = 0;
-    this.deaths = 0;
+        this.births = 0;
+        this.deaths = 0;
     }
 
     /**
@@ -64,49 +64,49 @@ class Census {
     /**
      * Return counts results to inital state
      */
-  reset() {
+    reset() {
         this.red = 0;
         this.green = 0;
         this.blue = 0;
-  }
+    }
 
     /**
      * Returns the least populated species
      */
-  minority() {
+    minority() {
         return _.minBy(
-      this.list(),
+            this.list(),
             'population'
         );
-  }
+    }
 
     /**
      * Returns the most populated species
      */
-  mayority() {
+    mayority() {
         return _.maxBy(
-      this.list(),
+            this.list(),
             'population'
         );
-  }
+    }
 
     /**
      * Census list
      */
-  list() {
-    return [
-                {
-                    species: 'red',
-                    population: this.red
-                },
-                {
-                    species: 'green',
-                    population: this.green
-                },
-                {
-                    species: 'blue',
-                    population: this.blue
-                }
-            ];
-  }
+    list() {
+        return [
+            {
+                species: 'red',
+                population: this.red
+            },
+            {
+                species: 'green',
+                population: this.green
+            },
+            {
+                species: 'blue',
+                population: this.blue
+            }
+        ];
+    }
 }
