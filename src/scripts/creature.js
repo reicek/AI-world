@@ -118,7 +118,7 @@ class Creature {
      * @return {Vector}
      */
     separate() {
-        this.minSeparation = this.mass * 1.2;
+        this.minSeparation = this.mass * 1.5;
         this.maxSeparation = this.minSeparation * 2;
         this._sum = new Vector(0, 0);
         this._count = 0;
@@ -144,6 +144,11 @@ class Creature {
                 this._sum,
                 this._count
             );
+
+            if (this._distance < this.mass) { // Bounce
+                this.applyForce(world.creatures[this._index].acceleration);
+                world.creatures[this._index].applyForce(this.acceleration);
+            }
         }
 
         return !this._count ? this._sum :
@@ -203,7 +208,7 @@ class Creature {
             sum.add(target.velocity);
         else { // Align less to other species
             this._targetVelocity = target.velocity.copy();
-            sum.add(this._targetVelocity.div(4));
+            sum.add(this._targetVelocity.div(6));
         }
 
         return sum;

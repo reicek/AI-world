@@ -21,12 +21,9 @@ class World {
     ) {
         this.cycles = 0;
         this.learningRate = 0.15;
-
         this.id = id;
         this.creatures = [];
         this.species = species;
-
-        this.pathOpacity = pathOpacity;
         this.topPopulation = topPopulation;
         this.census = new Census();
         this.initialPopulation = this.species.length * 2;
@@ -155,7 +152,7 @@ class World {
     drawNextFrame() {
         this.cycles ++;
 
-        this.ctx.fillStyle = `rgba(0, 0, 0, ${this.pathOpacity})`;
+        this.ctx.fillStyle = `rgb(0, 0, 0)`;
         this.ctx.fillRect(0, 0, this.width, this.height);
 
         this.adjustPopulationGrowth();
