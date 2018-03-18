@@ -15,7 +15,7 @@ class DrawCreature {
         location,
         world
     ) {
-        world.ctx.fillStyle = 'rgba(0,0,0)';
+        world.ctx.fillStyle = 'rgb(0,0,0)';
         world.ctx.strokeStyle = color;
         world.ctx.beginPath();
 

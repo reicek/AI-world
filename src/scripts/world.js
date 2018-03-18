@@ -12,7 +12,7 @@ class World {
     constructor(
         topPopulation = 100,
         id = 'world',
-        pathOpacity = 0.6,
+        pathOpacity = 0.5,
         species = [
           'red',
           'green',

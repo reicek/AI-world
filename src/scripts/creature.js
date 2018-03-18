@@ -33,8 +33,6 @@ class Creature {
         this.mass = !!mass ? mass : this.minMass;
         this.maxSpeed = this.mass * 2;
         this.maxforce = 0.33 * (this.mass / 2);
-        this.length = this.mass * 2;
-        this.base = this.length / 3;
         this.location = new Vector(x, y);
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
@@ -78,7 +76,7 @@ class Creature {
     draw() {
         this.update();
         DrawCreature.shape(
-            this.base,
+            this.mass,
             this.color,
             this.location,
             world
@@ -130,7 +128,7 @@ class Creature {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
-            this._distance = this.location.dist(world.creatures[this._index].location);
+            this._distance = this.location.dist(world.creatures[this._index].location) + this.mass;
 
             CreatureBody.attemptReproduction(
                 this,

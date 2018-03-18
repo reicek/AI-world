@@ -73,8 +73,6 @@ class CreatureBody {
         creature.mass += creature.metabolism;
         creature.maxSpeed = creature.mass * 2;
         creature.maxforce = 0.33 * (creature.mass / 2);
-        creature.length = creature.mass * 2;
-        creature.base = creature.length / 3;
     }
 
     /**
