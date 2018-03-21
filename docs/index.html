@@ -4161,12 +4161,10 @@ class CreatureBody {
             .add(creature.acceleration)
             .limit(creature.maxSpeed);
 
-        switch(true) {
-            case (creature.velocity.mag() > creature.maxSpeed):
-                return creature.velocity.setMag(creature.velocity.mag() * 0.9);
-            case (creature.velocity.mag() < creature.maxSpeed) :
-                return creature.velocity.setMag(creature.velocity.mag() * 1.01);
-        }
+        if (creature.velocity.mag() > creature.maxSpeed)
+            return creature.velocity.setMag(creature.velocity.mag() * 0.9);
+        else
+            return creature.velocity.setMag(creature.velocity.mag() * 1.01);
     }
 
     /**
