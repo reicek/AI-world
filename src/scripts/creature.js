@@ -144,11 +144,6 @@ class Creature {
                 this._sum,
                 this._count
             );
-
-            if (this._distance < this.mass) { // Bounce
-                this.applyForce(world.creatures[this._index].acceleration);
-                world.creatures[this._index].applyForce(this.acceleration);
-            }
         }
 
         return !this._count ? this._sum :
@@ -175,6 +170,11 @@ class Creature {
                 .div(Math.pow(distance, 2))
             );
             count++;
+        }
+
+        if (this._distance < this.mass) { // Bounce
+            this.applyForce(world.creatures[this._index].acceleration);
+            world.creatures[this._index].applyForce(this.acceleration);
         }
 
         return [sum, count];
