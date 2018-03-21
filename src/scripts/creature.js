@@ -137,13 +137,7 @@ class Creature {
                 this._distance
             );
 
-            [this._sum, this._count] = this.normalizeSeparation(
-                world.creatures[this._index],
-                this._distance,
-                this.location.copy(),
-                this._sum,
-                this._count
-            );
+            [this._sum, this._count] = this.normalizeSeparation(this.location.copy());
         }
 
         return !this._count ? this._sum :
@@ -156,20 +150,16 @@ class Creature {
     /**
      * Normalizes creature separation if they are within range
      */
-    normalizeSeparation(
-        target,
-        distance,
-        currentPosition,
-        sum,
-        count
-    ) {
-        if ((distance < this.maxSeparation) && (distance > this.minSeparation)) { // is far enough & is close enough
-            sum.add(currentPosition
-                .sub(target.location)
+    normalizeSeparation(currentPosition) {
+        if ((this._distance < this.maxSeparation) &&
+            (this._distance > this.minSeparation)
+        ) { // is far enough & is close enough
+            this._sum.add(currentPosition
+                .sub(world.creatures[this._index].location)
                 .normalize()
-                .div(Math.pow(distance, 2))
+                .div(Math.pow(this._distance, 2))
             );
-            count++;
+            this._count++;
         }
 
         if (this._distance < this.mass) { // Bounce
@@ -177,7 +167,7 @@ class Creature {
             world.creatures[this._index].applyForce(this.acceleration);
         }
 
-        return [sum, count];
+        return [this._sum, this._count];
     }
 
     /**
@@ -193,7 +183,7 @@ class Creature {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
-            this._sum = this.addAlignmentTo(world.creatures[this._index], this._sum);
+            this._sum = this.addAlignmentTo(world.creatures[this._index]);
             this._count++;
         }
 
@@ -203,15 +193,15 @@ class Creature {
     /**
      * Adds force required to align to another creature
      */
-    addAlignmentTo(target, sum) {
+    addAlignmentTo(target) {
         if (target.species === this.species) // Align more to same species
-            sum.add(target.velocity);
+            this._sum.add(target.velocity);
         else { // Align less to other species
             this._targetVelocity = target.velocity.copy();
-            sum.add(this._targetVelocity.div(6));
+            this._sum.add(this._targetVelocity.div(6));
         }
 
-        return sum;
+        return this._sum;
     }
 
     /**
@@ -227,7 +217,7 @@ class Creature {
             if (world.creatures[this._index] === this)
                 continue; // Skip to next creatue
 
-            [this._sum, this._count] = this.applyCohesion(world.creatures[this._index], this._sum, this._count);
+            [this._sum, this._count] = this.applyCohesion();
         }
 
         return this._count > 0 ? this._sum.div(this._count) : this._sum;
@@ -236,15 +226,11 @@ class Creature {
     /**
      * Makes creature attempt to stay within reasonable distance
      */
-    applyCohesion(
-        creature,
-        sum,
-        count
-    ) {
-        sum.add(creature.location);
-        count ++;
+    applyCohesion() {
+        this._sum.add(world.creatures[this._index].location);
+        this._count ++;
 
-        return [sum, count];
+        return [this._sum, this._count];
     }
 }
 
