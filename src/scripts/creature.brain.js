@@ -18,18 +18,19 @@ class CreatureBrain {
      */
     constructor (
         inputNeurons = 4,
-        hiddenNeurons = 4,
+        hiddenNeurons = 6,
         outputNeurons = 3
     ) {
         this.network = new Architect.Perceptron(
             inputNeurons,
+            hiddenNeurons,
             hiddenNeurons,
             outputNeurons
         );
     }
 
     /**
-     * Think of where to move from current location (align to others)
+     * Think of where to move from current location
      */
     think(
         location,

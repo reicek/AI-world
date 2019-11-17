@@ -25,10 +25,10 @@ class Creature {
         outputNeurons
     ) {
         this.brain = new CreatureBrain(inputNeurons, hiddenNeurons, outputNeurons);
-        this.metabolism = 0.001; // Bigger means shorter life
-        this.metabolismAgingRatio = 0.75; // Bigger means longer life
+        this.metabolism = 0.005; // Bigger means shorter life
+        this.metabolismAgingRatio = 0.4; // Bigger means longer life
         this.minMass = 1;
-        this.maxMass = 2;
+        this.maxMass = 3;
         this.margin = 5; // Minimum separation from walls
         this.mass = !!mass ? mass : this.minMass;
         this.maxSpeed = this.mass * 2;
@@ -57,9 +57,6 @@ class Creature {
                 this._decision.x * world.width,
                 this._decision.y * world.height
             )))
-            .add(this.align() // Apply force to better align to peers
-                .setAngle((this._decision.angle * (Math.PI * 2)) - Math.PI)
-            )
         );
     }
 
@@ -198,14 +195,14 @@ class Creature {
             this._sum.add(target.velocity);
         else { // Align less to other species
             this._targetVelocity = target.velocity.copy();
-            this._sum.add(this._targetVelocity.div(6));
+            this._sum.add(this._targetVelocity.div(10));
         }
 
         return this._sum;
     }
 
     /**
-     * Makes creature group with same species
+     * Makes creature group with others
      * @return {Vector}
      */
     cohesion() {
@@ -214,7 +211,7 @@ class Creature {
         this._index = world.creatures.length;
 
         while (this._index--) {
-            if (world.creatures[this._index] === this)
+            if ((world.creatures[this._index] === this))
                 continue; // Skip to next creatue
 
             [this._sum, this._count] = this.applyCohesion();
@@ -224,11 +221,13 @@ class Creature {
     }
 
     /**
-     * Makes creature attempt to stay within reasonable distance
+     * Makes creature attempt to stay close to same species
      */
     applyCohesion() {
-        this._sum.add(world.creatures[this._index].location);
-        this._count ++;
+        if (world.creatures[this._index].species === this.species) {
+          this._sum.add(world.creatures[this._index].location);
+          this._count ++;
+        }
 
         return [this._sum, this._count];
     }

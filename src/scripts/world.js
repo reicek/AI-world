@@ -12,7 +12,6 @@ class World {
     constructor(
         topPopulation = 100,
         id = 'world',
-        pathOpacity = 0.5,
         species = [
           'red',
           'green',
@@ -20,13 +19,17 @@ class World {
         ]
     ) {
         this.cycles = 0;
-        this.learningRate = 0.15;
+        this.learningRate = 0.1;
         this.id = id;
         this.creatures = [];
         this.species = species;
         this.topPopulation = topPopulation;
         this.census = new Census();
         this.initialPopulation = this.species.length * 2;
+        this.mousePosition = {
+          vector: new Vector(0, 0),
+          onScreen: false
+        };
     }
 
     /**
@@ -45,12 +48,26 @@ class World {
      */
     initializeCanvas() {
         this.canvas = $(`#${this.id}`)[0];
-        this.ctx = this.canvas.getContext('2d', { alpha: false });
+        this.ctx = this.canvas.getContext('2d');
         this.ctx.canvas.height = $(`#${this.id}`).height();
         this.ctx.canvas.width = $(`#${this.id}`).width();
         this.width = this.canvas.width;
         this.height = this.canvas.height;
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = 4;
+    }
+
+    /**
+     * Stores current mouse position
+     */
+    getMousePosition() {
+        $(document).mousemove(event => {
+            this.mousePosition.onScreen = (event.pageX >= 50) && (event.pageY >= 50);
+
+            if (this.mousePosition.onScreen)
+              this.mousePosition.vector = new Vector(event.pageX, event.pageY);
+            else
+              this.mousePosition.vector = new Vector(0, 0);
+        });
     }
 
     /**
@@ -64,7 +81,7 @@ class World {
         };
         this.reproductionChance = _.clone(this.initialReproductionChange);
 
-        this._i = this.species.length * 3;
+        this._i = this.species.length * 4;
         while (this._i --)
             this.spawnCreature(_.random(0, this.width), _.random(0, this.height), this.species[Math.round((this._i + 1) / 3) - 1]);
     }
@@ -86,7 +103,7 @@ class World {
         });
 
         $(window).resize(() => { // Update canvas size on screen change
-            this.ctx = this.canvas.getContext('2d', { alpha: false });
+            this.ctx = this.canvas.getContext('2d');
             this.ctx.canvas.height = $(`#${this.id}`).height();
             this.ctx.canvas.width = $(`#${this.id}`).width();
             this.width = this.canvas.width;
@@ -151,11 +168,13 @@ class World {
      */
     drawNextFrame() {
         this.cycles ++;
-
+        this.ctx.globalAlpha = 0.5;
         this.ctx.fillStyle = `rgb(0, 0, 0)`;
         this.ctx.fillRect(0, 0, this.width, this.height);
+        this.ctx.globalAlpha = 1;
 
         this.adjustPopulationGrowth();
+        this.getMousePosition();
 
         return this.updateCreatures();
     }
@@ -168,7 +187,7 @@ class World {
 
         while (this._i --) {
           switch (true) { // Population control
-            case this.census[this.species[this._i]] > this.initialPopulation * 1.3: // If overpopulation in progress
+            case this.census[this.species[this._i]] > this.initialPopulation * 2: // If overpopulation in progress
                 this.reproductionChance[this.species[this._i]] *=  0.999; // Reduce reproduction chance
                 break;
 
