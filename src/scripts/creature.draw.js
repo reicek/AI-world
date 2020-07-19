@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @module DrawCreature
  */
@@ -10,7 +10,7 @@ class DrawCreature {
    * Creates creature's shape
    */
   static shape(size, color, location, world) {
-    world.ctx.fillStyle = "rgb(0,0,0)";
+    world.ctx.fillStyle = 'rgb(0,0,0)';
     world.ctx.strokeStyle = color;
     world.ctx.beginPath();
 

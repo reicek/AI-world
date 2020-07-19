@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @module Vector
  * @requires lodash

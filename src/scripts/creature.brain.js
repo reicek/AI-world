@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @module CreatureBrain
  * @requires synaptic

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @module Census
  * @requires lodash
@@ -26,24 +26,24 @@ class Census {
    */
   log(world) {
     this.update(world);
-    $("#population").text(world.creatures.length);
+    $('#population').text(world.creatures.length);
 
     console.clear();
-    console.log("%c==================================", "color: #777");
-    console.log(`%c Red   : ${this.red}`, "color: rgb(255, 100, 100)");
+    console.log('%c==================================', 'color: #777');
+    console.log(`%c Red   : ${this.red}`, 'color: rgb(255, 100, 100)');
     console.log(
       `%c Reproduction chance ${world.reproductionChance.red}`,
-      "color: rgb(255, 100, 100)"
+      'color: rgb(255, 100, 100)'
     );
-    console.log(`%c Green  : ${this.green}`, "color: rgb(100, 255, 100)");
+    console.log(`%c Green  : ${this.green}`, 'color: rgb(100, 255, 100)');
     console.log(
       `%c Reproduction chance ${world.reproductionChance.green}`,
-      "color: rgb(100, 255, 100)"
+      'color: rgb(100, 255, 100)'
     );
-    console.log(`%c Blue : ${this.blue}`, " color: rgb(100, 100, 255)");
+    console.log(`%c Blue : ${this.blue}`, ' color: rgb(100, 100, 255)');
     console.log(
       `%c Reproduction chance ${world.reproductionChance.blue}`,
-      "color: rgb(100, 100, 255)"
+      'color: rgb(100, 100, 255)'
     );
     console.log(` Population: ${world.creatures.length}`);
 
@@ -52,15 +52,15 @@ class Census {
     if (world.creatures.length >= world.topPopulation)
       console.log(
         `%c Overpopulation after ${world.cycles} cycles!`,
-        "color: rgb(255, 150, 150)"
+        'color: rgb(255, 150, 150)'
       );
     if (world.creatures.length === 0)
       console.log(
         `%c Extintion after ${world.cycles} cycles!`,
-        "color: rgb(255, 150, 150)"
+        'color: rgb(255, 150, 150)'
       );
 
-    console.log("%c==================================", "color: #777");
+    console.log('%c==================================', 'color: #777');
   }
 
   /**
@@ -86,14 +86,14 @@ class Census {
    * Returns the least populated species
    */
   minority() {
-    return _.minBy(this.list(), "population");
+    return _.minBy(this.list(), 'population');
   }
 
   /**
    * Returns the most populated species
    */
   mayority() {
-    return _.maxBy(this.list(), "population");
+    return _.maxBy(this.list(), 'population');
   }
 
   /**
@@ -102,15 +102,15 @@ class Census {
   list() {
     return [
       {
-        species: "red",
+        species: 'red',
         population: this.red,
       },
       {
-        species: "green",
+        species: 'green',
         population: this.green,
       },
       {
-        species: "blue",
+        species: 'blue',
         population: this.blue,
       },
     ];

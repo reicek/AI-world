@@ -1,27 +1,27 @@
-"use strict";
+'use strict';
 
 const gruntConfig = {
   express: {
     options: {
       debug: true,
-      port: "8080",
+      port: '8080',
     },
     app: {
       options: {
-        script: "server.js",
-        node_env: "development",
+        script: 'server.js',
+        node_env: 'development',
       },
     },
   },
 
   jshint: {
     options: {
-      jshintrc: ".jshintrc",
-      reporterOutput: "",
-      reporter: require("jshint-stylish"),
-      ignores: ["src/scripts/**/*.min.js"],
+      jshintrc: '.jshintrc',
+      reporterOutput: '',
+      reporter: require('jshint-stylish'),
+      ignores: ['src/scripts/**/*.min.js'],
     },
-    all: ["src/scripts/**/*.js"],
+    all: ['src/scripts/**/*.js'],
   },
 
   vulcanize: {
@@ -33,35 +33,35 @@ const gruntConfig = {
         stripExcludes: true,
       },
       files: {
-        "docs/index.html": "src/index.html",
+        'docs/index.html': 'src/index.html',
       },
     },
   },
 
   watch: {
     backend: {
-      files: ["server.js"],
-      tasks: ["jshint"],
+      files: ['server.js'],
+      tasks: ['jshint'],
     },
 
     modules: {
-      files: ["node_modules"],
-      tasks: ["vulcanize"],
+      files: ['node_modules'],
+      tasks: ['vulcanize'],
     },
 
     scripts: {
-      files: ["src/**/*.js", "specs/**/*.js"],
-      tasks: ["jshint", "vulcanize"],
+      files: ['src/**/*.js', 'specs/**/*.js'],
+      tasks: ['jshint', 'vulcanize'],
     },
 
     css: {
-      files: ["src/**/*.css"],
-      tasks: ["vulcanize"],
+      files: ['src/**/*.css'],
+      tasks: ['vulcanize'],
     },
 
     html: {
-      files: ["src/**/*.html"],
-      tasks: ["vulcanize"],
+      files: ['src/**/*.html'],
+      tasks: ['vulcanize'],
     },
 
     options: {
@@ -71,16 +71,16 @@ const gruntConfig = {
 };
 
 const tasks = (grunt) => {
-  grunt.loadNpmTasks("grunt-express-server");
-  grunt.loadNpmTasks("grunt-contrib-jshint");
-  grunt.loadNpmTasks("grunt-vulcanize");
-  grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-vulcanize');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig(gruntConfig);
 
-  grunt.registerTask("default", ["express", "jshint", "vulcanize", "watch"]);
+  grunt.registerTask('default', ['express', 'jshint', 'vulcanize', 'watch']);
 
-  grunt.registerTask("travis", ["jshint", "vulcanize"]);
+  grunt.registerTask('travis', ['jshint', 'vulcanize']);
 };
 
 module.exports = tasks;

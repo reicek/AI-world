@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @module CreatureBody
  * @requires lodash
@@ -33,15 +33,15 @@ class CreatureBody {
     ]);
     switch (true) {
       case creature.colors.red === creature.dominantColor:
-        creature.species = "red";
+        creature.species = 'red';
         break;
 
       case creature.colors.green === creature.dominantColor:
-        creature.species = "green";
+        creature.species = 'green';
         break;
 
       case creature.colors.blue === creature.dominantColor:
-        creature.species = "blue";
+        creature.species = 'blue';
         break;
     }
     delete creature.dominantColor;
@@ -54,10 +54,10 @@ class CreatureBody {
    */
   static initializeColor(creature) {
     creature.colors = {
-      red: creature.species === "red" ? creature.maxColor : creature.minColor,
+      red: creature.species === 'red' ? creature.maxColor : creature.minColor,
       green:
-        creature.species === "green" ? creature.maxColor : creature.minColor,
-      blue: creature.species === "blue" ? creature.maxColor : creature.minColor,
+        creature.species === 'green' ? creature.maxColor : creature.minColor,
+      blue: creature.species === 'blue' ? creature.maxColor : creature.minColor,
     };
 
     creature.color = `rgb(${creature.colors.red}, ${creature.colors.green}, ${creature.colors.blue})`;

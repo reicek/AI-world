@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @module World
  * @requires lodash
@@ -11,8 +11,8 @@
 class World {
   constructor(
     topPopulation = 100,
-    id = "world",
-    species = ["red", "green", "blue"]
+    id = 'world',
+    species = ['red', 'green', 'blue']
   ) {
     this.cycles = 0;
     this.learningRate = 0.1;
@@ -44,7 +44,7 @@ class World {
    */
   initializeCanvas() {
     this.canvas = $(`#${this.id}`)[0];
-    this.ctx = this.canvas.getContext("2d");
+    this.ctx = this.canvas.getContext('2d');
     this.ctx.canvas.height = $(`#${this.id}`).height();
     this.ctx.canvas.width = $(`#${this.id}`).width();
     this.width = this.canvas.width;
@@ -104,7 +104,7 @@ class World {
 
     $(window).resize(() => {
       // Update canvas size on screen change
-      this.ctx = this.canvas.getContext("2d");
+      this.ctx = this.canvas.getContext('2d');
       this.ctx.canvas.height = $(`#${this.id}`).height();
       this.ctx.canvas.width = $(`#${this.id}`).width();
       this.width = this.canvas.width;
@@ -127,7 +127,7 @@ class World {
    * @return {number}
    */
   decreasePopulation() {
-    this.removeCreature(_.minBy(this.creatures, "maxSpeed"));
+    this.removeCreature(_.minBy(this.creatures, 'maxSpeed'));
   }
 
   /**

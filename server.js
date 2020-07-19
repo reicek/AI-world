@@ -2,12 +2,12 @@
  *  @const express
  *  @see {@link https://github.com/expressjs/express }
  */
-const express = require("express");
+const express = require('express');
 /**
  *  @const body-parser
  *  @see {@link https://github.com/expressjs/body-parser }
  */
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 
 /**
  * Pulls, process and persists data
@@ -35,7 +35,7 @@ class Server {
      */
     this.app = express();
 
-    this.app.use(express.static("docs"));
+    this.app.use(express.static('docs'));
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -43,7 +43,7 @@ class Server {
      * Express server instance
      * @member Server#server
      */
-    this.server = require("http").createServer(this.app);
+    this.server = require('http').createServer(this.app);
 
     /**
      * Configuration holder
