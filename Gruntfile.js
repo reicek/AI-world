@@ -19,9 +19,9 @@ const gruntConfig = {
       jshintrc: '.jshintrc',
       reporterOutput: '',
       reporter: require('jshint-stylish'),
-      ignores: ['src/scripts/**/*.min.js'],
+      ignores: ['src/js/**/*.min.js'],
     },
-    all: ['src/scripts/**/*.js'],
+    all: ['src/js/**/*.js'],
   },
 
   vulcanize: {
@@ -36,6 +36,18 @@ const gruntConfig = {
         'docs/index.html': 'src/index.html',
       },
     },
+  },
+
+  jsdoc2md : {
+    separateOutputFilePerInput : {
+      files: [
+        { src: 'src/js/world.js', dest: 'src/js/README.md' },
+        { src: 'src/js/census/census.js', dest: 'src/js/census/README.md' },
+        { src: 'src/js/creature/creature.js', dest: 'src/js/creature/README.md' },
+        { src: 'src/js/eval/eval.js', dest: 'src/js/eval/README.md' },
+        { src: 'src/js/vector/vector.js', dest: 'src/js/vector/README.md' }
+      ]
+    }
   },
 
   watch: {
@@ -75,12 +87,13 @@ const tasks = (grunt) => {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-vulcanize');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
 
   grunt.initConfig(gruntConfig);
 
-  grunt.registerTask('default', ['express', 'jshint', 'vulcanize', 'watch']);
-
-  grunt.registerTask('travis', ['jshint', 'vulcanize']);
+  grunt.registerTask('default', ['express', 'jshint', 'vulcanize', 'watch', 'jsdoc2md']);
+  grunt.registerTask('travis', ['jshint', 'vulcanize', 'jsdoc2md']);
+  grunt.registerTask('doc', ['jsdoc2md']);
 };
 
 module.exports = tasks;

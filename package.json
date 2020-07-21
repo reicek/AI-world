@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt travis",
+    "docs": "grunt jsdoc2md",
     "start": "grunt"
   },
   "keywords": [
@@ -23,8 +24,10 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-express-server": "^0.5.4",
+    "grunt-jsdoc-to-markdown": "^5.0.0",
     "grunt-vulcanize": "^1.0.0",
     "jquery": "^3.3.1",
+    "jsdoc-to-markdown": "^6.0.1",
     "jshint-stylish": "^2.2.1",
     "lodash": "^4.17.5",
     "prettier": "2.0.5",
