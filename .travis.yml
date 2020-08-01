@@ -9,6 +9,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: false
-  local_dir: docs
+  local_dir: src
   on:
     branch: master

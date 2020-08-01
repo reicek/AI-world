@@ -1,11 +1,7 @@
-'use strict';
-/**
- * @module Vector
- * @requires lodash
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
- */
 /**
  * 2D Matrix position
+ * @requires lodash
+ * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 class Vector {
   /**
@@ -194,3 +190,5 @@ class Vector {
     return new Vector(this.x, this.y);
   }
 }
+
+export default Vector;

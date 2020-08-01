@@ -1,22 +1,20 @@
-'use strict';
-/**
- * @module Creature
- * @requires lodash
- * @requires World
- * @requires Vector
- * @requires DrawCreature
- * @requires CreatureBrain
- * @requires CreatureBody
- */
-
-const world = new World();
+import { simulation } from '../simulation';
+import Vector from '../vector/vector';
+import Brain from './brain/brain';
+import Draw from './draw/draw';
+import Body from './body/body';
 
 /**
  * Artificial Intelligence based in perceptron neural networks that lives in a 2D world
+ * @requires simulation
+ * @requires Vector
+ * @requires Brain
+ * @requires Draw
+ * @requires Body
  */
 class Creature {
   constructor(x, y, species, mass, inputNeurons, hiddenNeurons, outputNeurons) {
-    this.brain = new CreatureBrain(inputNeurons, hiddenNeurons, outputNeurons);
+    this.brain = new Brain(inputNeurons, hiddenNeurons, outputNeurons);
     this.metabolism = 0.005; // Bigger means shorter life
     this.metabolismAgingRatio = 0.4; // Bigger means longer life
     this.minMass = 1;
@@ -29,8 +27,8 @@ class Creature {
     this.velocity = new Vector(0, 0);
     this.acceleration = new Vector(0, 0);
 
-    CreatureBody.initializeSpecies(this, species);
-    CreatureBody.initializeColor(this);
+    Body.initializeSpecies(this, species);
+    Body.initializeColor(this);
   }
 
   /**
@@ -49,8 +47,8 @@ class Creature {
         .add(
           this.seek(
             new Vector( // Apply force to increase cohesion
-              this._decision.x * world.width,
-              this._decision.y * world.height
+              this._decision.x * simulation.width,
+              this._decision.y * simulation.height
             )
           )
         )
@@ -69,7 +67,7 @@ class Creature {
    */
   draw() {
     this.update();
-    DrawCreature.shape(this.mass, this.color, this.location, world);
+    Draw.shape(this.mass, this.color, this.location);
 
     return this;
   }
@@ -78,10 +76,10 @@ class Creature {
    * Update's creature
    */
   update() {
-    CreatureBody.grow(this);
-    CreatureBody.age(this, world);
-    CreatureBody.boundaries(this, world);
-    CreatureBody.adjustSpeed(this);
+    Body.grow(this);
+    Body.age(this);
+    Body.boundaries(this);
+    Body.adjustSpeed(this);
 
     this.location.add(this.velocity);
     this.acceleration.mul(0);
@@ -112,18 +110,18 @@ class Creature {
     this.maxSeparation = this.minSeparation * 2;
     this._sum = new Vector(0, 0);
     this._count = 0;
-    this._index = world.creatures.length;
+    this._index = simulation.creatures.length;
 
     while (this._index--) {
-      if (world.creatures[this._index] === this) continue; // Skip to next creatue
+      if (simulation.creatures[this._index] === this) continue; // Skip to next creatue
 
       this._distance =
-        this.location.dist(world.creatures[this._index].location) + this.mass;
+        this.location.dist(simulation.creatures[this._index].location) +
+        this.mass;
 
-      CreatureBody.attemptReproduction(
+      Body.attemptReproduction(
         this,
-        world,
-        world.creatures[this._index],
+        simulation.creatures[this._index],
         this._distance
       );
 
@@ -146,7 +144,7 @@ class Creature {
       // is far enough & is close enough
       this._sum.add(
         currentPosition
-          .sub(world.creatures[this._index].location)
+          .sub(simulation.creatures[this._index].location)
           .normalize()
           .div(Math.pow(this._distance, 2))
       );
@@ -155,8 +153,8 @@ class Creature {
 
     if (this._distance < this.mass) {
       // Bounce
-      this.applyForce(world.creatures[this._index].acceleration);
-      world.creatures[this._index].applyForce(this.acceleration);
+      this.applyForce(simulation.creatures[this._index].acceleration);
+      simulation.creatures[this._index].applyForce(this.acceleration);
     }
 
     return [this._sum, this._count];
@@ -169,12 +167,12 @@ class Creature {
   align() {
     this._sum = new Vector(0, 0);
     this._count = 0;
-    this._index = world.creatures.length;
+    this._index = simulation.creatures.length;
 
     while (this._index--) {
-      if (world.creatures[this._index] === this) continue; // Skip to next creatue
+      if (simulation.creatures[this._index] === this) continue; // Skip to next creatue
 
-      this._sum = this.addAlignmentTo(world.creatures[this._index]);
+      this._sum = this.addAlignmentTo(simulation.creatures[this._index]);
       this._count++;
     }
 
@@ -204,10 +202,10 @@ class Creature {
   cohesion() {
     this._sum = new Vector(0, 0);
     this._count = 0;
-    this._index = world.creatures.length;
+    this._index = simulation.creatures.length;
 
     while (this._index--) {
-      if (world.creatures[this._index] === this) continue; // Skip to next creatue
+      if (simulation.creatures[this._index] === this) continue; // Skip to next creatue
 
       [this._sum, this._count] = this.applyCohesion();
     }
@@ -219,8 +217,8 @@ class Creature {
    * Makes creature attempt to stay close to same species
    */
   applyCohesion() {
-    if (world.creatures[this._index].species === this.species) {
-      this._sum.add(world.creatures[this._index].location);
+    if (simulation.creatures[this._index].species === this.species) {
+      this._sum.add(simulation.creatures[this._index].location);
       this._count++;
     }
 
@@ -228,4 +226,4 @@ class Creature {
   }
 }
 
-world.launch(); // Start simulation
+export default Creature;

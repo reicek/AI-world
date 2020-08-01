@@ -1,16 +1,15 @@
-'use strict';
+import { minBy, maxBy } from 'lodash';
+import { simulation } from '../simulation';
+import $ from 'jquery';
+
 /**
- * @module Census
+ * Census registry
  * @requires lodash
- */
-/**
- * Species census
- */
-/**
- * @typedef  {Object} Census - Population by species
- * @property {number} red    - Red population
- * @property {number} green  - Green population
- * @property {number} blue   - Blue population
+ * @property {number} red - Red population
+ * @property {number} green - Green population
+ * @property {number} blue - Blue population
+ * @property {number} births - Total births
+ * @property {number} deaths - Total deaths
  */
 class Census {
   constructor() {
@@ -24,53 +23,61 @@ class Census {
   /**
    * Clears the log and shows the census results
    */
-  log(world) {
-    this.update(world);
-    $('#population').text(world.creatures.length);
+  log() {
+    this.update();
+    $('#population').text(simulation.creatures.length);
 
     console.clear();
     console.log('%c==================================', 'color: #777');
     console.log(`%c Red   : ${this.red}`, 'color: rgb(255, 100, 100)');
     console.log(
-      `%c Reproduction chance ${world.reproductionChance.red}`,
+      `%c Reproduction chance ${simulation.reproductionChance.red}`,
       'color: rgb(255, 100, 100)'
     );
     console.log(`%c Green  : ${this.green}`, 'color: rgb(100, 255, 100)');
     console.log(
-      `%c Reproduction chance ${world.reproductionChance.green}`,
+      `%c Reproduction chance ${simulation.reproductionChance.green}`,
       'color: rgb(100, 255, 100)'
     );
     console.log(`%c Blue : ${this.blue}`, ' color: rgb(100, 100, 255)');
     console.log(
-      `%c Reproduction chance ${world.reproductionChance.blue}`,
+      `%c Reproduction chance ${simulation.reproductionChance.blue}`,
       'color: rgb(100, 100, 255)'
     );
-    console.log(` Population: ${world.creatures.length}`);
+    console.log(` Population: ${simulation.creatures.length}`);
 
     if (this.births > 0) console.log(` Births: ${this.births}`);
     if (this.deaths > 0) console.log(` Deaths ${this.deaths}`);
-    if (world.creatures.length >= world.topPopulation)
+    if (simulation.creatures.length >= simulation.topPopulation)
       console.log(
-        `%c Overpopulation after ${world.cycles} cycles!`,
+        `%c Overpopulation after ${simulation.cycles} cycles!`,
         'color: rgb(255, 150, 150)'
       );
-    if (world.creatures.length === 0)
+    if (simulation.creatures.length === 0)
       console.log(
-        `%c Extintion after ${world.cycles} cycles!`,
+        `%c Extintion after ${simulation.cycles} cycles!`,
         'color: rgb(255, 150, 150)'
       );
 
     console.log('%c==================================', 'color: #777');
   }
 
+  newDeath() {
+    this.deaths++;
+  }
+
+  newBirth() {
+    this.births++;
+  }
+
   /**
    * Calculates population by species
    */
-  update(world) {
+  update() {
     this.reset();
 
-    this._index = world.creatures.length;
-    while (this._index--) this[world.creatures[this._index].species]++;
+    this._index = simulation.creatures.length;
+    while (this._index--) this[simulation.creatures[this._index].species]++;
   }
 
   /**
@@ -86,14 +93,14 @@ class Census {
    * Returns the least populated species
    */
   minority() {
-    return _.minBy(this.list(), 'population');
+    return minBy(this.list(), 'population');
   }
 
   /**
    * Returns the most populated species
    */
   mayority() {
-    return _.maxBy(this.list(), 'population');
+    return maxBy(this.list(), 'population');
   }
 
   /**
@@ -116,3 +123,5 @@ class Census {
     ];
   }
 }
+
+export default Census;

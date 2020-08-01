@@ -1,23 +1,10 @@
-<a name="module_Census"></a>
+<a name="Census"></a>
 
 ## Census
+Census registry
+
+**Kind**: global class  
 **Requires**: <code>module:lodash</code>  
-
-* [Census](#module_Census)
-    * [~Census](#module_Census..Census) : <code>Object</code>
-        * [.log()](#module_Census..Census+log)
-        * [.update()](#module_Census..Census+update)
-        * [.reset()](#module_Census..Census+reset)
-        * [.minority()](#module_Census..Census+minority)
-        * [.mayority()](#module_Census..Census+mayority)
-        * [.list()](#module_Census..Census+list)
-
-<a name="module_Census..Census"></a>
-
-### Census~Census : <code>Object</code>
-Population by species
-
-**Kind**: inner typedef of [<code>Census</code>](#module_Census)  
 **Properties**
 
 | Name | Type | Description |
@@ -25,49 +12,51 @@ Population by species
 | red | <code>number</code> | Red population |
 | green | <code>number</code> | Green population |
 | blue | <code>number</code> | Blue population |
+| births | <code>number</code> | Total births |
+| deaths | <code>number</code> | Total deaths |
 
 
-* [~Census](#module_Census..Census) : <code>Object</code>
-    * [.log()](#module_Census..Census+log)
-    * [.update()](#module_Census..Census+update)
-    * [.reset()](#module_Census..Census+reset)
-    * [.minority()](#module_Census..Census+minority)
-    * [.mayority()](#module_Census..Census+mayority)
-    * [.list()](#module_Census..Census+list)
+* [Census](#Census)
+    * [.log()](#Census+log)
+    * [.update()](#Census+update)
+    * [.reset()](#Census+reset)
+    * [.minority()](#Census+minority)
+    * [.mayority()](#Census+mayority)
+    * [.list()](#Census+list)
 
-<a name="module_Census..Census+log"></a>
+<a name="Census+log"></a>
 
-#### census.log()
+### census.log()
 Clears the log and shows the census results
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+update"></a>
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+update"></a>
 
-#### census.update()
+### census.update()
 Calculates population by species
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+reset"></a>
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+reset"></a>
 
-#### census.reset()
+### census.reset()
 Return counts results to inital state
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+minority"></a>
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+minority"></a>
 
-#### census.minority()
+### census.minority()
 Returns the least populated species
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+mayority"></a>
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+mayority"></a>
 
-#### census.mayority()
+### census.mayority()
 Returns the most populated species
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+list"></a>
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+list"></a>
 
-#### census.list()
+### census.list()
 Census list
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
+**Kind**: instance method of [<code>Census</code>](#Census)  

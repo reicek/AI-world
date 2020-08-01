@@ -1,16 +1,12 @@
-'use strict';
-/**
- * @module CreatureBrain
- * @requires synaptic
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
- */
-
-const { Architect } = synaptic;
+import { Architect } from 'synaptic';
+import { simulation } from '../../simulation';
 
 /**
  * Creature's mind
+ * @requires synaptic
+ * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
-class CreatureBrain {
+class Brain {
   /**
    * Creates a new neural network
    * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
@@ -40,11 +36,13 @@ class CreatureBrain {
   /**
    * Learn how to move
    */
-  learn(cohesion, angle, world) {
-    this.network.propagate(world.learningRate, [
-      cohesion.x / world.width, // X target
-      cohesion.y / world.height, // Y target
+  learn(cohesion, angle) {
+    this.network.propagate(simulation.learningRate, [
+      cohesion.x / simulation.width, // X target
+      cohesion.y / simulation.height, // Y target
       (angle + Math.PI) / (Math.PI * 2), // Target angle
     ]);
   }
 }
+
+export default Brain;
