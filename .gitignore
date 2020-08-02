@@ -1,8 +1,5 @@
 **/*.log
-
 **/*.wip.js
-
-**/bower_components
-
 **/node_modules
+src/bundle.js
 package-lock.json

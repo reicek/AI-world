@@ -10,6 +10,7 @@ import $ from 'jquery';
  * @property {number} blue - Blue population
  * @property {number} births - Total births
  * @property {number} deaths - Total deaths
+ * @property {string} logColor - Log color for this species
  */
 class Census {
   constructor() {
@@ -28,52 +29,51 @@ class Census {
     $('#population').text(simulation.creatures.length);
 
     console.clear();
-    console.log('%c==================================', 'color: #777');
+    console.log('==================================');
 
     this.logPopulation('red');
     this.logPopulation('green');
     this.logPopulation('blue');
 
     console.log(` Population: ${simulation.creatures.length}`);
-
-    if (this.births > 0) console.log(` Births: ${this.births}`);
-
-    if (this.deaths > 0) console.log(` Deaths ${this.deaths}`);
+    console.log(` Births: ${this.births}`);
+    console.log(` Deaths ${this.deaths}`);
 
     if (simulation.creatures.length >= simulation.topPopulation)
-      console.log(
-        `%c Overpopulation after ${simulation.cycles} cycles!`,
-        'color: rgb(255, 150, 150)'
-      );
+      console.log(`Overpopulation after ${simulation.cycles} cycles!`);
 
     if (simulation.creatures.length === 0)
-      console.log(
-        `%c Extintion after ${simulation.cycles} cycles!`,
-        'color: rgb(255, 150, 150)'
-      );
+      console.log(`Extintion after ${simulation.cycles} cycles!`);
 
-    console.log('%c==================================', 'color: #777');
+    console.log('==================================');
   }
 
   /**
    * Show current population and reproduction chance of a species
-   * @param {string} species - Target species to log population
+   * @param {string} species - Target species
    * @example this.logPopulation('red');
    */
   logPopulation(species) {
     console.log(
-      `%c ${species} : ${this.red}`,
-      `color: rgb(${species === 'red' ? 255 : 100}, ${
-        species === 'green' ? 255 : 100
-      }, ${species === 'blue' ? 255 : 100})`
+      `%c ${species} : ${this[species]}`,
+      this.getSpeciesColor(species)
     );
-    
+
     console.log(
       `%c Reproduction chance ${simulation.reproductionChance[species]}`,
-      `color: rgb(${species === 'red' ? 255 : 100}, ${
-        species === 'green' ? 255 : 100
-      }, ${species === 'blue' ? 255 : 100})`
+      this.getSpeciesColor(species)
     );
+  }
+
+  /**
+   * Returns RGB color for a particular species
+   * @param {string} species - Target species
+   * @example this.getSpeciesColor('red');
+   */
+  getSpeciesColor(species) {
+    return `color: rgb(${species === 'red' ? 255 : 100}, ${
+      species === 'green' ? 255 : 100
+    }, ${species === 'blue' ? 255 : 100})`;
   }
 
   /**

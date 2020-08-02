@@ -32,11 +32,13 @@ Census registry
 | blue | <code>number</code> | Blue population |
 | births | <code>number</code> | Total births |
 | deaths | <code>number</code> | Total deaths |
+| logColor | <code>string</code> | Log color for this species |
 
 
 * [Census](#Census)
     * [.log()](#Census+log)
     * [.logPopulation(species)](#Census+logPopulation)
+    * [.getSpeciesColor(species)](#Census+getSpeciesColor)
     * [.newDeath()](#Census+newDeath)
     * [.newBirth()](#Census+newBirth)
     * [.update()](#Census+update)
@@ -60,11 +62,26 @@ Show current population and reproduction chance of a species
 
 | Param | Type | Description |
 | --- | --- | --- |
-| species | <code>string</code> | Target species to log population |
+| species | <code>string</code> | Target species |
 
 **Example**  
 ```js
 this.logPopulation('red');
+```
+<a name="Census+getSpeciesColor"></a>
+
+### census.getSpeciesColor(species)
+Returns RGB color for a particular species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| species | <code>string</code> | Target species |
+
+**Example**  
+```js
+this.getSpeciesColor('red');
 ```
 <a name="Census+newDeath"></a>
 
