@@ -24,20 +24,32 @@ const gruntConfig = {
     all: ['src/js/**/*.js'],
   },
 
-  jsdoc2md : {
-    separateOutputFilePerInput : {
+  jsdoc2md: {
+    separateOutputFilePerInput: {
       files: [
         { src: 'src/js/simulation.js', dest: 'src/js/README.md' },
         { src: 'src/js/census/census.js', dest: 'src/js/census/README.md' },
-        { src: 'src/js/creature/creature.js', dest: 'src/js/creature/README.md' },
-        { src: 'src/js/creature/body/body.js', dest: 'src/js/creature/body/README.md' },
-        { src: 'src/js/creature/brain/brain.js', dest: 'src/js/creature/brain/README.md' },
-        { src: 'src/js/creature/draw/draw.js', dest: 'src/js/creature/draw/README.md' },
+        {
+          src: 'src/js/creature/creature.js',
+          dest: 'src/js/creature/README.md',
+        },
+        {
+          src: 'src/js/creature/body/body.js',
+          dest: 'src/js/creature/body/README.md',
+        },
+        {
+          src: 'src/js/creature/brain/brain.js',
+          dest: 'src/js/creature/brain/README.md',
+        },
+        {
+          src: 'src/js/creature/draw/draw.js',
+          dest: 'src/js/creature/draw/README.md',
+        },
         { src: 'src/js/eval/eval.js', dest: 'src/js/eval/README.md' },
         { src: 'src/js/vector/vector.js', dest: 'src/js/vector/README.md' },
-        { src: 'src/js/world/world.js', dest: 'src/js/world/README.md' }
-      ]
-    }
+        { src: 'src/js/world/world.js', dest: 'src/js/world/README.md' },
+      ],
+    },
   },
 
   webpack: {
@@ -71,7 +83,7 @@ const gruntConfig = {
 };
 
 const tasks = (grunt) => {
-  grunt.loadNpmTasks('grunt-webpack')
+  grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -79,7 +91,13 @@ const tasks = (grunt) => {
 
   grunt.initConfig(gruntConfig);
 
-  grunt.registerTask('default', ['express', 'jshint', 'webpack', 'watch', 'jsdoc2md']);
+  grunt.registerTask('default', [
+    'express',
+    'jshint',
+    'webpack',
+    'watch',
+    'jsdoc2md',
+  ]);
   grunt.registerTask('travis', ['jshint', 'webpack', 'jsdoc2md']);
   grunt.registerTask('doc', ['jsdoc2md']);
 };

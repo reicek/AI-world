@@ -36,6 +36,7 @@ Census registry
 
 * [Census](#Census)
     * [.log()](#Census+log)
+    * [.logPopulation(species)](#Census+logPopulation)
     * [.newDeath()](#Census+newDeath)
     * [.newBirth()](#Census+newBirth)
     * [.update()](#Census+update)
@@ -50,6 +51,21 @@ Census registry
 Clears the log and shows the census results
 
 **Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+logPopulation"></a>
+
+### census.logPopulation(species)
+Show current population and reproduction chance of a species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| species | <code>string</code> | Target species to log population |
+
+**Example**  
+```js
+this.logPopulation('red');
+```
 <a name="Census+newDeath"></a>
 
 ### census.newDeath()

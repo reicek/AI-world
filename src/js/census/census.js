@@ -29,30 +29,23 @@ class Census {
 
     console.clear();
     console.log('%c==================================', 'color: #777');
-    console.log(`%c Red   : ${this.red}`, 'color: rgb(255, 100, 100)');
-    console.log(
-      `%c Reproduction chance ${simulation.reproductionChance.red}`,
-      'color: rgb(255, 100, 100)'
-    );
-    console.log(`%c Green  : ${this.green}`, 'color: rgb(100, 255, 100)');
-    console.log(
-      `%c Reproduction chance ${simulation.reproductionChance.green}`,
-      'color: rgb(100, 255, 100)'
-    );
-    console.log(`%c Blue : ${this.blue}`, ' color: rgb(100, 100, 255)');
-    console.log(
-      `%c Reproduction chance ${simulation.reproductionChance.blue}`,
-      'color: rgb(100, 100, 255)'
-    );
+
+    this.logPopulation('red');
+    this.logPopulation('green');
+    this.logPopulation('blue');
+
     console.log(` Population: ${simulation.creatures.length}`);
 
     if (this.births > 0) console.log(` Births: ${this.births}`);
+
     if (this.deaths > 0) console.log(` Deaths ${this.deaths}`);
+
     if (simulation.creatures.length >= simulation.topPopulation)
       console.log(
         `%c Overpopulation after ${simulation.cycles} cycles!`,
         'color: rgb(255, 150, 150)'
       );
+
     if (simulation.creatures.length === 0)
       console.log(
         `%c Extintion after ${simulation.cycles} cycles!`,
@@ -60,6 +53,27 @@ class Census {
       );
 
     console.log('%c==================================', 'color: #777');
+  }
+
+  /**
+   * Show current population and reproduction chance of a species
+   * @param {string} species - Target species to log population
+   * @example this.logPopulation('red');
+   */
+  logPopulation(species) {
+    console.log(
+      `%c ${species} : ${this.red}`,
+      `color: rgb(${species === 'red' ? 255 : 100}, ${
+        species === 'green' ? 255 : 100
+      }, ${species === 'blue' ? 255 : 100})`
+    );
+    
+    console.log(
+      `%c Reproduction chance ${simulation.reproductionChance[species]}`,
+      `color: rgb(${species === 'red' ? 255 : 100}, ${
+        species === 'green' ? 255 : 100
+      }, ${species === 'blue' ? 255 : 100})`
+    );
   }
 
   /**

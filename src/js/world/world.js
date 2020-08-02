@@ -209,7 +209,7 @@ class World {
   updateCreatures() {
     try {
       this._index = this.creatures.length;
-      
+
       while (this._index--) {
         this.creatures[this._index].moveTo(
           this.creatures[this._index].brain.think(

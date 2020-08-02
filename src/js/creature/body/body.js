@@ -141,7 +141,8 @@ class Body {
   static attemptReproduction(creature, target, distance) {
     if (
       distance <=
-        creature.minSeparation * simulation.reproductionChance[creature.species] &&
+        creature.minSeparation *
+          simulation.reproductionChance[creature.species] &&
       target.species === creature.species
     ) {
       // is close enough to reproduce
