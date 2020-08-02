@@ -1,3 +1,21 @@
+## Modules
+
+<dl>
+<dt><a href="#module_Census">Census</a></dt>
+<dd></dd>
+</dl>
+
+## Classes
+
+<dl>
+<dt><a href="#Census">Census</a></dt>
+<dd><p>Census registry</p>
+</dd>
+</dl>
+
+<a name="module_Census"></a>
+
+## Census
 <a name="Census"></a>
 
 ## Census
@@ -18,6 +36,8 @@ Census registry
 
 * [Census](#Census)
     * [.log()](#Census+log)
+    * [.newDeath()](#Census+newDeath)
+    * [.newBirth()](#Census+newBirth)
     * [.update()](#Census+update)
     * [.reset()](#Census+reset)
     * [.minority()](#Census+minority)
@@ -28,6 +48,18 @@ Census registry
 
 ### census.log()
 Clears the log and shows the census results
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+newDeath"></a>
+
+### census.newDeath()
+Increase deaths count
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+newBirth"></a>
+
+### census.newBirth()
+Increase births count
 
 **Kind**: instance method of [<code>Census</code>](#Census)  
 <a name="Census+update"></a>

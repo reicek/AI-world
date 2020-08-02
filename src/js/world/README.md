@@ -1,3 +1,21 @@
+## Modules
+
+<dl>
+<dt><a href="#module_World">World</a></dt>
+<dd></dd>
+</dl>
+
+## Classes
+
+<dl>
+<dt><a href="#World">World</a></dt>
+<dd><p>2D environment for creatures</p>
+</dd>
+</dl>
+
+<a name="module_World"></a>
+
+## World
 <a name="World"></a>
 
 ## World

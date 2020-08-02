@@ -191,4 +191,7 @@ class Vector {
   }
 }
 
+/**
+ * @exports Vector
+ */
 export default Vector;

@@ -1,3 +1,21 @@
+## Modules
+
+<dl>
+<dt><a href="#module_Brain">Brain</a></dt>
+<dd></dd>
+</dl>
+
+## Classes
+
+<dl>
+<dt><a href="#Brain">Brain</a></dt>
+<dd><p>Creature&#39;s mind</p>
+</dd>
+</dl>
+
+<a name="module_Brain"></a>
+
+## Brain
 <a name="Brain"></a>
 
 ## Brain

@@ -62,10 +62,16 @@ class Census {
     console.log('%c==================================', 'color: #777');
   }
 
+  /**
+   * Increase deaths count
+   */
   newDeath() {
     this.deaths++;
   }
 
+  /**
+   * Increase births count
+   */
   newBirth() {
     this.births++;
   }
@@ -124,4 +130,7 @@ class Census {
   }
 }
 
+/**
+ * @exports Census
+ */
 export default Census;

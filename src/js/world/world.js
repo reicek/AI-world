@@ -236,4 +236,7 @@ class World {
   }
 }
 
+/**
+ * @exports World
+ */
 export default World;
