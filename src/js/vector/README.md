@@ -1,21 +1,3 @@
-## Modules
-
-<dl>
-<dt><a href="#module_Vector">Vector</a></dt>
-<dd></dd>
-</dl>
-
-## Classes
-
-<dl>
-<dt><a href="#Vector">Vector</a></dt>
-<dd><p>2D Matrix position</p>
-</dd>
-</dl>
-
-<a name="module_Vector"></a>
-
-## Vector
 <a name="Vector"></a>
 
 ## Vector

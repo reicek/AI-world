@@ -1,21 +1,3 @@
-## Modules
-
-<dl>
-<dt><a href="#module_Body">Body</a></dt>
-<dd></dd>
-</dl>
-
-## Classes
-
-<dl>
-<dt><a href="#Body">Body</a></dt>
-<dd><p>Helper methods for creature&#39;s body processes</p>
-</dd>
-</dl>
-
-<a name="module_Body"></a>
-
-## Body
 <a name="Body"></a>
 
 ## Body

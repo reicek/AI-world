@@ -1,21 +1,3 @@
-## Modules
-
-<dl>
-<dt><a href="#module_Census">Census</a></dt>
-<dd></dd>
-</dl>
-
-## Classes
-
-<dl>
-<dt><a href="#Census">Census</a></dt>
-<dd><p>Census registry</p>
-</dd>
-</dl>
-
-<a name="module_Census"></a>
-
-## Census
 <a name="Census"></a>
 
 ## Census

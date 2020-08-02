@@ -1,27 +1,3 @@
-## Modules
-
-<dl>
-<dt><a href="#module_Census">Census</a></dt>
-<dd></dd>
-<dt><a href="#module_Body">Body</a></dt>
-<dd></dd>
-<dt><a href="#module_Brain">Brain</a></dt>
-<dd></dd>
-<dt><a href="#module_Creature">Creature</a></dt>
-<dd></dd>
-<dt><a href="#module_Draw">Draw</a></dt>
-<dd></dd>
-<dt><a href="#module_eval">eval</a></dt>
-<dd></dd>
-<dt><a href="#module_simulation">simulation</a></dt>
-<dd><p>Current simulation</p>
-</dd>
-<dt><a href="#module_Vector">Vector</a></dt>
-<dd></dd>
-<dt><a href="#module_World">World</a></dt>
-<dd></dd>
-</dl>
-
 ## Classes
 
 <dl>
@@ -56,41 +32,6 @@
 </dd>
 </dl>
 
-<a name="module_Census"></a>
-
-## Census
-<a name="module_Body"></a>
-
-## Body
-<a name="module_Brain"></a>
-
-## Brain
-<a name="module_Creature"></a>
-
-## Creature
-<a name="module_Draw"></a>
-
-## Draw
-<a name="module_eval"></a>
-
-## eval
-**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
-<a name="module_eval..isNode"></a>
-
-### eval~isNode : <code>object</code>
-**Kind**: inner namespace of [<code>eval</code>](#module_eval)  
-<a name="module_simulation"></a>
-
-## simulation
-Current simulation
-
-**Requires**: [<code>World</code>](#module_World)  
-<a name="module_Vector"></a>
-
-## Vector
-<a name="module_World"></a>
-
-## World
 <a name="Census"></a>
 
 ## Census
@@ -307,7 +248,7 @@ Learn how to move
 Artificial Intelligence based in perceptron neural networks that lives in a 2D world
 
 **Kind**: global class  
-**Requires**: [<code>simulation</code>](#module_simulation), [<code>Vector</code>](#module_Vector), [<code>Brain</code>](#module_Brain), [<code>Draw</code>](#module_Draw), [<code>Body</code>](#module_Body)  
+**Requires**: <code>module:simulation</code>, <code>module:Vector</code>, <code>module:Brain</code>, <code>module:Draw</code>, <code>module:Body</code>  
 
 * [Creature](#Creature)
     * [.moveTo()](#Creature+moveTo)
@@ -553,7 +494,7 @@ Builds a new vector with the same caractestics as this
 2D environment for creatures
 
 **Kind**: global class  
-**Requires**: [<code>Creature</code>](#module_Creature), [<code>Census</code>](#module_Census), [<code>Vector</code>](#module_Vector), <code>module:lodash</code>, <code>module:jquery</code>  
+**Requires**: <code>module:Creature</code>, <code>module:Census</code>, <code>module:Vector</code>, <code>module:lodash</code>, <code>module:jquery</code>  
 
 * [World](#World)
     * [.launch()](#World+launch)

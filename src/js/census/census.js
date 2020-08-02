@@ -144,7 +144,4 @@ class Census {
   }
 }
 
-/**
- * @exports Census
- */
 export default Census;

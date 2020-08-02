@@ -226,7 +226,4 @@ class Creature {
   }
 }
 
-/**
- * @exports Creature
- */
 export default Creature;

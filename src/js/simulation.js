@@ -7,9 +7,4 @@ import World from './world/world';
 const simulation = new World();
 simulation.launch();
 
-/**
- * Current simulation
- * @module simulation
- * @requires World
- */
 export { simulation };

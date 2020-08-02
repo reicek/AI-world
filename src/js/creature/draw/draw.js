@@ -19,7 +19,4 @@ class Draw {
   }
 }
 
-/**
- * @exports Draw
- */
 export default Draw;

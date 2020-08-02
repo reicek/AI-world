@@ -45,7 +45,4 @@ class Brain {
   }
 }
 
-/**
- * @exports Brain
- */
 export default Brain;

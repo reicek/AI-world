@@ -166,7 +166,4 @@ class Body {
   }
 }
 
-/**
- * @exports Body
- */
 export default Body;
