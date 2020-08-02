@@ -2,27 +2,27 @@
 
 <dl>
 <dt><a href="#module_simulation">simulation</a></dt>
-<dd><p>Initializes the simulation</p>
+<dd><p>Current simulation</p>
 </dd>
-<dt><a href="#module_World">World</a></dt>
-<dd><p>Holds the state of the simulation to be used by different files</p>
+</dl>
+
+## Constants
+
+<dl>
+<dt><a href="#simulation">simulation</a> : <code>World</code></dt>
+<dd><p>World instance to run the simulation</p>
 </dd>
 </dl>
 
 <a name="module_simulation"></a>
 
 ## simulation
-Initializes the simulation
+Current simulation
 
-**Requires**: [<code>World</code>](#module_World)  
-<a name="module_simulation..simulation"></a>
+**Requires**: <code>module:World</code>  
+<a name="simulation"></a>
 
-### simulation~simulation : <code>World</code>
+## simulation : <code>World</code>
 World instance to run the simulation
 
-**Kind**: inner constant of [<code>simulation</code>](#module_simulation)  
-<a name="module_World"></a>
-
-## World
-Holds the state of the simulation to be used by different files
-
+**Kind**: global constant  
