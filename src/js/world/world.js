@@ -138,7 +138,7 @@ class World {
    * @param {number}[mass]
    */
   spawnCreature(x, y, species, mass) {
-    this.creatures.push(new Creature(x, y, species, mass));
+    this.creatures.push(new Creature(this, x, y, species, mass));
     this.births++;
 
     return this.census.log(this);

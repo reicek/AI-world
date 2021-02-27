@@ -45,7 +45,7 @@ const gruntConfig = {
     },
     separateOutputFilePerInput : {
       files: [
-        { src: 'src/js/world.js', dest: 'src/js/README.md' },
+        { src: 'src/js/world/world.js', dest: 'src/js/README.md' },
         { src: 'src/js/census/census.js', dest: 'src/js/census/README.md' },
         { src: 'src/js/creature/creature.js', dest: 'src/js/creature/README.md' },
         { src: 'src/js/eval/eval.js', dest: 'src/js/eval/README.md' },
