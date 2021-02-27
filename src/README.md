@@ -144,7 +144,8 @@ Add growth depending on metabolism
 <a name="module_CreatureBody..CreatureBody.age"></a>
 
 #### CreatureBody.age()
-Aging translates into the creature's max speed reductionor death (deletion) when none speed is left
+Aging translates into the creature's max speed reduction
+or death (deletion) when none speed is left
 
 **Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
 <a name="module_CreatureBody..CreatureBody.adjustSpeed"></a>
@@ -294,7 +295,8 @@ Returns the force needed to move towards specific creature
 <a name="module_Creature..Creature+separate"></a>
 
 #### creature.separate() ⇒ <code>Vector</code>
-Makes creature attempt to stay within reasonable distanceTriggers reproduction when creatures touch, depending on world reproduction chance
+Makes creature attempt to stay within reasonable distance
+Triggers reproduction when creatures touch, depending on world reproduction chance
 
 **Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
 <a name="module_Creature..Creature+normalizeSeparation"></a>
@@ -422,7 +424,9 @@ Creates creature's shape
 
 **Example**  
 ```js
-const x = 1;    const y = 1;    const vector = new Vector(x, y);
+const x = 1;
+    const y = 1;
+    const vector = new Vector(x, y);
 ```
 <a name="module_Vector..Vector+set"></a>
 

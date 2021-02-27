@@ -65,7 +65,9 @@
 
 **Example**  
 ```js
-const x = 1;    const y = 1;    const vector = new Vector(x, y);
+const x = 1;
+    const y = 1;
+    const vector = new Vector(x, y);
 ```
 <a name="module_Vector..Vector+set"></a>
 
