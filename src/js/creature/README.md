@@ -75,8 +75,7 @@ Returns the force needed to move towards specific creature
 <a name="module_Creature..Creature+separate"></a>
 
 #### creature.separate() ⇒ <code>Vector</code>
-Makes creature attempt to stay within reasonable distance
-Triggers reproduction when creatures touch, depending on world reproduction chance
+Makes creature attempt to stay within reasonable distanceTriggers reproduction when creatures touch, depending on world reproduction chance
 
 **Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
 <a name="module_Creature..Creature+normalizeSeparation"></a>

@@ -39,6 +39,10 @@ const gruntConfig = {
   },
 
   jsdoc2md : {
+    oneOutputFile: {
+      src: 'src/**/*.js',
+      dest: 'src/README.md'
+    },
     separateOutputFilePerInput : {
       files: [
         { src: 'src/js/world.js', dest: 'src/js/README.md' },

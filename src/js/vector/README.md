@@ -5,7 +5,7 @@
 **See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
 
 * [Vector](#module_Vector)
-    * [Vector](#module_Vector..Vector)
+    * [~Vector](#module_Vector..Vector)
         * [new Vector([x], [y])](#new_module_Vector..Vector_new)
         * [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
         * [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
@@ -28,12 +28,12 @@
 
 <a name="module_Vector..Vector"></a>
 
-### VectorVector
+### Vector~Vector
 2D Matrix position
 
-**Kind**: global class of [<code>Vector</code>](#module_Vector)  
+**Kind**: inner class of [<code>Vector</code>](#module_Vector)  
 
-* [Vector](#module_Vector..Vector)
+* [~Vector](#module_Vector..Vector)
     * [new Vector([x], [y])](#new_module_Vector..Vector_new)
     * [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
     * [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
@@ -65,9 +65,7 @@
 
 **Example**  
 ```js
-const x = 1;
-    const y = 1;
-    const vector = new Vector(x, y);
+const x = 1;    const y = 1;    const vector = new Vector(x, y);
 ```
 <a name="module_Vector..Vector+set"></a>
 

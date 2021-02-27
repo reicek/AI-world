@@ -16,21 +16,21 @@
   "author": "Cesar Anton Dorantes",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
   },
   "devDependencies": {
-    "grunt": "^1.0.2",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-watch": "^1.0.0",
+    "grunt": "^1.3.0",
+    "grunt-contrib-jshint": "^3.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-express-server": "^0.5.4",
-    "grunt-jsdoc-to-markdown": "^5.0.0",
+    "grunt-jsdoc-to-markdown": "^6.0.0",
     "grunt-vulcanize": "^1.0.0",
-    "jquery": "^3.3.1",
-    "jsdoc-to-markdown": "^6.0.1",
+    "jquery": "^3.5.1",
+    "jsdoc-to-markdown": "^7.0.0",
     "jshint-stylish": "^2.2.1",
-    "lodash": "^4.17.5",
-    "prettier": "2.0.5",
+    "lodash": "^4.17.21",
+    "prettier": "2.2.1",
     "synaptic": "git+https://github.com/reicek/synaptic.git"
   },
   "repository": {
