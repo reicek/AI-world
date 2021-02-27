@@ -27,16 +27,28 @@ const gruntConfig = {
   jsdoc2md: {
     oneOutputFile: {
       src: 'src/**/*.js',
-      dest: 'src/README.md'
+      dest: 'src/README.md',
     },
     separateOutputFilePerInput: {
       files: [
         { src: 'src/js/simulation.js', dest: 'src/js/README.md' },
         { src: 'src/js/census/census.js', dest: 'src/js/census/README.md' },
-        { src: 'src/js/creature/creature.js', dest: 'src/js/creature/README.md' },
-        { src: 'src/js/creature/body/body.js', dest: 'src/js/creature/body/README.md' },
-        { src: 'src/js/creature/brain/brain.js', dest: 'src/js/creature/brain/README.md' },
-        { src: 'src/js/creature/draw/draw.js', dest: 'src/js/creature/draw/README.md' },
+        {
+          src: 'src/js/creature/creature.js',
+          dest: 'src/js/creature/README.md',
+        },
+        {
+          src: 'src/js/creature/body/body.js',
+          dest: 'src/js/creature/body/README.md',
+        },
+        {
+          src: 'src/js/creature/brain/brain.js',
+          dest: 'src/js/creature/brain/README.md',
+        },
+        {
+          src: 'src/js/creature/draw/draw.js',
+          dest: 'src/js/creature/draw/README.md',
+        },
         { src: 'src/js/vector/vector.js', dest: 'src/js/vector/README.md' },
         { src: 'src/js/world/world.js', dest: 'src/js/world/README.md' },
       ],

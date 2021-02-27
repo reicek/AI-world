@@ -214,11 +214,7 @@ Creature's mind
 
 **Kind**: global class  
 **Requires**: <code>module:synaptic</code>  
-**See**
-
-- [https://github.com/cazala/synaptic/wiki/Architect](https://github.com/cazala/synaptic/wiki/Architect)
-- [https://github.com/cazala/synaptic/wiki/Networks](https://github.com/cazala/synaptic/wiki/Networks)
-
+**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
 
 * [Brain](#Brain)
     * [new Brain()](#new_Brain_new)

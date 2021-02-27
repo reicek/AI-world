@@ -2,4 +2,5 @@
 **/*.wip.js
 **/node_modules
 src/bundle.js
+src/bundle.js.LICENSE.txt
 package-lock.json
