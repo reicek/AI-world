@@ -1,645 +1,649 @@
 ## Modules
 
 <dl>
-<dt><a href="#module_Census">Census</a></dt>
-<dd></dd>
-<dt><a href="#module_CreatureBody">CreatureBody</a></dt>
-<dd></dd>
-<dt><a href="#module_CreatureBrain">CreatureBrain</a></dt>
-<dd></dd>
-<dt><a href="#module_Creature">Creature</a></dt>
-<dd></dd>
-<dt><a href="#module_DrawCreature">DrawCreature</a></dt>
-<dd></dd>
 <dt><a href="#module_eval">eval</a></dt>
-<dd></dd>
-<dt><a href="#module_Vector">Vector</a></dt>
-<dd></dd>
-<dt><a href="#module_World">World</a></dt>
 <dd></dd>
 </dl>
 
-<a name="module_Census"></a>
+## Constants
+
+<dl>
+<dt><a href="#world">world</a></dt>
+<dd><p>Wold simulation instance</p>
+</dd>
+</dl>
+
+## Functions
+
+<dl>
+<dt><a href="#log">log(world)</a></dt>
+<dd><p>Update census results on log</p>
+</dd>
+<dt><a href="#newDeath">newDeath()</a></dt>
+<dd><p>Register new death</p>
+</dd>
+<dt><a href="#newBirth">newBirth()</a></dt>
+<dd><p>Register new birth</p>
+</dd>
+<dt><a href="#update">update()</a></dt>
+<dd><p>Calculate population by species</p>
+</dd>
+<dt><a href="#reset">reset()</a></dt>
+<dd><p>Reset counts results</p>
+</dd>
+<dt><a href="#minority">minority()</a></dt>
+<dd><p>Least populated species</p>
+</dd>
+<dt><a href="#mayority">mayority()</a></dt>
+<dd><p>Most populated species</p>
+</dd>
+<dt><a href="#list">list()</a></dt>
+<dd><p>Census list</p>
+</dd>
+<dt><a href="#initializeSpecies">initializeSpecies()</a></dt>
+<dd><p>Initializes creature&#39;s species</p>
+</dd>
+<dt><a href="#initializeColor">initializeColor()</a></dt>
+<dd><p>Initializes creature&#39;s color parameters</p>
+</dd>
+<dt><a href="#grow">grow()</a></dt>
+<dd><p>Add growth depending on metabolism</p>
+</dd>
+<dt><a href="#age">age()</a></dt>
+<dd><p>Aging translates into the creature&#39;s max speed reduction
+or death (deletion) when none speed is left</p>
+</dd>
+<dt><a href="#adjustSpeed">adjustSpeed()</a></dt>
+<dd><p>Adjust velocity to stay close to maxSpeed</p>
+</dd>
+<dt><a href="#boundaries">boundaries()</a></dt>
+<dd><p>Prevents creatures from going beyond the edges</p>
+</dd>
+<dt><a href="#attemptReproduction">attemptReproduction(target, distance)</a></dt>
+<dd><p>Attempt to reproduce creature</p>
+</dd>
+<dt><a href="#think">think()</a></dt>
+<dd><p>Think of where to move from current location</p>
+</dd>
+<dt><a href="#learn">learn()</a></dt>
+<dd><p>Learn how to move</p>
+</dd>
+<dt><a href="#moveTo">moveTo()</a></dt>
+<dd><p>Applies creature&#39;s movement</p>
+</dd>
+<dt><a href="#applyForce">applyForce()</a></dt>
+<dd><p>Applies a vector force to the creature&#39;s momentum=</p>
+</dd>
+<dt><a href="#draw">draw()</a></dt>
+<dd><p>Draws current&#39;s creature position and direction</p>
+</dd>
+<dt><a href="#update">update()</a></dt>
+<dd><p>Update&#39;s creature</p>
+</dd>
+<dt><a href="#seek">seek(target)</a> ⇒ <code>Vector</code></dt>
+<dd><p>Returns the force needed to move towards specific creature</p>
+</dd>
+<dt><a href="#separate">separate()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Makes creature attempt to stay within reasonable distance
+Triggers reproduction when creatures touch, depending on world reproduction chance</p>
+</dd>
+<dt><a href="#normalizeSeparation">normalizeSeparation()</a></dt>
+<dd><p>Normalizes creature separation if they are within range</p>
+</dd>
+<dt><a href="#align">align()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Align to other creatures</p>
+</dd>
+<dt><a href="#addAlignmentTo">addAlignmentTo()</a></dt>
+<dd><p>Adds force required to align to another creature</p>
+</dd>
+<dt><a href="#cohesion">cohesion()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Makes creature group with others</p>
+</dd>
+<dt><a href="#applyCohesion">applyCohesion()</a></dt>
+<dd><p>Makes creature attempt to stay close to same species</p>
+</dd>
+<dt><a href="#shape">shape()</a></dt>
+<dd><p>Creates creature&#39;s shape</p>
+</dd>
+<dt><a href="#set">set([x], [y])</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#random">random()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#add">add()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#sub">sub()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#mul">mul()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#div">div()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#mag">mag()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#normalize">normalize()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#angle">angle()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#setMag">setMag()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#setAngle">setAngle()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#rotate">rotate()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#limit">limit()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#angleBetween">angleBetween()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#dot">dot()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#lerp">lerp()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#dist">dist()</a> ⇒ <code>number</code></dt>
+<dd><p>Calculates distance between current vector and the target</p>
+</dd>
+<dt><a href="#copy">copy()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Builds a new vector with the same caractestics as this</p>
+</dd>
+<dt><a href="#launch">launch()</a></dt>
+<dd><p>Start simulation</p>
+</dd>
+<dt><a href="#initializeCanvas">initializeCanvas()</a></dt>
+<dd><p>Canvas Setup</p>
+</dd>
+<dt><a href="#getMousePosition">getMousePosition()</a></dt>
+<dd><p>Stores current mouse position</p>
+</dd>
+<dt><a href="#initializePopulation">initializePopulation()</a></dt>
+<dd><p>Spawn first creatures</p>
+</dd>
+<dt><a href="#startListeners">startListeners()</a></dt>
+<dd><p>Events listeners</p>
+</dd>
+<dt><a href="#increasePopulation">increasePopulation([x], [y], [species])</a></dt>
+<dd><p>Increases the least populated species if none is specified</p>
+</dd>
+<dt><a href="#decreasePopulation">decreasePopulation()</a> ⇒ <code>number</code></dt>
+<dd><p>Removes oldest (slowest) creature</p>
+</dd>
+<dt><a href="#spawnCreature">spawnCreature([x], [y], [species], [mass])</a></dt>
+<dd><p>Adds a new crature to the simulation</p>
+</dd>
+<dt><a href="#removeCreature">removeCreature(creature)</a></dt>
+<dd><p>Removes a creature from the simulation</p>
+</dd>
+<dt><a href="#drawNextFrame">drawNextFrame()</a></dt>
+<dd><p>Adjust population and draws creatures next move</p>
+</dd>
+<dt><a href="#adjustPopulationGrowth">adjustPopulationGrowth()</a></dt>
+<dd><p>Adjust world population growth to prevent overpopulation or full extintion</p>
+</dd>
+<dt><a href="#updateCreatures">updateCreatures()</a></dt>
+<dd><p>Draws creatures next move</p>
+</dd>
+</dl>
+
+## Typedefs
+
+<dl>
+<dt><a href="#Census">Census</a> : <code>Object</code></dt>
+<dd><p>Population by species</p>
+</dd>
+</dl>
 
-## Census
-**Requires**: <code>module:lodash</code>  
-
-* [Census](#module_Census)
-    * [~Census](#module_Census..Census) : <code>Object</code>
-        * [.log()](#module_Census..Census+log)
-        * [.update()](#module_Census..Census+update)
-        * [.reset()](#module_Census..Census+reset)
-        * [.minority()](#module_Census..Census+minority)
-        * [.mayority()](#module_Census..Census+mayority)
-        * [.list()](#module_Census..Census+list)
-
-<a name="module_Census..Census"></a>
-
-### Census~Census : <code>Object</code>
-Population by species
-
-**Kind**: inner typedef of [<code>Census</code>](#module_Census)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| red | <code>number</code> | Red population |
-| green | <code>number</code> | Green population |
-| blue | <code>number</code> | Blue population |
-
-
-* [~Census](#module_Census..Census) : <code>Object</code>
-    * [.log()](#module_Census..Census+log)
-    * [.update()](#module_Census..Census+update)
-    * [.reset()](#module_Census..Census+reset)
-    * [.minority()](#module_Census..Census+minority)
-    * [.mayority()](#module_Census..Census+mayority)
-    * [.list()](#module_Census..Census+list)
-
-<a name="module_Census..Census+log"></a>
-
-#### census.log()
-Clears the log and shows the census results
-
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+update"></a>
-
-#### census.update()
-Calculates population by species
-
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+reset"></a>
-
-#### census.reset()
-Return counts results to inital state
-
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+minority"></a>
-
-#### census.minority()
-Returns the least populated species
-
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+mayority"></a>
-
-#### census.mayority()
-Returns the most populated species
-
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+list"></a>
-
-#### census.list()
-Census list
-
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_CreatureBody"></a>
-
-## CreatureBody
-**Requires**: <code>module:lodash</code>  
-
-* [CreatureBody](#module_CreatureBody)
-    * [~CreatureBody](#module_CreatureBody..CreatureBody)
-        * [.initializeSpecies()](#module_CreatureBody..CreatureBody.initializeSpecies)
-        * [.initializeColor()](#module_CreatureBody..CreatureBody.initializeColor)
-        * [.grow()](#module_CreatureBody..CreatureBody.grow)
-        * [.age()](#module_CreatureBody..CreatureBody.age)
-        * [.adjustSpeed()](#module_CreatureBody..CreatureBody.adjustSpeed)
-        * [.boundaries()](#module_CreatureBody..CreatureBody.boundaries)
-        * [.attemptReproduction(target, distance)](#module_CreatureBody..CreatureBody.attemptReproduction)
-
-<a name="module_CreatureBody..CreatureBody"></a>
-
-### CreatureBody~CreatureBody
-Helper methods for creature's body processes
-
-**Kind**: inner class of [<code>CreatureBody</code>](#module_CreatureBody)  
-
-* [~CreatureBody](#module_CreatureBody..CreatureBody)
-    * [.initializeSpecies()](#module_CreatureBody..CreatureBody.initializeSpecies)
-    * [.initializeColor()](#module_CreatureBody..CreatureBody.initializeColor)
-    * [.grow()](#module_CreatureBody..CreatureBody.grow)
-    * [.age()](#module_CreatureBody..CreatureBody.age)
-    * [.adjustSpeed()](#module_CreatureBody..CreatureBody.adjustSpeed)
-    * [.boundaries()](#module_CreatureBody..CreatureBody.boundaries)
-    * [.attemptReproduction(target, distance)](#module_CreatureBody..CreatureBody.attemptReproduction)
-
-<a name="module_CreatureBody..CreatureBody.initializeSpecies"></a>
-
-#### CreatureBody.initializeSpecies()
-Initializes creature's species
-
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.initializeColor"></a>
-
-#### CreatureBody.initializeColor()
-Initializes creature's color parameters
-
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.grow"></a>
-
-#### CreatureBody.grow()
-Add growth depending on metabolism
-
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.age"></a>
-
-#### CreatureBody.age()
-Aging translates into the creature's max speed reduction
-or death (deletion) when none speed is left
-
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.adjustSpeed"></a>
-
-#### CreatureBody.adjustSpeed()
-Adjust velocity to stay close to maxSpeed
-
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.boundaries"></a>
-
-#### CreatureBody.boundaries()
-Prevents creatures from going beyond the edges
-
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.attemptReproduction"></a>
-
-#### CreatureBody.attemptReproduction(target, distance)
-Attempt to reproduce creature
-
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-
-| Param | Type |
-| --- | --- |
-| target | <code>Object</code> | 
-| distance | <code>number</code> | 
-
-<a name="module_CreatureBrain"></a>
-
-## CreatureBrain
-**Requires**: <code>module:synaptic</code>  
-**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
-
-* [CreatureBrain](#module_CreatureBrain)
-    * [~CreatureBrain](#module_CreatureBrain..CreatureBrain)
-        * [new CreatureBrain()](#new_module_CreatureBrain..CreatureBrain_new)
-        * [.think()](#module_CreatureBrain..CreatureBrain+think)
-        * [.learn()](#module_CreatureBrain..CreatureBrain+learn)
-
-<a name="module_CreatureBrain..CreatureBrain"></a>
-
-### CreatureBrain~CreatureBrain
-Creature's mind
-
-**Kind**: inner class of [<code>CreatureBrain</code>](#module_CreatureBrain)  
-**See**
-
-- [https://github.com/cazala/synaptic/wiki/Architect](https://github.com/cazala/synaptic/wiki/Architect)
-- [https://github.com/cazala/synaptic/wiki/Networks](https://github.com/cazala/synaptic/wiki/Networks)
-
-
-* [~CreatureBrain](#module_CreatureBrain..CreatureBrain)
-    * [new CreatureBrain()](#new_module_CreatureBrain..CreatureBrain_new)
-    * [.think()](#module_CreatureBrain..CreatureBrain+think)
-    * [.learn()](#module_CreatureBrain..CreatureBrain+learn)
-
-<a name="new_module_CreatureBrain..CreatureBrain_new"></a>
-
-#### new CreatureBrain()
-Creates a new neural network
-
-<a name="module_CreatureBrain..CreatureBrain+think"></a>
-
-#### creatureBrain.think()
-Think of where to move from current location
-
-**Kind**: instance method of [<code>CreatureBrain</code>](#module_CreatureBrain..CreatureBrain)  
-<a name="module_CreatureBrain..CreatureBrain+learn"></a>
-
-#### creatureBrain.learn()
-Learn how to move
-
-**Kind**: instance method of [<code>CreatureBrain</code>](#module_CreatureBrain..CreatureBrain)  
-<a name="module_Creature"></a>
-
-## Creature
-**Requires**: <code>module:lodash</code>, [<code>World</code>](#module_World), [<code>Vector</code>](#module_Vector), [<code>DrawCreature</code>](#module_DrawCreature), [<code>CreatureBrain</code>](#module_CreatureBrain), [<code>CreatureBody</code>](#module_CreatureBody)  
-
-* [Creature](#module_Creature)
-    * [~Creature](#module_Creature..Creature)
-        * [.moveTo()](#module_Creature..Creature+moveTo)
-        * [.applyForce()](#module_Creature..Creature+applyForce)
-        * [.draw()](#module_Creature..Creature+draw)
-        * [.update()](#module_Creature..Creature+update)
-        * [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-        * [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
-        * [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-        * [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
-        * [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-        * [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
-        * [.applyCohesion()](#module_Creature..Creature+applyCohesion)
-
-<a name="module_Creature..Creature"></a>
-
-### Creature~Creature
-Artificial Intelligence based in perceptron neural networks that lives in a 2D world
-
-**Kind**: inner class of [<code>Creature</code>](#module_Creature)  
-
-* [~Creature](#module_Creature..Creature)
-    * [.moveTo()](#module_Creature..Creature+moveTo)
-    * [.applyForce()](#module_Creature..Creature+applyForce)
-    * [.draw()](#module_Creature..Creature+draw)
-    * [.update()](#module_Creature..Creature+update)
-    * [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-    * [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
-    * [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-    * [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
-    * [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-    * [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
-    * [.applyCohesion()](#module_Creature..Creature+applyCohesion)
-
-<a name="module_Creature..Creature+moveTo"></a>
-
-#### creature.moveTo()
-Applies creature's movement
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+applyForce"></a>
-
-#### creature.applyForce()
-Applies a vector force to the creature's momentum=
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+draw"></a>
-
-#### creature.draw()
-Draws current's creature position and direction
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+update"></a>
-
-#### creature.update()
-Update's creature
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+seek"></a>
-
-#### creature.seek(target) ⇒ <code>Vector</code>
-Returns the force needed to move towards specific creature
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-
-| Param | Type |
-| --- | --- |
-| target | <code>Vector</code> | 
-
-<a name="module_Creature..Creature+separate"></a>
-
-#### creature.separate() ⇒ <code>Vector</code>
-Makes creature attempt to stay within reasonable distance
-Triggers reproduction when creatures touch, depending on world reproduction chance
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+normalizeSeparation"></a>
-
-#### creature.normalizeSeparation()
-Normalizes creature separation if they are within range
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+align"></a>
-
-#### creature.align() ⇒ <code>Vector</code>
-Align to other creatures
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+addAlignmentTo"></a>
-
-#### creature.addAlignmentTo()
-Adds force required to align to another creature
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+cohesion"></a>
-
-#### creature.cohesion() ⇒ <code>Vector</code>
-Makes creature group with others
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+applyCohesion"></a>
-
-#### creature.applyCohesion()
-Makes creature attempt to stay close to same species
-
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_DrawCreature"></a>
-
-## DrawCreature
-
-* [DrawCreature](#module_DrawCreature)
-    * [~DrawCreature](#module_DrawCreature..DrawCreature)
-        * [.shape()](#module_DrawCreature..DrawCreature.shape)
-
-<a name="module_DrawCreature..DrawCreature"></a>
-
-### DrawCreature~DrawCreature
-Methods to draw creature
-
-**Kind**: inner class of [<code>DrawCreature</code>](#module_DrawCreature)  
-<a name="module_DrawCreature..DrawCreature.shape"></a>
-
-#### DrawCreature.shape()
-Creates creature's shape
-
-**Kind**: static method of [<code>DrawCreature</code>](#module_DrawCreature..DrawCreature)  
 <a name="module_eval"></a>
 
 ## eval
+
 **See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
 <a name="module_eval..isNode"></a>
 
 ### eval~isNode : <code>object</code>
+
 **Kind**: inner namespace of [<code>eval</code>](#module_eval)  
-<a name="module_Vector"></a>
+<a name="world"></a>
 
-## Vector
-**Requires**: <code>module:lodash</code>  
-**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
+## world
 
-* [Vector](#module_Vector)
-    * [~Vector](#module_Vector..Vector)
-        * [new Vector([x], [y])](#new_module_Vector..Vector_new)
-        * [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
-        * [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
-        * [.add()](#module_Vector..Vector+add) ⇒ <code>Vector</code>
-        * [.sub()](#module_Vector..Vector+sub) ⇒ <code>Vector</code>
-        * [.mul()](#module_Vector..Vector+mul) ⇒ <code>Vector</code>
-        * [.div()](#module_Vector..Vector+div) ⇒ <code>Vector</code>
-        * [.mag()](#module_Vector..Vector+mag) ⇒ <code>number</code>
-        * [.normalize()](#module_Vector..Vector+normalize) ⇒ <code>Vector</code>
-        * [.angle()](#module_Vector..Vector+angle) ⇒ <code>number</code>
-        * [.setMag()](#module_Vector..Vector+setMag) ⇒ <code>Vector</code>
-        * [.setAngle()](#module_Vector..Vector+setAngle) ⇒ <code>Vector</code>
-        * [.rotate()](#module_Vector..Vector+rotate) ⇒ <code>Vector</code>
-        * [.limit()](#module_Vector..Vector+limit) ⇒ <code>Vector</code>
-        * [.angleBetween()](#module_Vector..Vector+angleBetween) ⇒ <code>number</code>
-        * [.dot()](#module_Vector..Vector+dot) ⇒ <code>number</code>
-        * [.lerp()](#module_Vector..Vector+lerp) ⇒ <code>Vector</code>
-        * [.dist()](#module_Vector..Vector+dist) ⇒ <code>number</code>
-        * [.copy()](#module_Vector..Vector+copy) ⇒ <code>Vector</code>
+Wold simulation instance
 
-<a name="module_Vector..Vector"></a>
+**Kind**: global constant  
+<a name="log"></a>
 
-### Vector~Vector
-2D Matrix position
+## log(world)
 
-**Kind**: inner class of [<code>Vector</code>](#module_Vector)  
+Update census results on log
 
-* [~Vector](#module_Vector..Vector)
-    * [new Vector([x], [y])](#new_module_Vector..Vector_new)
-    * [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
-    * [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
-    * [.add()](#module_Vector..Vector+add) ⇒ <code>Vector</code>
-    * [.sub()](#module_Vector..Vector+sub) ⇒ <code>Vector</code>
-    * [.mul()](#module_Vector..Vector+mul) ⇒ <code>Vector</code>
-    * [.div()](#module_Vector..Vector+div) ⇒ <code>Vector</code>
-    * [.mag()](#module_Vector..Vector+mag) ⇒ <code>number</code>
-    * [.normalize()](#module_Vector..Vector+normalize) ⇒ <code>Vector</code>
-    * [.angle()](#module_Vector..Vector+angle) ⇒ <code>number</code>
-    * [.setMag()](#module_Vector..Vector+setMag) ⇒ <code>Vector</code>
-    * [.setAngle()](#module_Vector..Vector+setAngle) ⇒ <code>Vector</code>
-    * [.rotate()](#module_Vector..Vector+rotate) ⇒ <code>Vector</code>
-    * [.limit()](#module_Vector..Vector+limit) ⇒ <code>Vector</code>
-    * [.angleBetween()](#module_Vector..Vector+angleBetween) ⇒ <code>number</code>
-    * [.dot()](#module_Vector..Vector+dot) ⇒ <code>number</code>
-    * [.lerp()](#module_Vector..Vector+lerp) ⇒ <code>Vector</code>
-    * [.dist()](#module_Vector..Vector+dist) ⇒ <code>number</code>
-    * [.copy()](#module_Vector..Vector+copy) ⇒ <code>Vector</code>
+**Kind**: global function
 
-<a name="new_module_Vector..Vector_new"></a>
+| Param | Type               | Description          |
+| ----- | ------------------ | -------------------- |
+| world | <code>World</code> | Simulation reference |
 
-#### new Vector([x], [y])
+<a name="newDeath"></a>
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [x] | <code>number</code> | <code>0</code> | X value |
-| [y] | <code>number</code> | <code>0</code> | Y value |
+## newDeath()
 
-**Example**  
-```js
-const x = 1;
-    const y = 1;
-    const vector = new Vector(x, y);
-```
-<a name="module_Vector..Vector+set"></a>
+Register new death
 
-#### vector.set([x], [y]) ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
+**Kind**: global function  
+<a name="newBirth"></a>
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [x] | <code>number</code> | <code>0</code> | X value |
-| [y] | <code>number</code> | <code>0</code> | Y value |
+## newBirth()
 
-<a name="module_Vector..Vector+random"></a>
+Register new birth
 
-#### vector.random() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+add"></a>
+**Kind**: global function  
+<a name="update"></a>
 
-#### vector.add() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+sub"></a>
+## update()
 
-#### vector.sub() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+mul"></a>
+Calculate population by species
 
-#### vector.mul() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+div"></a>
+**Kind**: global function  
+<a name="reset"></a>
 
-#### vector.div() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+mag"></a>
+## reset()
 
-#### vector.mag() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+normalize"></a>
+Reset counts results
 
-#### vector.normalize() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+angle"></a>
+**Kind**: global function  
+<a name="minority"></a>
 
-#### vector.angle() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+setMag"></a>
+## minority()
 
-#### vector.setMag() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+setAngle"></a>
+Least populated species
 
-#### vector.setAngle() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+rotate"></a>
+**Kind**: global function  
+<a name="mayority"></a>
 
-#### vector.rotate() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+limit"></a>
+## mayority()
 
-#### vector.limit() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+angleBetween"></a>
+Most populated species
 
-#### vector.angleBetween() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+dot"></a>
+**Kind**: global function  
+<a name="list"></a>
 
-#### vector.dot() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+lerp"></a>
+## list()
 
-#### vector.lerp() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+dist"></a>
+Census list
 
-#### vector.dist() ⇒ <code>number</code>
+**Kind**: global function  
+<a name="initializeSpecies"></a>
+
+## initializeSpecies()
+
+Initializes creature's species
+
+**Kind**: global function  
+<a name="initializeColor"></a>
+
+## initializeColor()
+
+Initializes creature's color parameters
+
+**Kind**: global function  
+<a name="grow"></a>
+
+## grow()
+
+Add growth depending on metabolism
+
+**Kind**: global function  
+<a name="age"></a>
+
+## age()
+
+Aging translates into the creature's max speed reduction
+or death (deletion) when none speed is left
+
+**Kind**: global function  
+<a name="adjustSpeed"></a>
+
+## adjustSpeed()
+
+Adjust velocity to stay close to maxSpeed
+
+**Kind**: global function  
+<a name="boundaries"></a>
+
+## boundaries()
+
+Prevents creatures from going beyond the edges
+
+**Kind**: global function  
+<a name="attemptReproduction"></a>
+
+## attemptReproduction(target, distance)
+
+Attempt to reproduce creature
+
+**Kind**: global function
+
+| Param    | Type                |
+| -------- | ------------------- |
+| target   | <code>Object</code> |
+| distance | <code>number</code> |
+
+<a name="think"></a>
+
+## think()
+
+Think of where to move from current location
+
+**Kind**: global function  
+<a name="learn"></a>
+
+## learn()
+
+Learn how to move
+
+**Kind**: global function  
+<a name="moveTo"></a>
+
+## moveTo()
+
+Applies creature's movement
+
+**Kind**: global function  
+<a name="applyForce"></a>
+
+## applyForce()
+
+Applies a vector force to the creature's momentum=
+
+**Kind**: global function  
+<a name="draw"></a>
+
+## draw()
+
+Draws current's creature position and direction
+
+**Kind**: global function  
+<a name="update"></a>
+
+## update()
+
+Update's creature
+
+**Kind**: global function  
+<a name="seek"></a>
+
+## seek(target) ⇒ <code>Vector</code>
+
+Returns the force needed to move towards specific creature
+
+**Kind**: global function
+
+| Param  | Type                |
+| ------ | ------------------- |
+| target | <code>Vector</code> |
+
+<a name="separate"></a>
+
+## separate() ⇒ <code>Vector</code>
+
+Makes creature attempt to stay within reasonable distance
+Triggers reproduction when creatures touch, depending on world reproduction chance
+
+**Kind**: global function  
+<a name="normalizeSeparation"></a>
+
+## normalizeSeparation()
+
+Normalizes creature separation if they are within range
+
+**Kind**: global function  
+<a name="align"></a>
+
+## align() ⇒ <code>Vector</code>
+
+Align to other creatures
+
+**Kind**: global function  
+<a name="addAlignmentTo"></a>
+
+## addAlignmentTo()
+
+Adds force required to align to another creature
+
+**Kind**: global function  
+<a name="cohesion"></a>
+
+## cohesion() ⇒ <code>Vector</code>
+
+Makes creature group with others
+
+**Kind**: global function  
+<a name="applyCohesion"></a>
+
+## applyCohesion()
+
+Makes creature attempt to stay close to same species
+
+**Kind**: global function  
+<a name="shape"></a>
+
+## shape()
+
+Creates creature's shape
+
+**Kind**: global function  
+<a name="set"></a>
+
+## set([x], [y]) ⇒ <code>Vector</code>
+
+**Kind**: global function
+
+| Param | Type                | Default        | Description |
+| ----- | ------------------- | -------------- | ----------- |
+| [x]   | <code>number</code> | <code>0</code> | X value     |
+| [y]   | <code>number</code> | <code>0</code> | Y value     |
+
+<a name="random"></a>
+
+## random() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="add"></a>
+
+## add() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="sub"></a>
+
+## sub() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="mul"></a>
+
+## mul() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="div"></a>
+
+## div() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="mag"></a>
+
+## mag() ⇒ <code>number</code>
+
+**Kind**: global function  
+<a name="normalize"></a>
+
+## normalize() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="angle"></a>
+
+## angle() ⇒ <code>number</code>
+
+**Kind**: global function  
+<a name="setMag"></a>
+
+## setMag() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="setAngle"></a>
+
+## setAngle() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="rotate"></a>
+
+## rotate() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="limit"></a>
+
+## limit() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="angleBetween"></a>
+
+## angleBetween() ⇒ <code>number</code>
+
+**Kind**: global function  
+<a name="dot"></a>
+
+## dot() ⇒ <code>number</code>
+
+**Kind**: global function  
+<a name="lerp"></a>
+
+## lerp() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="dist"></a>
+
+## dist() ⇒ <code>number</code>
+
 Calculates distance between current vector and the target
 
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+copy"></a>
+**Kind**: global function  
+<a name="copy"></a>
 
-#### vector.copy() ⇒ <code>Vector</code>
+## copy() ⇒ <code>Vector</code>
+
 Builds a new vector with the same caractestics as this
 
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_World"></a>
+**Kind**: global function  
+<a name="launch"></a>
 
-## World
-**Requires**: <code>module:lodash</code>, [<code>Creature</code>](#module_Creature), [<code>Census</code>](#module_Census)  
+## launch()
 
-* [World](#module_World)
-    * [~World](#module_World..World)
-        * [.launch()](#module_World..World+launch)
-        * [.initializeCanvas()](#module_World..World+initializeCanvas)
-        * [.getMousePosition()](#module_World..World+getMousePosition)
-        * [.initializePopulation()](#module_World..World+initializePopulation)
-        * [.startListeners()](#module_World..World+startListeners)
-        * [.increasePopulation([x], [y], [species])](#module_World..World+increasePopulation)
-        * [.decreasePopulation()](#module_World..World+decreasePopulation) ⇒ <code>number</code>
-        * [.spawnCreature([x], [y], [species], [mass])](#module_World..World+spawnCreature)
-        * [.removeCreature(creature)](#module_World..World+removeCreature)
-        * [.drawNextFrame()](#module_World..World+drawNextFrame)
-        * [.adjustPopulationGrowth()](#module_World..World+adjustPopulationGrowth)
-        * [.updateCreatures()](#module_World..World+updateCreatures)
-
-<a name="module_World..World"></a>
-
-### World~World
-2D environment for creatures
-
-**Kind**: inner class of [<code>World</code>](#module_World)  
-
-* [~World](#module_World..World)
-    * [.launch()](#module_World..World+launch)
-    * [.initializeCanvas()](#module_World..World+initializeCanvas)
-    * [.getMousePosition()](#module_World..World+getMousePosition)
-    * [.initializePopulation()](#module_World..World+initializePopulation)
-    * [.startListeners()](#module_World..World+startListeners)
-    * [.increasePopulation([x], [y], [species])](#module_World..World+increasePopulation)
-    * [.decreasePopulation()](#module_World..World+decreasePopulation) ⇒ <code>number</code>
-    * [.spawnCreature([x], [y], [species], [mass])](#module_World..World+spawnCreature)
-    * [.removeCreature(creature)](#module_World..World+removeCreature)
-    * [.drawNextFrame()](#module_World..World+drawNextFrame)
-    * [.adjustPopulationGrowth()](#module_World..World+adjustPopulationGrowth)
-    * [.updateCreatures()](#module_World..World+updateCreatures)
-
-<a name="module_World..World+launch"></a>
-
-#### world.launch()
 Start simulation
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+initializeCanvas"></a>
+**Kind**: global function  
+<a name="initializeCanvas"></a>
 
-#### world.initializeCanvas()
+## initializeCanvas()
+
 Canvas Setup
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+getMousePosition"></a>
+**Kind**: global function  
+<a name="getMousePosition"></a>
 
-#### world.getMousePosition()
+## getMousePosition()
+
 Stores current mouse position
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+initializePopulation"></a>
+**Kind**: global function  
+<a name="initializePopulation"></a>
 
-#### world.initializePopulation()
+## initializePopulation()
+
 Spawn first creatures
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+startListeners"></a>
+**Kind**: global function  
+<a name="startListeners"></a>
 
-#### world.startListeners()
+## startListeners()
+
 Events listeners
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+increasePopulation"></a>
+**Kind**: global function  
+<a name="increasePopulation"></a>
 
-#### world.increasePopulation([x], [y], [species])
+## increasePopulation([x], [y], [species])
+
 Increases the least populated species if none is specified
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
+**Kind**: global function
 
-| Param | Type | Description |
-| --- | --- | --- |
-| [x] | <code>number</code> | New creature's coordinate on the X axis |
-| [y] | <code>number</code> | New creature's coordinate on the Y axis |
-| [species] | <code>string</code> | New creature's species |
+| Param     | Type                | Description                             |
+| --------- | ------------------- | --------------------------------------- |
+| [x]       | <code>number</code> | New creature's coordinate on the X axis |
+| [y]       | <code>number</code> | New creature's coordinate on the Y axis |
+| [species] | <code>string</code> | New creature's species                  |
 
-<a name="module_World..World+decreasePopulation"></a>
+<a name="decreasePopulation"></a>
 
-#### world.decreasePopulation() ⇒ <code>number</code>
+## decreasePopulation() ⇒ <code>number</code>
+
 Removes oldest (slowest) creature
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+spawnCreature"></a>
+**Kind**: global function  
+<a name="spawnCreature"></a>
 
-#### world.spawnCreature([x], [y], [species], [mass])
+## spawnCreature([x], [y], [species], [mass])
+
 Adds a new crature to the simulation
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
+**Kind**: global function
 
-| Param | Type |
-| --- | --- |
-| [x] | <code>number</code> | 
-| [y] | <code>number</code> | 
-| [species] | <code>string</code> | 
-| [mass] | <code>number</code> | 
+| Param     | Type                |
+| --------- | ------------------- |
+| [x]       | <code>number</code> |
+| [y]       | <code>number</code> |
+| [species] | <code>string</code> |
+| [mass]    | <code>number</code> |
 
-<a name="module_World..World+removeCreature"></a>
+<a name="removeCreature"></a>
 
-#### world.removeCreature(creature)
+## removeCreature(creature)
+
 Removes a creature from the simulation
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
+**Kind**: global function
 
-| Param | Type |
-| --- | --- |
-| creature | <code>Object</code> | 
+| Param    | Type                |
+| -------- | ------------------- |
+| creature | <code>Object</code> |
 
-<a name="module_World..World+drawNextFrame"></a>
+<a name="drawNextFrame"></a>
 
-#### world.drawNextFrame()
+## drawNextFrame()
+
 Adjust population and draws creatures next move
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+adjustPopulationGrowth"></a>
+**Kind**: global function  
+<a name="adjustPopulationGrowth"></a>
 
-#### world.adjustPopulationGrowth()
+## adjustPopulationGrowth()
+
 Adjust world population growth to prevent overpopulation or full extintion
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
-<a name="module_World..World+updateCreatures"></a>
+**Kind**: global function  
+<a name="updateCreatures"></a>
 
-#### world.updateCreatures()
+## updateCreatures()
+
 Draws creatures next move
 
-**Kind**: instance method of [<code>World</code>](#module_World..World)  
+**Kind**: global function  
+<a name="Census"></a>
+
+## Census : <code>Object</code>
+
+Population by species
+
+**Kind**: global typedef  
+**Properties**
+
+| Name   | Type                | Description      |
+| ------ | ------------------- | ---------------- |
+| red    | <code>number</code> | Red population   |
+| green  | <code>number</code> | Green population |
+| blue   | <code>number</code> | Blue population  |
+| births | <code>number</code> | Total births     |
+| deaths | <code>number</code> | Total deaths     |

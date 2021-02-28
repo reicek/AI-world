@@ -5,7 +5,7 @@ import { Architect } from 'synaptic';
  * @requires synaptic
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
-export default class Brain  {
+export default class Brain {
   /**
    * Creates a new neural network
    * @see {@link https://github.com/cazala/synaptic/wiki/Architect}

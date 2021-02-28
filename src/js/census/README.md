@@ -1,73 +1,114 @@
-<a name="module_Census"></a>
+## Functions
 
-## Census
-**Requires**: <code>module:lodash</code>  
+<dl>
+<dt><a href="#log">log(world)</a></dt>
+<dd><p>Update census results on log</p>
+</dd>
+<dt><a href="#newDeath">newDeath()</a></dt>
+<dd><p>Register new death</p>
+</dd>
+<dt><a href="#newBirth">newBirth()</a></dt>
+<dd><p>Register new birth</p>
+</dd>
+<dt><a href="#update">update()</a></dt>
+<dd><p>Calculate population by species</p>
+</dd>
+<dt><a href="#reset">reset()</a></dt>
+<dd><p>Reset counts results</p>
+</dd>
+<dt><a href="#minority">minority()</a></dt>
+<dd><p>Least populated species</p>
+</dd>
+<dt><a href="#mayority">mayority()</a></dt>
+<dd><p>Most populated species</p>
+</dd>
+<dt><a href="#list">list()</a></dt>
+<dd><p>Census list</p>
+</dd>
+</dl>
 
-* [Census](#module_Census)
-    * [~Census](#module_Census..Census) : <code>Object</code>
-        * [.log()](#module_Census..Census+log)
-        * [.update()](#module_Census..Census+update)
-        * [.reset()](#module_Census..Census+reset)
-        * [.minority()](#module_Census..Census+minority)
-        * [.mayority()](#module_Census..Census+mayority)
-        * [.list()](#module_Census..Census+list)
+## Typedefs
 
-<a name="module_Census..Census"></a>
+<dl>
+<dt><a href="#Census">Census</a> : <code>Object</code></dt>
+<dd><p>Population by species</p>
+</dd>
+</dl>
 
-### Census~Census : <code>Object</code>
-Population by species
+<a name="log"></a>
 
-**Kind**: inner typedef of [<code>Census</code>](#module_Census)  
-**Properties**
+## log(world)
 
-| Name | Type | Description |
-| --- | --- | --- |
-| red | <code>number</code> | Red population |
-| green | <code>number</code> | Green population |
-| blue | <code>number</code> | Blue population |
+Update census results on log
 
+**Kind**: global function
 
-* [~Census](#module_Census..Census) : <code>Object</code>
-    * [.log()](#module_Census..Census+log)
-    * [.update()](#module_Census..Census+update)
-    * [.reset()](#module_Census..Census+reset)
-    * [.minority()](#module_Census..Census+minority)
-    * [.mayority()](#module_Census..Census+mayority)
-    * [.list()](#module_Census..Census+list)
+| Param | Type               | Description          |
+| ----- | ------------------ | -------------------- |
+| world | <code>World</code> | Simulation reference |
 
-<a name="module_Census..Census+log"></a>
+<a name="newDeath"></a>
 
-#### census.log()
-Clears the log and shows the census results
+## newDeath()
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+update"></a>
+Register new death
 
-#### census.update()
-Calculates population by species
+**Kind**: global function  
+<a name="newBirth"></a>
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+reset"></a>
+## newBirth()
 
-#### census.reset()
-Return counts results to inital state
+Register new birth
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+minority"></a>
+**Kind**: global function  
+<a name="update"></a>
 
-#### census.minority()
-Returns the least populated species
+## update()
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+mayority"></a>
+Calculate population by species
 
-#### census.mayority()
-Returns the most populated species
+**Kind**: global function  
+<a name="reset"></a>
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+list"></a>
+## reset()
 
-#### census.list()
+Reset counts results
+
+**Kind**: global function  
+<a name="minority"></a>
+
+## minority()
+
+Least populated species
+
+**Kind**: global function  
+<a name="mayority"></a>
+
+## mayority()
+
+Most populated species
+
+**Kind**: global function  
+<a name="list"></a>
+
+## list()
+
 Census list
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
+**Kind**: global function  
+<a name="Census"></a>
+
+## Census : <code>Object</code>
+
+Population by species
+
+**Kind**: global typedef  
+**Properties**
+
+| Name   | Type                | Description      |
+| ------ | ------------------- | ---------------- |
+| red    | <code>number</code> | Red population   |
+| green  | <code>number</code> | Green population |
+| blue   | <code>number</code> | Blue population  |
+| births | <code>number</code> | Total births     |
+| deaths | <code>number</code> | Total deaths     |

@@ -1,153 +1,143 @@
-<a name="module_Vector"></a>
+## Functions
 
-## Vector
-**Requires**: <code>module:lodash</code>  
-**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
+<dl>
+<dt><a href="#set">set([x], [y])</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#random">random()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#add">add()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#sub">sub()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#mul">mul()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#div">div()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#mag">mag()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#normalize">normalize()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#angle">angle()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#setMag">setMag()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#setAngle">setAngle()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#rotate">rotate()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#limit">limit()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#angleBetween">angleBetween()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#dot">dot()</a> ⇒ <code>number</code></dt>
+<dd></dd>
+<dt><a href="#lerp">lerp()</a> ⇒ <code>Vector</code></dt>
+<dd></dd>
+<dt><a href="#dist">dist()</a> ⇒ <code>number</code></dt>
+<dd><p>Calculates distance between current vector and the target</p>
+</dd>
+<dt><a href="#copy">copy()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Builds a new vector with the same caractestics as this</p>
+</dd>
+</dl>
 
-* [Vector](#module_Vector)
-    * [~Vector](#module_Vector..Vector)
-        * [new Vector([x], [y])](#new_module_Vector..Vector_new)
-        * [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
-        * [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
-        * [.add()](#module_Vector..Vector+add) ⇒ <code>Vector</code>
-        * [.sub()](#module_Vector..Vector+sub) ⇒ <code>Vector</code>
-        * [.mul()](#module_Vector..Vector+mul) ⇒ <code>Vector</code>
-        * [.div()](#module_Vector..Vector+div) ⇒ <code>Vector</code>
-        * [.mag()](#module_Vector..Vector+mag) ⇒ <code>number</code>
-        * [.normalize()](#module_Vector..Vector+normalize) ⇒ <code>Vector</code>
-        * [.angle()](#module_Vector..Vector+angle) ⇒ <code>number</code>
-        * [.setMag()](#module_Vector..Vector+setMag) ⇒ <code>Vector</code>
-        * [.setAngle()](#module_Vector..Vector+setAngle) ⇒ <code>Vector</code>
-        * [.rotate()](#module_Vector..Vector+rotate) ⇒ <code>Vector</code>
-        * [.limit()](#module_Vector..Vector+limit) ⇒ <code>Vector</code>
-        * [.angleBetween()](#module_Vector..Vector+angleBetween) ⇒ <code>number</code>
-        * [.dot()](#module_Vector..Vector+dot) ⇒ <code>number</code>
-        * [.lerp()](#module_Vector..Vector+lerp) ⇒ <code>Vector</code>
-        * [.dist()](#module_Vector..Vector+dist) ⇒ <code>number</code>
-        * [.copy()](#module_Vector..Vector+copy) ⇒ <code>Vector</code>
+<a name="set"></a>
 
-<a name="module_Vector..Vector"></a>
+## set([x], [y]) ⇒ <code>Vector</code>
 
-### Vector~Vector
-2D Matrix position
+**Kind**: global function
 
-**Kind**: inner class of [<code>Vector</code>](#module_Vector)  
+| Param | Type                | Default        | Description |
+| ----- | ------------------- | -------------- | ----------- |
+| [x]   | <code>number</code> | <code>0</code> | X value     |
+| [y]   | <code>number</code> | <code>0</code> | Y value     |
 
-* [~Vector](#module_Vector..Vector)
-    * [new Vector([x], [y])](#new_module_Vector..Vector_new)
-    * [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
-    * [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
-    * [.add()](#module_Vector..Vector+add) ⇒ <code>Vector</code>
-    * [.sub()](#module_Vector..Vector+sub) ⇒ <code>Vector</code>
-    * [.mul()](#module_Vector..Vector+mul) ⇒ <code>Vector</code>
-    * [.div()](#module_Vector..Vector+div) ⇒ <code>Vector</code>
-    * [.mag()](#module_Vector..Vector+mag) ⇒ <code>number</code>
-    * [.normalize()](#module_Vector..Vector+normalize) ⇒ <code>Vector</code>
-    * [.angle()](#module_Vector..Vector+angle) ⇒ <code>number</code>
-    * [.setMag()](#module_Vector..Vector+setMag) ⇒ <code>Vector</code>
-    * [.setAngle()](#module_Vector..Vector+setAngle) ⇒ <code>Vector</code>
-    * [.rotate()](#module_Vector..Vector+rotate) ⇒ <code>Vector</code>
-    * [.limit()](#module_Vector..Vector+limit) ⇒ <code>Vector</code>
-    * [.angleBetween()](#module_Vector..Vector+angleBetween) ⇒ <code>number</code>
-    * [.dot()](#module_Vector..Vector+dot) ⇒ <code>number</code>
-    * [.lerp()](#module_Vector..Vector+lerp) ⇒ <code>Vector</code>
-    * [.dist()](#module_Vector..Vector+dist) ⇒ <code>number</code>
-    * [.copy()](#module_Vector..Vector+copy) ⇒ <code>Vector</code>
+<a name="random"></a>
 
-<a name="new_module_Vector..Vector_new"></a>
+## random() ⇒ <code>Vector</code>
 
-#### new Vector([x], [y])
+**Kind**: global function  
+<a name="add"></a>
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [x] | <code>number</code> | <code>0</code> | X value |
-| [y] | <code>number</code> | <code>0</code> | Y value |
+## add() ⇒ <code>Vector</code>
 
-**Example**  
-```js
-const x = 1;
-    const y = 1;
-    const vector = new Vector(x, y);
-```
-<a name="module_Vector..Vector+set"></a>
+**Kind**: global function  
+<a name="sub"></a>
 
-#### vector.set([x], [y]) ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
+## sub() ⇒ <code>Vector</code>
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [x] | <code>number</code> | <code>0</code> | X value |
-| [y] | <code>number</code> | <code>0</code> | Y value |
+**Kind**: global function  
+<a name="mul"></a>
 
-<a name="module_Vector..Vector+random"></a>
+## mul() ⇒ <code>Vector</code>
 
-#### vector.random() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+add"></a>
+**Kind**: global function  
+<a name="div"></a>
 
-#### vector.add() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+sub"></a>
+## div() ⇒ <code>Vector</code>
 
-#### vector.sub() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+mul"></a>
+**Kind**: global function  
+<a name="mag"></a>
 
-#### vector.mul() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+div"></a>
+## mag() ⇒ <code>number</code>
 
-#### vector.div() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+mag"></a>
+**Kind**: global function  
+<a name="normalize"></a>
 
-#### vector.mag() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+normalize"></a>
+## normalize() ⇒ <code>Vector</code>
 
-#### vector.normalize() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+angle"></a>
+**Kind**: global function  
+<a name="angle"></a>
 
-#### vector.angle() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+setMag"></a>
+## angle() ⇒ <code>number</code>
 
-#### vector.setMag() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+setAngle"></a>
+**Kind**: global function  
+<a name="setMag"></a>
 
-#### vector.setAngle() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+rotate"></a>
+## setMag() ⇒ <code>Vector</code>
 
-#### vector.rotate() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+limit"></a>
+**Kind**: global function  
+<a name="setAngle"></a>
 
-#### vector.limit() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+angleBetween"></a>
+## setAngle() ⇒ <code>Vector</code>
 
-#### vector.angleBetween() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+dot"></a>
+**Kind**: global function  
+<a name="rotate"></a>
 
-#### vector.dot() ⇒ <code>number</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+lerp"></a>
+## rotate() ⇒ <code>Vector</code>
 
-#### vector.lerp() ⇒ <code>Vector</code>
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+dist"></a>
+**Kind**: global function  
+<a name="limit"></a>
 
-#### vector.dist() ⇒ <code>number</code>
+## limit() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="angleBetween"></a>
+
+## angleBetween() ⇒ <code>number</code>
+
+**Kind**: global function  
+<a name="dot"></a>
+
+## dot() ⇒ <code>number</code>
+
+**Kind**: global function  
+<a name="lerp"></a>
+
+## lerp() ⇒ <code>Vector</code>
+
+**Kind**: global function  
+<a name="dist"></a>
+
+## dist() ⇒ <code>number</code>
+
 Calculates distance between current vector and the target
 
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+copy"></a>
+**Kind**: global function  
+<a name="copy"></a>
 
-#### vector.copy() ⇒ <code>Vector</code>
+## copy() ⇒ <code>Vector</code>
+
 Builds a new vector with the same caractestics as this
 
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
+**Kind**: global function

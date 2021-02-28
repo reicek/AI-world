@@ -2,25 +2,36 @@ import { minBy, maxBy } from 'lodash';
 import $ from 'jquery';
 
 /**
- * Census registry
- * @requires lodash
+ * @typedef  {Object} Census - Population by species
  * @property {number} red - Red population
  * @property {number} green - Green population
  * @property {number} blue - Blue population
  * @property {number} births - Total births
  * @property {number} deaths - Total deaths
  */
+/**
+ * Census registry
+ * @type Census
+ * @requires lodash
+ * @requires jquery
+ */
 export default class Census {
   constructor() {
+    /** Red population */
     this.red = 0;
+    /** Green population */
     this.green = 0;
+    /** Blue population */
     this.blue = 0;
+    /** Total births */
     this.births = 0;
+    /** Total deaths */
     this.deaths = 0;
   }
 
   /**
-   * Clears the log and shows the census results
+   * Update census results on log
+   * @param {World} world Simulation reference
    */
   log(world) {
     this.update(world);
@@ -61,19 +72,17 @@ export default class Census {
     console.log('%c==================================', 'color: #777');
   }
 
-  /** Registers a new death */
+  /** Register new death */
   newDeath() {
     this.deaths++;
   }
 
-  /** Registers a new birth */
+  /** Register new birth */
   newBirth() {
     this.births++;
   }
 
-  /**
-   * Calculates population by species
-   */
+  /** Calculate population by species */
   update(world) {
     this.reset();
 
@@ -81,32 +90,24 @@ export default class Census {
     while (this._index--) this[world.creatures[this._index].species]++;
   }
 
-  /**
-   * Return counts results to inital state
-   */
+  /** Reset counts results */
   reset() {
     this.red = 0;
     this.green = 0;
     this.blue = 0;
   }
 
-  /**
-   * Returns the least populated species
-   */
+  /** Least populated species */
   minority() {
     return minBy(this.list(), 'population');
   }
 
-  /**
-   * Returns the most populated species
-   */
+  /** Most populated species */
   mayority() {
     return maxBy(this.list(), 'population');
   }
 
-  /**
-   * Census list
-   */
+  /** Census list */
   list() {
     return [
       {

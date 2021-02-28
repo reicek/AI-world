@@ -1,111 +1,122 @@
-<a name="module_Creature"></a>
+## Functions
 
-## Creature
-**Requires**: <code>module:lodash</code>, <code>module:World</code>, <code>module:Vector</code>, <code>module:DrawCreature</code>, <code>module:CreatureBrain</code>, <code>module:CreatureBody</code>  
+<dl>
+<dt><a href="#moveTo">moveTo()</a></dt>
+<dd><p>Applies creature&#39;s movement</p>
+</dd>
+<dt><a href="#applyForce">applyForce()</a></dt>
+<dd><p>Applies a vector force to the creature&#39;s momentum=</p>
+</dd>
+<dt><a href="#draw">draw()</a></dt>
+<dd><p>Draws current&#39;s creature position and direction</p>
+</dd>
+<dt><a href="#update">update()</a></dt>
+<dd><p>Update&#39;s creature</p>
+</dd>
+<dt><a href="#seek">seek(target)</a> ⇒ <code>Vector</code></dt>
+<dd><p>Returns the force needed to move towards specific creature</p>
+</dd>
+<dt><a href="#separate">separate()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Makes creature attempt to stay within reasonable distance
+Triggers reproduction when creatures touch, depending on world reproduction chance</p>
+</dd>
+<dt><a href="#normalizeSeparation">normalizeSeparation()</a></dt>
+<dd><p>Normalizes creature separation if they are within range</p>
+</dd>
+<dt><a href="#align">align()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Align to other creatures</p>
+</dd>
+<dt><a href="#addAlignmentTo">addAlignmentTo()</a></dt>
+<dd><p>Adds force required to align to another creature</p>
+</dd>
+<dt><a href="#cohesion">cohesion()</a> ⇒ <code>Vector</code></dt>
+<dd><p>Makes creature group with others</p>
+</dd>
+<dt><a href="#applyCohesion">applyCohesion()</a></dt>
+<dd><p>Makes creature attempt to stay close to same species</p>
+</dd>
+</dl>
 
-* [Creature](#module_Creature)
-    * [~Creature](#module_Creature..Creature)
-        * [.moveTo()](#module_Creature..Creature+moveTo)
-        * [.applyForce()](#module_Creature..Creature+applyForce)
-        * [.draw()](#module_Creature..Creature+draw)
-        * [.update()](#module_Creature..Creature+update)
-        * [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-        * [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
-        * [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-        * [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
-        * [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-        * [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
-        * [.applyCohesion()](#module_Creature..Creature+applyCohesion)
+<a name="moveTo"></a>
 
-<a name="module_Creature..Creature"></a>
+## moveTo()
 
-### Creature~Creature
-Artificial Intelligence based in perceptron neural networks that lives in a 2D world
-
-**Kind**: inner class of [<code>Creature</code>](#module_Creature)  
-
-* [~Creature](#module_Creature..Creature)
-    * [.moveTo()](#module_Creature..Creature+moveTo)
-    * [.applyForce()](#module_Creature..Creature+applyForce)
-    * [.draw()](#module_Creature..Creature+draw)
-    * [.update()](#module_Creature..Creature+update)
-    * [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-    * [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
-    * [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-    * [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
-    * [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-    * [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
-    * [.applyCohesion()](#module_Creature..Creature+applyCohesion)
-
-<a name="module_Creature..Creature+moveTo"></a>
-
-#### creature.moveTo()
 Applies creature's movement
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+applyForce"></a>
+**Kind**: global function  
+<a name="applyForce"></a>
 
-#### creature.applyForce()
+## applyForce()
+
 Applies a vector force to the creature's momentum=
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+draw"></a>
+**Kind**: global function  
+<a name="draw"></a>
 
-#### creature.draw()
+## draw()
+
 Draws current's creature position and direction
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+update"></a>
+**Kind**: global function  
+<a name="update"></a>
 
-#### creature.update()
+## update()
+
 Update's creature
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+seek"></a>
+**Kind**: global function  
+<a name="seek"></a>
 
-#### creature.seek(target) ⇒ <code>Vector</code>
+## seek(target) ⇒ <code>Vector</code>
+
 Returns the force needed to move towards specific creature
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
+**Kind**: global function
 
-| Param | Type |
-| --- | --- |
-| target | <code>Vector</code> | 
+| Param  | Type                |
+| ------ | ------------------- |
+| target | <code>Vector</code> |
 
-<a name="module_Creature..Creature+separate"></a>
+<a name="separate"></a>
 
-#### creature.separate() ⇒ <code>Vector</code>
+## separate() ⇒ <code>Vector</code>
+
 Makes creature attempt to stay within reasonable distance
 Triggers reproduction when creatures touch, depending on world reproduction chance
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+normalizeSeparation"></a>
+**Kind**: global function  
+<a name="normalizeSeparation"></a>
 
-#### creature.normalizeSeparation()
+## normalizeSeparation()
+
 Normalizes creature separation if they are within range
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+align"></a>
+**Kind**: global function  
+<a name="align"></a>
 
-#### creature.align() ⇒ <code>Vector</code>
+## align() ⇒ <code>Vector</code>
+
 Align to other creatures
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+addAlignmentTo"></a>
+**Kind**: global function  
+<a name="addAlignmentTo"></a>
 
-#### creature.addAlignmentTo()
+## addAlignmentTo()
+
 Adds force required to align to another creature
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+cohesion"></a>
+**Kind**: global function  
+<a name="cohesion"></a>
 
-#### creature.cohesion() ⇒ <code>Vector</code>
+## cohesion() ⇒ <code>Vector</code>
+
 Makes creature group with others
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+applyCohesion"></a>
+**Kind**: global function  
+<a name="applyCohesion"></a>
 
-#### creature.applyCohesion()
+## applyCohesion()
+
 Makes creature attempt to stay close to same species
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
+**Kind**: global function

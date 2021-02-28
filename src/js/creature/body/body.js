@@ -127,7 +127,8 @@ export default class Body {
         creature.applyForce(new Vector(0, -creature.velocity.mag()));
         break;
 
-      default: break;
+      default:
+        break;
     }
 
     return creature;
