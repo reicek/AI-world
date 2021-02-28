@@ -18,6 +18,15 @@
  * @requires Census
  */
 class World {
+  /**
+   * @constructs World
+   * @param {number} [topPopulation = 100] World's maximum population
+   * @property {string} [id = 'world'] Canvas id
+   * @property {string[]} [species = ['red', 'green', 'blue']] Available species
+   * @example
+   *     const world = new World();
+   *     const customWorld = new World(200, 'customWorld');
+   */
   constructor(
     topPopulation = 100,
     id = 'world',

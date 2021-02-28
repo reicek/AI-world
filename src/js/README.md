@@ -21,9 +21,16 @@
 2D environment for creatures
 
 **Kind**: global class  
-**Requires**: <code>module:lodash</code>, <code>module:Creature</code>, <code>module:Census</code>
+**Requires**: <code>module:lodash</code>, <code>module:Creature</code>, <code>module:Census</code>  
+**Properties**
+
+| Name      | Type                              | Default                                                             | Description       |
+| --------- | --------------------------------- | ------------------------------------------------------------------- | ----------------- |
+| [id]      | <code>string</code>               | <code>&quot;&#x27;world&#x27;&quot;</code>                          | Canvas id         |
+| [species] | <code>Array.&lt;string&gt;</code> | <code>[&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</code> | Available species |
 
 - [World](#World) : [<code>World</code>](#World)
+  - [new World([topPopulation])](#new_World_new)
   - [.cycles](#World+cycles)
   - [.learningRate](#World+learningRate)
   - [.id](#World+id)
@@ -45,6 +52,21 @@
   - [.drawNextFrame()](#World+drawNextFrame)
   - [.adjustPopulationGrowth()](#World+adjustPopulationGrowth)
   - [.updateCreatures()](#World+updateCreatures)
+
+<a name="new_World_new"></a>
+
+### new World([topPopulation])
+
+| Param           | Type                | Default          | Description                |
+| --------------- | ------------------- | ---------------- | -------------------------- |
+| [topPopulation] | <code>number</code> | <code>100</code> | World's maximum population |
+
+**Example**
+
+```js
+const world = new World();
+const customWorld = new World(200, 'customWorld');
+```
 
 <a name="World+cycles"></a>
 
@@ -234,6 +256,7 @@ Simulation container
 | mousePosition     | <code>\*</code>                   | Mouse position                                |
 
 - [World](#World) : <code>Object</code>
+  - [new World([topPopulation])](#new_World_new)
   - [.cycles](#World+cycles)
   - [.learningRate](#World+learningRate)
   - [.id](#World+id)
@@ -255,6 +278,21 @@ Simulation container
   - [.drawNextFrame()](#World+drawNextFrame)
   - [.adjustPopulationGrowth()](#World+adjustPopulationGrowth)
   - [.updateCreatures()](#World+updateCreatures)
+
+<a name="new_World_new"></a>
+
+### new World([topPopulation])
+
+| Param           | Type                | Default          | Description                |
+| --------------- | ------------------- | ---------------- | -------------------------- |
+| [topPopulation] | <code>number</code> | <code>100</code> | World's maximum population |
+
+**Example**
+
+```js
+const world = new World();
+const customWorld = new World(200, 'customWorld');
+```
 
 <a name="World+cycles"></a>
 
