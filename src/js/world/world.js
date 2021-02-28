@@ -4,37 +4,45 @@ import Census from '../census/census';
 import Vector from '../vector/vector';
 import $ from 'jquery';
 
-/**
- * 2D environment for creatures
- * @requires Creature
- * @requires Census
- * @requires Vector
- * @requires lodash
- * @requires jquery
- */
+/** 2D environment for creatures */
 export default class World {
+  /**
+   * @param {number} [topPopulation = 100] World's maximum population
+   * @param {string} [id = 'world'] Canvas id
+   * @param {string[]} [species = ['red', 'green', 'blue']] Available species
+   * @example
+   *     const world = new World();
+   *     const customWorld = new World(200, 'customWorld');
+   */
   constructor(
     topPopulation = 100,
     id = 'world',
     species = ['red', 'green', 'blue']
   ) {
+    /** Cycles counter */
     this.cycles = 0;
+    /** Learning rate for all creatures in this world */
     this.learningRate = 0.1;
+    /** Canvas id */
     this.id = id;
+    /** Creatures array */
     this.creatures = [];
+    /** Available species */
     this.species = species;
+    /** World's maximum population */
     this.topPopulation = topPopulation;
+    /** Census instance */
     this.census = new Census();
+    /** Initial population */
     this.initialPopulation = this.species.length * 2;
+    /** Mouse position */
     this.mousePosition = {
       vector: new Vector(0, 0),
       onScreen: false,
     };
   }
 
-  /**
-   * Start simulation
-   */
+  /** Start simulation */
   launch() {
     this.initializeCanvas();
     this.initializePopulation();
@@ -43,9 +51,7 @@ export default class World {
     return this.drawNextFrame();
   }
 
-  /**
-   * Canvas Setup
-   */
+  /** Canvas Setup */
   initializeCanvas() {
     this.canvas = $(`#${this.id}`)[0];
     this.ctx = this.canvas.getContext('2d');
@@ -56,9 +62,7 @@ export default class World {
     this.ctx.lineWidth = 4;
   }
 
-  /**
-   * Stores current mouse position
-   */
+  /** Store current mouse position */
   getMousePosition() {
     $(document).mousemove((event) => {
       this.mousePosition.onScreen = event.pageX >= 50 && event.pageY >= 50;
@@ -69,9 +73,7 @@ export default class World {
     });
   }
 
-  /**
-   * Spawn first creatures
-   */
+  /** Spawn first creatures */
   initializePopulation() {
     this.initialReproductionChange = {
       red: 2,
@@ -89,9 +91,7 @@ export default class World {
       );
   }
 
-  /**
-   * Events listeners
-   */
+  /** Events listeners */
   startListeners() {
     $(`button.add, #${this.id}`).click((
       e // Add new creature to the less populated species on left click
@@ -117,29 +117,25 @@ export default class World {
   }
 
   /**
-   * Increases the least populated species if none is specified
-   * @param {number} [x] - New creature's coordinate on the X axis
-   * @param {number} [y] - New creature's coordinate on the Y axis
-   * @param {string} [species] - New creature's species
+   * Increases the least populated species
+   * @param {number} x New creature's coordinate on the X axis
+   * @param {number} y New creature's coordinate on the Y axis
    */
   increasePopulation(x, y) {
     this.spawnCreature(x, y, this.census.minority().species);
   }
 
-  /**
-   * Removes oldest (slowest) creature
-   * @return {number}
-   */
+  /** Removes oldest (slowest) creature */
   decreasePopulation() {
     this.removeCreature(minBy(this.creatures, 'maxSpeed'));
   }
 
   /**
    * Adds a new crature to the simulation
-   * @param {number} [x]
-   * @param {number} [y]
-   * @param {string} [species]
-   * @param {number}[mass]
+   * @param {number} x New creature's coordinate on the X axis
+   * @param {number} y New creature's coordinate on the Y axis
+   * @param {'red'|'green'|'blue'} species
+   * @param {number} mass New creature's initial mass
    */
   spawnCreature(x, y, species, mass) {
     this.creatures.push(new Creature(this, x, y, species, mass));
@@ -150,7 +146,7 @@ export default class World {
 
   /**
    * Removes a creature from the simulation
-   * @param {Object} creature
+   * @param {Creature} creature Target to remove
    */
   removeCreature(creature) {
     this._index = this.creatures.indexOf(creature);
@@ -160,9 +156,7 @@ export default class World {
     return this.census.log(this);
   }
 
-  /**
-   * Adjust population and draws creatures next move
-   */
+  /** Adjust population and draws creatures next move */
   drawNextFrame() {
     this.cycles++;
     this.ctx.globalAlpha = 0.5;
@@ -176,9 +170,7 @@ export default class World {
     return this.updateCreatures();
   }
 
-  /**
-   * Adjust world population growth to prevent overpopulation or full extintion
-   */
+  /** Adjust world population growth to prevent overpopulation or full extintion */
   adjustPopulationGrowth() {
     this._i = this.species.length;
 
@@ -203,9 +195,7 @@ export default class World {
     }
   }
 
-  /**
-   * Draws creatures next move
-   */
+  /** Draws creatures next move */
   updateCreatures() {
     try {
       this._index = this.creatures.length;
