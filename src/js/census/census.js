@@ -1,10 +1,5 @@
 /**
  * @typedef  {Object} Census Population by species
- * @property {number} red Red population
- * @property {number} green Green population
- * @property {number} blue Blue population
- * @property {number} births Total births
- * @property {number} deaths Total deaths
  */
 /**
  * Census registry

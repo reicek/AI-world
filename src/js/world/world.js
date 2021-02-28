@@ -1,28 +1,14 @@
 /**
- * @typedef  {Object} World Simulation container
- * @property {number} cycles Cycles counter
- * @property {number} learningRate Learning rate for all creatures in this world
- * @property {string} id Canvas id
- * @property {string[]} creatures Creatures array
- * @property {string[]} species Available species
- * @property {number} topPopulation World's maximum population
- * @property {Census} census Census instance
- * @property {number} initialPopulation Initial population
- * @property {*} mousePosition Mouse position
- */
-/**
  * 2D environment for creatures
- * @type {World}
  * @requires lodash
  * @requires Creature
  * @requires Census
  */
 class World {
   /**
-   * @constructs World
    * @param {number} [topPopulation = 100] World's maximum population
-   * @property {string} [id = 'world'] Canvas id
-   * @property {string[]} [species = ['red', 'green', 'blue']] Available species
+   * @param {string} [id = 'world'] Canvas id
+   * @param {string[]} [species = ['red', 'green', 'blue']] Available species
    * @example
    *     const world = new World();
    *     const customWorld = new World(200, 'customWorld');
