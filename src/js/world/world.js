@@ -1,14 +1,18 @@
-'use strict';
-/**
- * @module World
- * @requires lodash
- * @requires Creature
- * @requires Census
- */
+import { clone, random, minBy } from 'lodash';
+import Creature from '../creature/creature';
+import Census from '../census/census';
+import Vector from '../vector/vector';
+import $ from 'jquery';
+
 /**
  * 2D environment for creatures
+ * @requires Creature
+ * @requires Census
+ * @requires Vector
+ * @requires lodash
+ * @requires jquery
  */
-class World {
+export default class World {
   constructor(
     topPopulation = 100,
     id = 'world',
@@ -74,13 +78,13 @@ class World {
       green: 2,
       blue: 2,
     };
-    this.reproductionChance = _.clone(this.initialReproductionChange);
+    this.reproductionChance = clone(this.initialReproductionChange);
 
     this._i = this.species.length * 4;
     while (this._i--)
       this.spawnCreature(
-        _.random(0, this.width),
-        _.random(0, this.height),
+        random(0, this.width),
+        random(0, this.height),
         this.species[Math.round((this._i + 1) / 3) - 1]
       );
   }
@@ -127,7 +131,7 @@ class World {
    * @return {number}
    */
   decreasePopulation() {
-    this.removeCreature(_.minBy(this.creatures, 'maxSpeed'));
+    this.removeCreature(minBy(this.creatures, 'maxSpeed'));
   }
 
   /**
@@ -139,7 +143,7 @@ class World {
    */
   spawnCreature(x, y, species, mass) {
     this.creatures.push(new Creature(this, x, y, species, mass));
-    this.births++;
+    this.census.newBirth();
 
     return this.census.log(this);
   }
@@ -151,7 +155,7 @@ class World {
   removeCreature(creature) {
     this._index = this.creatures.indexOf(creature);
     this.creatures.splice(this._index, 1);
-    this.deaths++;
+    this.census.newDeath();
 
     return this.census.log(this);
   }

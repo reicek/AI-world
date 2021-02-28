@@ -1,16 +1,11 @@
-'use strict';
-/**
- * @module CreatureBrain
- * @requires synaptic
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
- */
-
-const { Architect } = synaptic;
+import { Architect } from 'synaptic';
 
 /**
  * Creature's mind
+ * @requires synaptic
+ * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
-class CreatureBrain {
+export default class Brain  {
   /**
    * Creates a new neural network
    * @see {@link https://github.com/cazala/synaptic/wiki/Architect}

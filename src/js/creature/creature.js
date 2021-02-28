@@ -1,18 +1,17 @@
-'use strict';
-/**
- * @module Creature
- * @requires lodash
- * @requires World
- * @requires Vector
- * @requires DrawCreature
- * @requires CreatureBrain
- * @requires CreatureBody
- */
+import Vector from '../vector/vector';
+import Brain from './brain/brain';
+import Draw from './draw/draw';
+import Body from './body/body';
 
 /**
  * Artificial Intelligence based in perceptron neural networks that lives in a 2D world
+ * @requires simulation
+ * @requires Vector
+ * @requires Brain
+ * @requires Draw
+ * @requires Body
  */
-class Creature {
+export default class Creature {
   constructor(
     world,
     x,
@@ -24,7 +23,7 @@ class Creature {
     outputNeurons
   ) {
     this.world = world;
-    this.brain = new CreatureBrain(inputNeurons, hiddenNeurons, outputNeurons);
+    this.brain = new Brain(inputNeurons, hiddenNeurons, outputNeurons);
     this.metabolism = 0.005; // Bigger means shorter life
     this.metabolismAgingRatio = 0.4; // Bigger means longer life
     this.minMass = 1;
@@ -37,8 +36,8 @@ class Creature {
     this.velocity = new Vector(0, 0);
     this.acceleration = new Vector(0, 0);
 
-    CreatureBody.initializeSpecies(this, species);
-    CreatureBody.initializeColor(this);
+    Body.initializeSpecies(this, species);
+    Body.initializeColor(this);
   }
 
   /**
@@ -77,7 +76,7 @@ class Creature {
    */
   draw() {
     this.update();
-    DrawCreature.shape(this.mass, this.color, this.location, this.world);
+    Draw.shape(this.mass, this.color, this.location, this.world);
 
     return this;
   }
@@ -86,10 +85,14 @@ class Creature {
    * Update's creature
    */
   update() {
-    CreatureBody.grow(this);
-    CreatureBody.age(this, this.world);
-    CreatureBody.boundaries(this, this.world);
-    CreatureBody.adjustSpeed(this);
+    Body.grow(this);
+    if (this.maxSpeed > 0.1) {
+      Body.age(this, this.world);
+    } else {
+      this.world.removeCreature(this);
+    }
+    Body.boundaries(this, this.world);
+    Body.adjustSpeed(this);
 
     this.location.add(this.velocity);
     this.acceleration.mul(0);
@@ -129,7 +132,7 @@ class Creature {
         this.location.dist(this.world.creatures[this._index].location) +
         this.mass;
 
-      CreatureBody.attemptReproduction(
+      Body.attemptReproduction(
         this,
         this.world,
         this.world.creatures[this._index],

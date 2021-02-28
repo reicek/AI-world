@@ -1,12 +1,12 @@
-'use strict';
-/**
- * @module CreatureBody
- * @requires lodash
- */
+import { random, max } from 'lodash';
+import $ from 'jquery';
+
 /**
  * Helper methods for creature's body processes
+ * @requires lodash
+ * @requires jquery
  */
-class CreatureBody {
+export default class Body {
   /**
    * Initializes creature's species
    */
@@ -21,12 +21,12 @@ class CreatureBody {
     }
 
     creature.colors = {
-      red: _.random(creature.minColor, creature.maxColor),
-      green: _.random(creature.minColor, creature.maxColor),
-      blue: _.random(creature.minColor, creature.maxColor),
+      red: random(creature.minColor, creature.maxColor),
+      green: random(creature.minColor, creature.maxColor),
+      blue: random(creature.minColor, creature.maxColor),
     };
 
-    creature.dominantColor = _.max([
+    creature.dominantColor = max([
       creature.colors.red,
       creature.colors.green,
       creature.colors.blue,
@@ -74,25 +74,25 @@ class CreatureBody {
     creature.mass += creature.metabolism;
     creature.maxSpeed = creature.mass * 2;
     creature.maxforce = 0.33 * (creature.mass / 2);
+
+    return creature;
   }
 
   /**
    * Aging translates into the creature's max speed reduction
    * or death (deletion) when none speed is left
    */
-  static age(creature, world) {
-    if (creature.maxSpeed > 0.1) {
-      // Aging
-      creature._deterioration =
-        creature.metabolism / creature.metabolismAgingRatio;
-      creature.maxSpeed -= creature._deterioration;
-      creature.colors[creature.species] =
-        Math.round((creature.maxSpeed * 255) / (creature.maxMass * 2)) + 110;
-      creature.color = `rgb(${Math.round(creature.colors.red)}, ${Math.round(
-        creature.colors.green
-      )}, ${Math.round(creature.colors.blue)})`;
-    } // Death
-    else return world.removeCreature(creature);
+  static age(creature) {
+    creature._deterioration =
+      creature.metabolism / creature.metabolismAgingRatio;
+    creature.maxSpeed -= creature._deterioration;
+    creature.colors[creature.species] =
+      Math.round((creature.maxSpeed * 255) / (creature.maxMass * 2)) + 110;
+    creature.color = `rgb(${Math.round(creature.colors.red)}, ${Math.round(
+      creature.colors.green
+    )}, ${Math.round(creature.colors.blue)})`;
+
+    return creature;
   }
 
   /**
@@ -113,23 +113,24 @@ class CreatureBody {
     switch (true) {
       case creature.location.x < creature.margin:
         creature.applyForce(new Vector(creature.velocity.mag(), 0));
-        return creature;
+        break;
 
       case creature.location.x > world.width - creature.margin:
         creature.applyForce(new Vector(-creature.velocity.mag(), 0));
-        return creature;
+        break;
 
       case creature.location.y < creature.margin:
         creature.applyForce(new Vector(0, creature.velocity.mag()));
-        return creature;
+        break;
 
       case creature.location.y > world.height - creature.margin:
         creature.applyForce(new Vector(0, -creature.velocity.mag()));
-        return creature;
+        break;
 
-      default:
-        return creature;
+      default: break;
     }
+
+    return creature;
   }
 
   /**

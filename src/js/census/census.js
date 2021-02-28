@@ -1,18 +1,16 @@
-'use strict';
+import { minBy, maxBy } from 'lodash';
+import $ from 'jquery';
+
 /**
- * @module Census
+ * Census registry
  * @requires lodash
+ * @property {number} red - Red population
+ * @property {number} green - Green population
+ * @property {number} blue - Blue population
+ * @property {number} births - Total births
+ * @property {number} deaths - Total deaths
  */
-/**
- * Species census
- */
-/**
- * @typedef  {Object} Census - Population by species
- * @property {number} red    - Red population
- * @property {number} green  - Green population
- * @property {number} blue   - Blue population
- */
-class Census {
+export default class Census {
   constructor() {
     this.red = 0;
     this.green = 0;
@@ -63,6 +61,16 @@ class Census {
     console.log('%c==================================', 'color: #777');
   }
 
+  /** Registers a new death */
+  newDeath() {
+    this.deaths++;
+  }
+
+  /** Registers a new birth */
+  newBirth() {
+    this.births++;
+  }
+
   /**
    * Calculates population by species
    */
@@ -86,14 +94,14 @@ class Census {
    * Returns the least populated species
    */
   minority() {
-    return _.minBy(this.list(), 'population');
+    return minBy(this.list(), 'population');
   }
 
   /**
    * Returns the most populated species
    */
   mayority() {
-    return _.maxBy(this.list(), 'population');
+    return maxBy(this.list(), 'population');
   }
 
   /**

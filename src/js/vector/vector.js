@@ -1,13 +1,9 @@
-'use strict';
 /**
- * @module Vector
+ * 2D Matrix position
  * @requires lodash
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
-/**
- * 2D Matrix position
- */
-class Vector {
+export default class Vector {
   /**
    * @constructs Vector
    * @param {number} [x = 0] - X value

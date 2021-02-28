@@ -1,11 +1,7 @@
-'use strict';
-/**
- * @module DrawCreature
- */
 /**
  * Methods to draw creature
  */
-class DrawCreature {
+export default class Draw {
   /**
    * Creates creature's shape
    */
