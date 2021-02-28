@@ -1,12 +1,21 @@
-'use strict';
 /**
- * @module World
- * @requires lodash
- * @requires Creature
- * @requires Census
+ * @typedef  {Object} World Simulation container
+ * @property {number} cycles Cycles counter
+ * @property {number} learningRate Learning rate for all creatures in this world
+ * @property {string} id Canvas id
+ * @property {string[]} creatures Creatures array
+ * @property {string[]} species Available species
+ * @property {number} topPopulation World's maximum population
+ * @property {Census} census Census instance
+ * @property {number} initialPopulation Initial population
+ * @property {*} mousePosition Mouse position
  */
 /**
  * 2D environment for creatures
+ * @type {World}
+ * @requires lodash
+ * @requires Creature
+ * @requires Census
  */
 class World {
   constructor(
@@ -14,23 +23,30 @@ class World {
     id = 'world',
     species = ['red', 'green', 'blue']
   ) {
+    /** Cycles counter */
     this.cycles = 0;
+    /** Learning rate for all creatures in this world */
     this.learningRate = 0.1;
+    /** Canvas id */
     this.id = id;
+    /** Creatures array */
     this.creatures = [];
+    /** Available species */
     this.species = species;
+    /** World's maximum population */
     this.topPopulation = topPopulation;
+    /** Census instance */
     this.census = new Census();
+    /** Initial population */
     this.initialPopulation = this.species.length * 2;
+    /** Mouse position */
     this.mousePosition = {
       vector: new Vector(0, 0),
       onScreen: false,
     };
   }
 
-  /**
-   * Start simulation
-   */
+  /** Start simulation */
   launch() {
     this.initializeCanvas();
     this.initializePopulation();
@@ -39,9 +55,7 @@ class World {
     return this.drawNextFrame();
   }
 
-  /**
-   * Canvas Setup
-   */
+  /** Canvas Setup */
   initializeCanvas() {
     this.canvas = $(`#${this.id}`)[0];
     this.ctx = this.canvas.getContext('2d');
@@ -52,9 +66,7 @@ class World {
     this.ctx.lineWidth = 4;
   }
 
-  /**
-   * Stores current mouse position
-   */
+  /** Update current mouse position */
   getMousePosition() {
     $(document).mousemove((event) => {
       this.mousePosition.onScreen = event.pageX >= 50 && event.pageY >= 50;
@@ -65,16 +77,14 @@ class World {
     });
   }
 
-  /**
-   * Spawn first creatures
-   */
+  /** Spawn first creatures */
   initializePopulation() {
-    this.initialReproductionChange = {
+    this.initialReproductionChance = {
       red: 2,
       green: 2,
       blue: 2,
     };
-    this.reproductionChance = _.clone(this.initialReproductionChange);
+    this.reproductionChance = _.clone(this.initialReproductionChance);
 
     this._i = this.species.length * 4;
     while (this._i--)
@@ -85,9 +95,7 @@ class World {
       );
   }
 
-  /**
-   * Events listeners
-   */
+  /** Events listeners */
   startListeners() {
     $(`button.add, #${this.id}`).click((
       e // Add new creature to the less populated species on left click
@@ -113,29 +121,25 @@ class World {
   }
 
   /**
-   * Increases the least populated species if none is specified
-   * @param {number} [x] - New creature's coordinate on the X axis
-   * @param {number} [y] - New creature's coordinate on the Y axis
-   * @param {string} [species] - New creature's species
+   * Increases the least populated species
+   * @param {number} x New creature's coordinate on the X axis
+   * @param {number} y New creature's coordinate on the Y axis
    */
   increasePopulation(x, y) {
     this.spawnCreature(x, y, this.census.minority().species);
   }
 
-  /**
-   * Removes oldest (slowest) creature
-   * @return {number}
-   */
+  /** Removes oldest (slowest) creature */
   decreasePopulation() {
     this.removeCreature(_.minBy(this.creatures, 'maxSpeed'));
   }
 
   /**
    * Adds a new crature to the simulation
-   * @param {number} [x]
-   * @param {number} [y]
-   * @param {string} [species]
-   * @param {number}[mass]
+   * @param {number} x New creature's coordinate on the X axis
+   * @param {number} y New creature's coordinate on the Y axis
+   * @param {'red'|'green'|'blue'} species
+   * @param {number} mass New creature's initial mass
    */
   spawnCreature(x, y, species, mass) {
     this.creatures.push(new Creature(this, x, y, species, mass));
@@ -146,7 +150,7 @@ class World {
 
   /**
    * Removes a creature from the simulation
-   * @param {Object} creature
+   * @param {Creature} creature Target to remove
    */
   removeCreature(creature) {
     this._index = this.creatures.indexOf(creature);
@@ -156,9 +160,7 @@ class World {
     return this.census.log(this);
   }
 
-  /**
-   * Adjust population and draws creatures next move
-   */
+  /** Adjust population and draws creatures next move */
   drawNextFrame() {
     this.cycles++;
     this.ctx.globalAlpha = 0.5;
@@ -172,9 +174,7 @@ class World {
     return this.updateCreatures();
   }
 
-  /**
-   * Adjust world population growth to prevent overpopulation or full extintion
-   */
+  /** Adjust world population growth to prevent overpopulation or full extintion */
   adjustPopulationGrowth() {
     this._i = this.species.length;
 
@@ -193,15 +193,13 @@ class World {
         default:
           this.reproductionChance[
             this.species[this._i]
-          ] = this.initialReproductionChange[this.species[this._i]];
+          ] = this.initialReproductionChance[this.species[this._i]];
           break;
       }
     }
   }
 
-  /**
-   * Draws creatures next move
-   */
+  /** Draws creatures next move */
   updateCreatures() {
     try {
       this._index = this.creatures.length;
