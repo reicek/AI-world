@@ -1,9 +1,5 @@
 /**
- * @typedef  {Object} Census Population by species
- */
-/**
  * Census registry
- * @type {Census}
  * @requires lodash
  * @requires jquery
  */
@@ -64,7 +60,10 @@ class Census {
     console.log('%c==================================', 'color: #777');
   }
 
-  /** Calculate population by species */
+  /**
+   * Calculate population by species
+   * @param {World} world Simulation reference
+   */
   update(world) {
     this.reset();
 

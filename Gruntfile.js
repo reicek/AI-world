@@ -48,6 +48,9 @@ const gruntConfig = {
         { src: 'src/js/world/world.js', dest: 'src/js/world/README.md' },
         { src: 'src/js/census/census.js', dest: 'src/js/census/README.md' },
         { src: 'src/js/creature/creature.js', dest: 'src/js/creature/README.md' },
+        { src: 'src/js/creature/body/body.js', dest: 'src/js/creature/body/README.md' },
+        { src: 'src/js/creature/brain/brain.js', dest: 'src/js/creature/brain/README.md' },
+        { src: 'src/js/creature/draw/draw.js', dest: 'src/js/creature/draw/README.md' },
         { src: 'src/js/eval/eval.js', dest: 'src/js/eval/README.md' },
         { src: 'src/js/vector/vector.js', dest: 'src/js/vector/README.md' }
       ]

@@ -1,39 +1,27 @@
-'use strict';
-/**
- * @module Vector
- * @requires lodash
- * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
- */
 /**
  * 2D Matrix position
+ * @requires lodash
  */
 class Vector {
   /**
-   * @constructs Vector
-   * @param {number} [x = 0] - X value
-   * @param {number} [y = 0] - Y value
+   * @param {number} [x = 0] X position value
+   * @param {number} [y = 0] Y position value
    * @example
    *     const x = 1;
    *     const y = 1;
    *     const vector = new Vector(x, y);
    */
   constructor(x = 0, y = 0) {
-    /**
-     * X value
-     * @member Vector#x
-     */
+    /** X position value */
     this.x = x;
-
-    /**
-     * Y value
-     * @member Vector#y
-     */
+    /** Y position value */
     this.y = y;
   }
 
   /**
-   * @param {number} [x = 0] - X value
-   * @param {number} [y = 0] - Y value
+   * Set position
+   * @param {number} [x = 0] X position value
+   * @param {number} [y = 0] Y position value
    * @return {Vector}
    */
   set(x = 0, y = 0) {
@@ -44,6 +32,7 @@ class Vector {
   }
 
   /**
+   * Set random angle
    * @return {Vector}
    */
   random() {
@@ -51,6 +40,7 @@ class Vector {
   }
 
   /**
+   * Add to vector
    * @return {Vector}
    */
   add(v) {
@@ -61,6 +51,7 @@ class Vector {
   }
 
   /**
+   * Substract from vector
    * @return {Vector}
    */
   sub(v) {
@@ -71,6 +62,7 @@ class Vector {
   }
 
   /**
+   * Multiply vector
    * @return {Vector}
    */
   mul(s) {
@@ -81,6 +73,7 @@ class Vector {
   }
 
   /**
+   * Divide vector
    * @return {Vector}
    */
   div(s) {

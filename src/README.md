@@ -11,26 +11,19 @@
 <dd></dd>
 <dt><a href="#module_eval">eval</a></dt>
 <dd></dd>
-<dt><a href="#module_Vector">Vector</a></dt>
-<dd></dd>
 </dl>
 
 ## Classes
 
 <dl>
-<dt><a href="#Census">Census</a> : <code><a href="#Census">Census</a></code></dt>
+<dt><a href="#Census">Census</a></dt>
 <dd><p>Census registry</p>
+</dd>
+<dt><a href="#Vector">Vector</a></dt>
+<dd><p>2D Matrix position</p>
 </dd>
 <dt><a href="#World">World</a></dt>
 <dd><p>2D environment for creatures</p>
-</dd>
-</dl>
-
-## Typedefs
-
-<dl>
-<dt><a href="#Census">Census</a> : <code>Object</code></dt>
-<dd><p>Population by species</p>
 </dd>
 </dl>
 
@@ -177,7 +170,7 @@ Learn how to move
 
 ## Creature
 
-**Requires**: <code>module:lodash</code>, <code>module:World</code>, [<code>Vector</code>](#module_Vector), [<code>DrawCreature</code>](#module_DrawCreature), [<code>CreatureBrain</code>](#module_CreatureBrain), [<code>CreatureBody</code>](#module_CreatureBody)
+**Requires**: <code>module:lodash</code>, <code>module:World</code>, <code>module:Vector</code>, [<code>DrawCreature</code>](#module_DrawCreature), [<code>CreatureBrain</code>](#module_CreatureBrain), [<code>CreatureBody</code>](#module_CreatureBody)
 
 - [Creature](#module_Creature)
   - [~Creature](#module_Creature..Creature)
@@ -185,12 +178,12 @@ Learn how to move
     - [.applyForce()](#module_Creature..Creature+applyForce)
     - [.draw()](#module_Creature..Creature+draw)
     - [.update()](#module_Creature..Creature+update)
-    - [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-    - [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
+    - [.seek(target)](#module_Creature..Creature+seek) ⇒ [<code>Vector</code>](#Vector)
+    - [.separate()](#module_Creature..Creature+separate) ⇒ [<code>Vector</code>](#Vector)
     - [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-    - [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
+    - [.align()](#module_Creature..Creature+align) ⇒ [<code>Vector</code>](#Vector)
     - [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-    - [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
+    - [.cohesion()](#module_Creature..Creature+cohesion) ⇒ [<code>Vector</code>](#Vector)
     - [.applyCohesion()](#module_Creature..Creature+applyCohesion)
 
 <a name="module_Creature..Creature"></a>
@@ -206,12 +199,12 @@ Artificial Intelligence based in perceptron neural networks that lives in a 2D w
   - [.applyForce()](#module_Creature..Creature+applyForce)
   - [.draw()](#module_Creature..Creature+draw)
   - [.update()](#module_Creature..Creature+update)
-  - [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-  - [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
+  - [.seek(target)](#module_Creature..Creature+seek) ⇒ [<code>Vector</code>](#Vector)
+  - [.separate()](#module_Creature..Creature+separate) ⇒ [<code>Vector</code>](#Vector)
   - [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-  - [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
+  - [.align()](#module_Creature..Creature+align) ⇒ [<code>Vector</code>](#Vector)
   - [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-  - [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
+  - [.cohesion()](#module_Creature..Creature+cohesion) ⇒ [<code>Vector</code>](#Vector)
   - [.applyCohesion()](#module_Creature..Creature+applyCohesion)
 
 <a name="module_Creature..Creature+moveTo"></a>
@@ -244,19 +237,19 @@ Update's creature
 **Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
 <a name="module_Creature..Creature+seek"></a>
 
-#### creature.seek(target) ⇒ <code>Vector</code>
+#### creature.seek(target) ⇒ [<code>Vector</code>](#Vector)
 
 Returns the force needed to move towards specific creature
 
 **Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)
 
-| Param  | Type                |
-| ------ | ------------------- |
-| target | <code>Vector</code> |
+| Param  | Type                           |
+| ------ | ------------------------------ |
+| target | [<code>Vector</code>](#Vector) |
 
 <a name="module_Creature..Creature+separate"></a>
 
-#### creature.separate() ⇒ <code>Vector</code>
+#### creature.separate() ⇒ [<code>Vector</code>](#Vector)
 
 Makes creature attempt to stay within reasonable distance
 Triggers reproduction when creatures touch, depending on world reproduction chance
@@ -271,7 +264,7 @@ Normalizes creature separation if they are within range
 **Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
 <a name="module_Creature..Creature+align"></a>
 
-#### creature.align() ⇒ <code>Vector</code>
+#### creature.align() ⇒ [<code>Vector</code>](#Vector)
 
 Align to other creatures
 
@@ -285,7 +278,7 @@ Adds force required to align to another creature
 **Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
 <a name="module_Creature..Creature+cohesion"></a>
 
-#### creature.cohesion() ⇒ <code>Vector</code>
+#### creature.cohesion() ⇒ [<code>Vector</code>](#Vector)
 
 Makes creature group with others
 
@@ -329,198 +322,23 @@ Creates creature's shape
 ### eval~isNode : <code>object</code>
 
 **Kind**: inner namespace of [<code>eval</code>](#module_eval)  
-<a name="module_Vector"></a>
-
-## Vector
-
-**Requires**: <code>module:lodash</code>  
-**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.
-
-- [Vector](#module_Vector)
-  - [~Vector](#module_Vector..Vector)
-    - [new Vector([x], [y])](#new_module_Vector..Vector_new)
-    - [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
-    - [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
-    - [.add()](#module_Vector..Vector+add) ⇒ <code>Vector</code>
-    - [.sub()](#module_Vector..Vector+sub) ⇒ <code>Vector</code>
-    - [.mul()](#module_Vector..Vector+mul) ⇒ <code>Vector</code>
-    - [.div()](#module_Vector..Vector+div) ⇒ <code>Vector</code>
-    - [.mag()](#module_Vector..Vector+mag) ⇒ <code>number</code>
-    - [.normalize()](#module_Vector..Vector+normalize) ⇒ <code>Vector</code>
-    - [.angle()](#module_Vector..Vector+angle) ⇒ <code>number</code>
-    - [.setMag()](#module_Vector..Vector+setMag) ⇒ <code>Vector</code>
-    - [.setAngle()](#module_Vector..Vector+setAngle) ⇒ <code>Vector</code>
-    - [.rotate()](#module_Vector..Vector+rotate) ⇒ <code>Vector</code>
-    - [.limit()](#module_Vector..Vector+limit) ⇒ <code>Vector</code>
-    - [.angleBetween()](#module_Vector..Vector+angleBetween) ⇒ <code>number</code>
-    - [.dot()](#module_Vector..Vector+dot) ⇒ <code>number</code>
-    - [.lerp()](#module_Vector..Vector+lerp) ⇒ <code>Vector</code>
-    - [.dist()](#module_Vector..Vector+dist) ⇒ <code>number</code>
-    - [.copy()](#module_Vector..Vector+copy) ⇒ <code>Vector</code>
-
-<a name="module_Vector..Vector"></a>
-
-### Vector~Vector
-
-2D Matrix position
-
-**Kind**: inner class of [<code>Vector</code>](#module_Vector)
-
-- [~Vector](#module_Vector..Vector)
-  - [new Vector([x], [y])](#new_module_Vector..Vector_new)
-  - [.set([x], [y])](#module_Vector..Vector+set) ⇒ <code>Vector</code>
-  - [.random()](#module_Vector..Vector+random) ⇒ <code>Vector</code>
-  - [.add()](#module_Vector..Vector+add) ⇒ <code>Vector</code>
-  - [.sub()](#module_Vector..Vector+sub) ⇒ <code>Vector</code>
-  - [.mul()](#module_Vector..Vector+mul) ⇒ <code>Vector</code>
-  - [.div()](#module_Vector..Vector+div) ⇒ <code>Vector</code>
-  - [.mag()](#module_Vector..Vector+mag) ⇒ <code>number</code>
-  - [.normalize()](#module_Vector..Vector+normalize) ⇒ <code>Vector</code>
-  - [.angle()](#module_Vector..Vector+angle) ⇒ <code>number</code>
-  - [.setMag()](#module_Vector..Vector+setMag) ⇒ <code>Vector</code>
-  - [.setAngle()](#module_Vector..Vector+setAngle) ⇒ <code>Vector</code>
-  - [.rotate()](#module_Vector..Vector+rotate) ⇒ <code>Vector</code>
-  - [.limit()](#module_Vector..Vector+limit) ⇒ <code>Vector</code>
-  - [.angleBetween()](#module_Vector..Vector+angleBetween) ⇒ <code>number</code>
-  - [.dot()](#module_Vector..Vector+dot) ⇒ <code>number</code>
-  - [.lerp()](#module_Vector..Vector+lerp) ⇒ <code>Vector</code>
-  - [.dist()](#module_Vector..Vector+dist) ⇒ <code>number</code>
-  - [.copy()](#module_Vector..Vector+copy) ⇒ <code>Vector</code>
-
-<a name="new_module_Vector..Vector_new"></a>
-
-#### new Vector([x], [y])
-
-| Param | Type                | Default        | Description |
-| ----- | ------------------- | -------------- | ----------- |
-| [x]   | <code>number</code> | <code>0</code> | X value     |
-| [y]   | <code>number</code> | <code>0</code> | Y value     |
-
-**Example**
-
-```js
-const x = 1;
-const y = 1;
-const vector = new Vector(x, y);
-```
-
-<a name="module_Vector..Vector+set"></a>
-
-#### vector.set([x], [y]) ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)
-
-| Param | Type                | Default        | Description |
-| ----- | ------------------- | -------------- | ----------- |
-| [x]   | <code>number</code> | <code>0</code> | X value     |
-| [y]   | <code>number</code> | <code>0</code> | Y value     |
-
-<a name="module_Vector..Vector+random"></a>
-
-#### vector.random() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+add"></a>
-
-#### vector.add() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+sub"></a>
-
-#### vector.sub() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+mul"></a>
-
-#### vector.mul() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+div"></a>
-
-#### vector.div() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+mag"></a>
-
-#### vector.mag() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+normalize"></a>
-
-#### vector.normalize() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+angle"></a>
-
-#### vector.angle() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+setMag"></a>
-
-#### vector.setMag() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+setAngle"></a>
-
-#### vector.setAngle() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+rotate"></a>
-
-#### vector.rotate() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+limit"></a>
-
-#### vector.limit() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+angleBetween"></a>
-
-#### vector.angleBetween() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+dot"></a>
-
-#### vector.dot() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+lerp"></a>
-
-#### vector.lerp() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+dist"></a>
-
-#### vector.dist() ⇒ <code>number</code>
-
-Calculates distance between current vector and the target
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
-<a name="module_Vector..Vector+copy"></a>
-
-#### vector.copy() ⇒ <code>Vector</code>
-
-Builds a new vector with the same caractestics as this
-
-**Kind**: instance method of [<code>Vector</code>](#module_Vector..Vector)  
 <a name="Census"></a>
 
-## Census : [<code>Census</code>](#Census)
+## Census
 
 Census registry
 
 **Kind**: global class  
 **Requires**: <code>module:lodash</code>, <code>module:jquery</code>
 
-- [Census](#Census) : [<code>Census</code>](#Census)
+- [Census](#Census)
   - [.red](#Census+red)
   - [.green](#Census+green)
   - [.blue](#Census+blue)
   - [.births](#Census+births)
   - [.deaths](#Census+deaths)
   - [.log(world)](#Census+log)
-  - [.update()](#Census+update)
+  - [.update(world)](#Census+update)
   - [.reset()](#Census+reset)
   - [.minority()](#Census+minority)
   - [.mayority()](#Census+mayority)
@@ -575,11 +393,16 @@ Update census results on log
 
 <a name="Census+update"></a>
 
-### census.update()
+### census.update(world)
 
 Calculate population by species
 
-**Kind**: instance method of [<code>Census</code>](#Census)  
+**Kind**: instance method of [<code>Census</code>](#Census)
+
+| Param | Type                         | Description          |
+| ----- | ---------------------------- | -------------------- |
+| world | [<code>World</code>](#World) | Simulation reference |
+
 <a name="Census+reset"></a>
 
 ### census.reset()
@@ -608,6 +431,181 @@ Most populated species
 Census list
 
 **Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Vector"></a>
+
+## Vector
+
+2D Matrix position
+
+**Kind**: global class  
+**Requires**: <code>module:lodash</code>
+
+- [Vector](#Vector)
+  - [new Vector([x], [y])](#new_Vector_new)
+  - [.x](#Vector+x)
+  - [.y](#Vector+y)
+  - [.set([x], [y])](#Vector+set) ⇒ [<code>Vector</code>](#Vector)
+  - [.random()](#Vector+random) ⇒ [<code>Vector</code>](#Vector)
+  - [.add()](#Vector+add) ⇒ [<code>Vector</code>](#Vector)
+  - [.sub()](#Vector+sub) ⇒ [<code>Vector</code>](#Vector)
+  - [.mul()](#Vector+mul) ⇒ [<code>Vector</code>](#Vector)
+  - [.div()](#Vector+div) ⇒ [<code>Vector</code>](#Vector)
+  - [.mag()](#Vector+mag) ⇒ <code>number</code>
+  - [.normalize()](#Vector+normalize) ⇒ [<code>Vector</code>](#Vector)
+  - [.angle()](#Vector+angle) ⇒ <code>number</code>
+  - [.setMag()](#Vector+setMag) ⇒ [<code>Vector</code>](#Vector)
+  - [.setAngle()](#Vector+setAngle) ⇒ [<code>Vector</code>](#Vector)
+  - [.rotate()](#Vector+rotate) ⇒ [<code>Vector</code>](#Vector)
+  - [.limit()](#Vector+limit) ⇒ [<code>Vector</code>](#Vector)
+  - [.angleBetween()](#Vector+angleBetween) ⇒ <code>number</code>
+  - [.dot()](#Vector+dot) ⇒ <code>number</code>
+  - [.lerp()](#Vector+lerp) ⇒ [<code>Vector</code>](#Vector)
+  - [.dist()](#Vector+dist) ⇒ <code>number</code>
+  - [.copy()](#Vector+copy) ⇒ [<code>Vector</code>](#Vector)
+
+<a name="new_Vector_new"></a>
+
+### new Vector([x], [y])
+
+| Param | Type                | Default        | Description      |
+| ----- | ------------------- | -------------- | ---------------- |
+| [x]   | <code>number</code> | <code>0</code> | X position value |
+| [y]   | <code>number</code> | <code>0</code> | Y position value |
+
+**Example**
+
+```js
+const x = 1;
+const y = 1;
+const vector = new Vector(x, y);
+```
+
+<a name="Vector+x"></a>
+
+### vector.x
+
+X position value
+
+**Kind**: instance property of [<code>Vector</code>](#Vector)  
+<a name="Vector+y"></a>
+
+### vector.y
+
+Y position value
+
+**Kind**: instance property of [<code>Vector</code>](#Vector)  
+<a name="Vector+set"></a>
+
+### vector.set([x], [y]) ⇒ [<code>Vector</code>](#Vector)
+
+Set position
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)
+
+| Param | Type                | Default        | Description      |
+| ----- | ------------------- | -------------- | ---------------- |
+| [x]   | <code>number</code> | <code>0</code> | X position value |
+| [y]   | <code>number</code> | <code>0</code> | Y position value |
+
+<a name="Vector+random"></a>
+
+### vector.random() ⇒ [<code>Vector</code>](#Vector)
+
+Set random angle
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+add"></a>
+
+### vector.add() ⇒ [<code>Vector</code>](#Vector)
+
+Add to vector
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+sub"></a>
+
+### vector.sub() ⇒ [<code>Vector</code>](#Vector)
+
+Substract from vector
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+mul"></a>
+
+### vector.mul() ⇒ [<code>Vector</code>](#Vector)
+
+Multiply vector
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+div"></a>
+
+### vector.div() ⇒ [<code>Vector</code>](#Vector)
+
+Divide vector
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+mag"></a>
+
+### vector.mag() ⇒ <code>number</code>
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+normalize"></a>
+
+### vector.normalize() ⇒ [<code>Vector</code>](#Vector)
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+angle"></a>
+
+### vector.angle() ⇒ <code>number</code>
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+setMag"></a>
+
+### vector.setMag() ⇒ [<code>Vector</code>](#Vector)
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+setAngle"></a>
+
+### vector.setAngle() ⇒ [<code>Vector</code>](#Vector)
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+rotate"></a>
+
+### vector.rotate() ⇒ [<code>Vector</code>](#Vector)
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+limit"></a>
+
+### vector.limit() ⇒ [<code>Vector</code>](#Vector)
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+angleBetween"></a>
+
+### vector.angleBetween() ⇒ <code>number</code>
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+dot"></a>
+
+### vector.dot() ⇒ <code>number</code>
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+lerp"></a>
+
+### vector.lerp() ⇒ [<code>Vector</code>](#Vector)
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+dist"></a>
+
+### vector.dist() ⇒ <code>number</code>
+
+Calculates distance between current vector and the target
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
+<a name="Vector+copy"></a>
+
+### vector.copy() ⇒ [<code>Vector</code>](#Vector)
+
+Builds a new vector with the same caractestics as this
+
+**Kind**: instance method of [<code>Vector</code>](#Vector)  
 <a name="World"></a>
 
 ## World
@@ -823,107 +821,4 @@ Adjust world population growth to prevent overpopulation or full extintion
 
 Draws creatures next move
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="Census"></a>
-
-## Census : <code>Object</code>
-
-Population by species
-
-**Kind**: global typedef
-
-- [Census](#Census) : <code>Object</code>
-  - [.red](#Census+red)
-  - [.green](#Census+green)
-  - [.blue](#Census+blue)
-  - [.births](#Census+births)
-  - [.deaths](#Census+deaths)
-  - [.log(world)](#Census+log)
-  - [.update()](#Census+update)
-  - [.reset()](#Census+reset)
-  - [.minority()](#Census+minority)
-  - [.mayority()](#Census+mayority)
-  - [.list()](#Census+list)
-
-<a name="Census+red"></a>
-
-### census.red
-
-Red population
-
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+green"></a>
-
-### census.green
-
-Green population
-
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+blue"></a>
-
-### census.blue
-
-Blue population
-
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+births"></a>
-
-### census.births
-
-Total births
-
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+deaths"></a>
-
-### census.deaths
-
-Total deaths
-
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+log"></a>
-
-### census.log(world)
-
-Update census results on log
-
-**Kind**: instance method of [<code>Census</code>](#Census)
-
-| Param | Type                         | Description          |
-| ----- | ---------------------------- | -------------------- |
-| world | [<code>World</code>](#World) | Simulation reference |
-
-<a name="Census+update"></a>
-
-### census.update()
-
-Calculate population by species
-
-**Kind**: instance method of [<code>Census</code>](#Census)  
-<a name="Census+reset"></a>
-
-### census.reset()
-
-Reset counts results
-
-**Kind**: instance method of [<code>Census</code>](#Census)  
-<a name="Census+minority"></a>
-
-### census.minority()
-
-Least populated species
-
-**Kind**: instance method of [<code>Census</code>](#Census)  
-<a name="Census+mayority"></a>
-
-### census.mayority()
-
-Most populated species
-
-**Kind**: instance method of [<code>Census</code>](#Census)  
-<a name="Census+list"></a>
-
-### census.list()
-
-Census list
-
-**Kind**: instance method of [<code>Census</code>](#Census)
+**Kind**: instance method of [<code>World</code>](#World)
