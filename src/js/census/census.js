@@ -1,28 +1,34 @@
-'use strict';
-/**
- * @module Census
- * @requires lodash
- */
-/**
- * Species census
- */
 /**
  * @typedef  {Object} Census - Population by species
- * @property {number} red    - Red population
- * @property {number} green  - Green population
- * @property {number} blue   - Blue population
+ * @property {number} red - Red population
+ * @property {number} green - Green population
+ * @property {number} blue - Blue population
+ * @property {number} births - Total births
+ * @property {number} deaths - Total deaths
+ */
+/**
+ * Census registry
+ * @type Census
+ * @requires lodash
+ * @requires jquery
  */
 class Census {
   constructor() {
+    /** Red population */
     this.red = 0;
+    /** Green population */
     this.green = 0;
+    /** Blue population */
     this.blue = 0;
+    /** Total births */
     this.births = 0;
+    /** Total deaths */
     this.deaths = 0;
   }
 
   /**
-   * Clears the log and shows the census results
+   * Update census results on log
+   * @param {World} world Simulation reference
    */
   log(world) {
     this.update(world);
@@ -63,9 +69,7 @@ class Census {
     console.log('%c==================================', 'color: #777');
   }
 
-  /**
-   * Calculates population by species
-   */
+  /** Calculate population by species */
   update(world) {
     this.reset();
 
@@ -73,32 +77,24 @@ class Census {
     while (this._index--) this[world.creatures[this._index].species]++;
   }
 
-  /**
-   * Return counts results to inital state
-   */
+  /** Reset counts results */
   reset() {
     this.red = 0;
     this.green = 0;
     this.blue = 0;
   }
 
-  /**
-   * Returns the least populated species
-   */
+  /** Least populated species */
   minority() {
     return _.minBy(this.list(), 'population');
   }
 
-  /**
-   * Returns the most populated species
-   */
+  /** Most populated species */
   mayority() {
     return _.maxBy(this.list(), 'population');
   }
 
-  /**
-   * Census list
-   */
+  /** Census list */
   list() {
     return [
       {

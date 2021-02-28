@@ -1,73 +1,232 @@
-<a name="module_Census"></a>
+## Classes
 
-## Census
-**Requires**: <code>module:lodash</code>  
+<dl>
+<dt><a href="#Census">Census</a> : <code><a href="#Census">Census</a></code></dt>
+<dd><p>Census registry</p>
+</dd>
+</dl>
 
-* [Census](#module_Census)
-    * [~Census](#module_Census..Census) : <code>Object</code>
-        * [.log()](#module_Census..Census+log)
-        * [.update()](#module_Census..Census+update)
-        * [.reset()](#module_Census..Census+reset)
-        * [.minority()](#module_Census..Census+minority)
-        * [.mayority()](#module_Census..Census+mayority)
-        * [.list()](#module_Census..Census+list)
+## Typedefs
 
-<a name="module_Census..Census"></a>
+<dl>
+<dt><a href="#Census">Census</a> : <code>Object</code></dt>
+<dd><p>Population by species</p>
+</dd>
+</dl>
 
-### Census~Census : <code>Object</code>
-Population by species
+<a name="Census"></a>
 
-**Kind**: inner typedef of [<code>Census</code>](#module_Census)  
-**Properties**
+## Census : [<code>Census</code>](#Census)
 
-| Name | Type | Description |
-| --- | --- | --- |
-| red | <code>number</code> | Red population |
-| green | <code>number</code> | Green population |
-| blue | <code>number</code> | Blue population |
+Census registry
 
+**Kind**: global class  
+**Requires**: <code>module:lodash</code>, <code>module:jquery</code>
 
-* [~Census](#module_Census..Census) : <code>Object</code>
-    * [.log()](#module_Census..Census+log)
-    * [.update()](#module_Census..Census+update)
-    * [.reset()](#module_Census..Census+reset)
-    * [.minority()](#module_Census..Census+minority)
-    * [.mayority()](#module_Census..Census+mayority)
-    * [.list()](#module_Census..Census+list)
+- [Census](#Census) : [<code>Census</code>](#Census)
+  - [.red](#Census+red)
+  - [.green](#Census+green)
+  - [.blue](#Census+blue)
+  - [.births](#Census+births)
+  - [.deaths](#Census+deaths)
+  - [.log(world)](#Census+log)
+  - [.update()](#Census+update)
+  - [.reset()](#Census+reset)
+  - [.minority()](#Census+minority)
+  - [.mayority()](#Census+mayority)
+  - [.list()](#Census+list)
 
-<a name="module_Census..Census+log"></a>
+<a name="Census+red"></a>
 
-#### census.log()
-Clears the log and shows the census results
+### census.red
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+update"></a>
+Red population
 
-#### census.update()
-Calculates population by species
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+green"></a>
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+reset"></a>
+### census.green
 
-#### census.reset()
-Return counts results to inital state
+Green population
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+minority"></a>
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+blue"></a>
 
-#### census.minority()
-Returns the least populated species
+### census.blue
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+mayority"></a>
+Blue population
 
-#### census.mayority()
-Returns the most populated species
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+births"></a>
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
-<a name="module_Census..Census+list"></a>
+### census.births
 
-#### census.list()
+Total births
+
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+deaths"></a>
+
+### census.deaths
+
+Total deaths
+
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+log"></a>
+
+### census.log(world)
+
+Update census results on log
+
+**Kind**: instance method of [<code>Census</code>](#Census)
+
+| Param | Type               | Description          |
+| ----- | ------------------ | -------------------- |
+| world | <code>World</code> | Simulation reference |
+
+<a name="Census+update"></a>
+
+### census.update()
+
+Calculate population by species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+reset"></a>
+
+### census.reset()
+
+Reset counts results
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+minority"></a>
+
+### census.minority()
+
+Least populated species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+mayority"></a>
+
+### census.mayority()
+
+Most populated species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+list"></a>
+
+### census.list()
+
 Census list
 
-**Kind**: instance method of [<code>Census</code>](#module_Census..Census)  
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census"></a>
+
+## Census : <code>Object</code>
+
+Population by species
+
+**Kind**: global typedef  
+**Properties**
+
+| Name   | Type                | Description      |
+| ------ | ------------------- | ---------------- |
+| red    | <code>number</code> | Red population   |
+| green  | <code>number</code> | Green population |
+| blue   | <code>number</code> | Blue population  |
+| births | <code>number</code> | Total births     |
+| deaths | <code>number</code> | Total deaths     |
+
+- [Census](#Census) : <code>Object</code>
+  - [.red](#Census+red)
+  - [.green](#Census+green)
+  - [.blue](#Census+blue)
+  - [.births](#Census+births)
+  - [.deaths](#Census+deaths)
+  - [.log(world)](#Census+log)
+  - [.update()](#Census+update)
+  - [.reset()](#Census+reset)
+  - [.minority()](#Census+minority)
+  - [.mayority()](#Census+mayority)
+  - [.list()](#Census+list)
+
+<a name="Census+red"></a>
+
+### census.red
+
+Red population
+
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+green"></a>
+
+### census.green
+
+Green population
+
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+blue"></a>
+
+### census.blue
+
+Blue population
+
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+births"></a>
+
+### census.births
+
+Total births
+
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+deaths"></a>
+
+### census.deaths
+
+Total deaths
+
+**Kind**: instance property of [<code>Census</code>](#Census)  
+<a name="Census+log"></a>
+
+### census.log(world)
+
+Update census results on log
+
+**Kind**: instance method of [<code>Census</code>](#Census)
+
+| Param | Type               | Description          |
+| ----- | ------------------ | -------------------- |
+| world | <code>World</code> | Simulation reference |
+
+<a name="Census+update"></a>
+
+### census.update()
+
+Calculate population by species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+reset"></a>
+
+### census.reset()
+
+Reset counts results
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+minority"></a>
+
+### census.minority()
+
+Least populated species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+mayority"></a>
+
+### census.mayority()
+
+Most populated species
+
+**Kind**: instance method of [<code>Census</code>](#Census)  
+<a name="Census+list"></a>
+
+### census.list()
+
+Census list
+
+**Kind**: instance method of [<code>Census</code>](#Census)
