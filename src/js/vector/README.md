@@ -2,17 +2,23 @@
 
 <dl>
 <dt><a href="#set">set([x], [y])</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
+<dd><p>Set position</p>
+</dd>
 <dt><a href="#random">random()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
+<dd><p>Set random angle</p>
+</dd>
 <dt><a href="#add">add()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
+<dd><p>Add to vector</p>
+</dd>
 <dt><a href="#sub">sub()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
+<dd><p>Substract from vector</p>
+</dd>
 <dt><a href="#mul">mul()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
+<dd><p>Multiply vector</p>
+</dd>
 <dt><a href="#div">div()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
+<dd><p>Divide vector</p>
+</dd>
 <dt><a href="#mag">mag()</a> ⇒ <code>number</code></dt>
 <dd></dd>
 <dt><a href="#normalize">normalize()</a> ⇒ <code>Vector</code></dt>
@@ -45,36 +51,48 @@
 
 ## set([x], [y]) ⇒ <code>Vector</code>
 
+Set position
+
 **Kind**: global function
 
-| Param | Type                | Default        | Description |
-| ----- | ------------------- | -------------- | ----------- |
-| [x]   | <code>number</code> | <code>0</code> | X value     |
-| [y]   | <code>number</code> | <code>0</code> | Y value     |
+| Param | Type                | Default        | Description      |
+| ----- | ------------------- | -------------- | ---------------- |
+| [x]   | <code>number</code> | <code>0</code> | X position value |
+| [y]   | <code>number</code> | <code>0</code> | Y position value |
 
 <a name="random"></a>
 
 ## random() ⇒ <code>Vector</code>
+
+Set random angle
 
 **Kind**: global function  
 <a name="add"></a>
 
 ## add() ⇒ <code>Vector</code>
 
+Add to vector
+
 **Kind**: global function  
 <a name="sub"></a>
 
 ## sub() ⇒ <code>Vector</code>
+
+Substract from vector
 
 **Kind**: global function  
 <a name="mul"></a>
 
 ## mul() ⇒ <code>Vector</code>
 
+Multiply vector
+
 **Kind**: global function  
 <a name="div"></a>
 
 ## div() ⇒ <code>Vector</code>
+
+Divide vector
 
 **Kind**: global function  
 <a name="mag"></a>
