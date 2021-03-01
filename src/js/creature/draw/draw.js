@@ -1,7 +1,8 @@
 import simulation from '../../app';
 
 /**
- * @module Draw Creature draw tools
+ * Creature draw tools
+ * @module
  */
 export default class Draw {
   /**

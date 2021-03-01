@@ -2,7 +2,8 @@ import { Architect } from 'synaptic';
 import simulation from '../../app';
 
 /**
- * @module Brain Creature's mind
+ * Creature's mind
+ * @module
  * @requires synaptic
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */

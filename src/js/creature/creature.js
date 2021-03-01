@@ -5,7 +5,8 @@ import Body from './body/body';
 import simulation from '../app';
 
 /**
- * @module Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world
+ * Artificial Intelligence based in perceptron neural networks that lives in a 2D world
+ * @module
  */
 export default class Creature {
   /**

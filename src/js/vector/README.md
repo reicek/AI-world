@@ -1,180 +1,158 @@
-<a name="module_Vector 2D Matrix position"></a>
+<a name="module_vector"></a>
 
-## Vector 2D Matrix position
+## vector
+2D Matrix position
 
-**Requires**: <code>module:lodash</code>
+**Requires**: <code>module:lodash</code>  
 
-- [Vector 2D Matrix position](#module_Vector 2D Matrix position)
-  - [module.exports](#exp_module_Vector 2D Matrix position--module.exports) ⏏
-    - [new module.exports([x], [y])](#new_module_Vector 2D Matrix position--module.exports_new)
-    - [.x](#module_Vector 2D Matrix position--module.exports+x)
-    - [.y](#module_Vector 2D Matrix position--module.exports+y)
-    - [.set([x], [y])](#module_Vector 2D Matrix position--module.exports+set) ⇒ <code>Vector</code>
-    - [.random()](#module_Vector 2D Matrix position--module.exports+random) ⇒ <code>Vector</code>
-    - [.add()](#module_Vector 2D Matrix position--module.exports+add) ⇒ <code>Vector</code>
-    - [.sub()](#module_Vector 2D Matrix position--module.exports+sub) ⇒ <code>Vector</code>
-    - [.mul()](#module_Vector 2D Matrix position--module.exports+mul) ⇒ <code>Vector</code>
-    - [.div()](#module_Vector 2D Matrix position--module.exports+div) ⇒ <code>Vector</code>
-    - [.mag()](#module_Vector 2D Matrix position--module.exports+mag) ⇒ <code>number</code>
-    - [.normalize()](#module_Vector 2D Matrix position--module.exports+normalize) ⇒ <code>Vector</code>
-    - [.angle()](#module_Vector 2D Matrix position--module.exports+angle) ⇒ <code>number</code>
-    - [.setMag()](#module_Vector 2D Matrix position--module.exports+setMag) ⇒ <code>Vector</code>
-    - [.setAngle()](#module_Vector 2D Matrix position--module.exports+setAngle) ⇒ <code>Vector</code>
-    - [.rotate()](#module_Vector 2D Matrix position--module.exports+rotate) ⇒ <code>Vector</code>
-    - [.limit()](#module_Vector 2D Matrix position--module.exports+limit) ⇒ <code>Vector</code>
-    - [.angleBetween()](#module_Vector 2D Matrix position--module.exports+angleBetween) ⇒ <code>number</code>
-    - [.dot()](#module_Vector 2D Matrix position--module.exports+dot) ⇒ <code>number</code>
-    - [.lerp()](#module_Vector 2D Matrix position--module.exports+lerp) ⇒ <code>Vector</code>
-    - [.dist()](#module_Vector 2D Matrix position--module.exports+dist) ⇒ <code>number</code>
-    - [.copy()](#module_Vector 2D Matrix position--module.exports+copy) ⇒ <code>Vector</code>
+* [vector](#module_vector)
+    * [module.exports](#exp_module_vector--module.exports) ⏏
+        * [new module.exports([x], [y])](#new_module_vector--module.exports_new)
+        * [.x](#module_vector--module.exports+x)
+        * [.y](#module_vector--module.exports+y)
+        * [.set([x], [y])](#module_vector--module.exports+set) ⇒ <code>Vector</code>
+        * [.random()](#module_vector--module.exports+random) ⇒ <code>Vector</code>
+        * [.add()](#module_vector--module.exports+add) ⇒ <code>Vector</code>
+        * [.sub()](#module_vector--module.exports+sub) ⇒ <code>Vector</code>
+        * [.mul()](#module_vector--module.exports+mul) ⇒ <code>Vector</code>
+        * [.div()](#module_vector--module.exports+div) ⇒ <code>Vector</code>
+        * [.mag()](#module_vector--module.exports+mag) ⇒ <code>number</code>
+        * [.normalize()](#module_vector--module.exports+normalize) ⇒ <code>Vector</code>
+        * [.angle()](#module_vector--module.exports+angle) ⇒ <code>number</code>
+        * [.setMag()](#module_vector--module.exports+setMag) ⇒ <code>Vector</code>
+        * [.setAngle()](#module_vector--module.exports+setAngle) ⇒ <code>Vector</code>
+        * [.rotate()](#module_vector--module.exports+rotate) ⇒ <code>Vector</code>
+        * [.limit()](#module_vector--module.exports+limit) ⇒ <code>Vector</code>
+        * [.angleBetween()](#module_vector--module.exports+angleBetween) ⇒ <code>number</code>
+        * [.dot()](#module_vector--module.exports+dot) ⇒ <code>number</code>
+        * [.lerp()](#module_vector--module.exports+lerp) ⇒ <code>Vector</code>
+        * [.dist()](#module_vector--module.exports+dist) ⇒ <code>number</code>
+        * [.copy()](#module_vector--module.exports+copy) ⇒ <code>Vector</code>
 
-<a name="exp_module_Vector 2D Matrix position--module.exports"></a>
+<a name="exp_module_vector--module.exports"></a>
 
 ### module.exports ⏏
-
 **Kind**: Exported class  
-<a name="new_module_Vector 2D Matrix position--module.exports_new"></a>
+<a name="new_module_vector--module.exports_new"></a>
 
 #### new module.exports([x], [y])
-
 Create vector
 
-| Param | Type                | Default        | Description      |
-| ----- | ------------------- | -------------- | ---------------- |
-| [x]   | <code>number</code> | <code>0</code> | X position value |
-| [y]   | <code>number</code> | <code>0</code> | Y position value |
 
-**Example**
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [x] | <code>number</code> | <code>0</code> | X position value |
+| [y] | <code>number</code> | <code>0</code> | Y position value |
 
+**Example**  
 ```js
 const x = 1;
-const y = 1;
-const vector = new Vector(x, y);
+    const y = 1;
+    const vector = new Vector(x, y);
 ```
-
-<a name="module_Vector 2D Matrix position--module.exports+x"></a>
+<a name="module_vector--module.exports+x"></a>
 
 #### module.exports.x
-
 X position value
 
-**Kind**: instance property of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+y"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+y"></a>
 
 #### module.exports.y
-
 Y position value
 
-**Kind**: instance property of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+set"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+set"></a>
 
 #### module.exports.set([x], [y]) ⇒ <code>Vector</code>
-
 Set position
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
 
-| Param | Type                | Default        | Description      |
-| ----- | ------------------- | -------------- | ---------------- |
-| [x]   | <code>number</code> | <code>0</code> | X position value |
-| [y]   | <code>number</code> | <code>0</code> | Y position value |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [x] | <code>number</code> | <code>0</code> | X position value |
+| [y] | <code>number</code> | <code>0</code> | Y position value |
 
-<a name="module_Vector 2D Matrix position--module.exports+random"></a>
+<a name="module_vector--module.exports+random"></a>
 
 #### module.exports.random() ⇒ <code>Vector</code>
-
 Set random angle
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+add"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+add"></a>
 
 #### module.exports.add() ⇒ <code>Vector</code>
-
 Add to vector
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+sub"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+sub"></a>
 
 #### module.exports.sub() ⇒ <code>Vector</code>
-
 Substract from vector
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+mul"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+mul"></a>
 
 #### module.exports.mul() ⇒ <code>Vector</code>
-
 Multiply vector
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+div"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+div"></a>
 
 #### module.exports.div() ⇒ <code>Vector</code>
-
 Divide vector
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+mag"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+mag"></a>
 
 #### module.exports.mag() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+normalize"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+normalize"></a>
 
 #### module.exports.normalize() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+angle"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+angle"></a>
 
 #### module.exports.angle() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+setMag"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+setMag"></a>
 
 #### module.exports.setMag() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+setAngle"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+setAngle"></a>
 
 #### module.exports.setAngle() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+rotate"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+rotate"></a>
 
 #### module.exports.rotate() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+limit"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+limit"></a>
 
 #### module.exports.limit() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+angleBetween"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+angleBetween"></a>
 
 #### module.exports.angleBetween() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+dot"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+dot"></a>
 
 #### module.exports.dot() ⇒ <code>number</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+lerp"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+lerp"></a>
 
 #### module.exports.lerp() ⇒ <code>Vector</code>
-
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+dist"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+dist"></a>
 
 #### module.exports.dist() ⇒ <code>number</code>
-
 Calculates distance between current vector and the target
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
-<a name="module_Vector 2D Matrix position--module.exports+copy"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  
+<a name="module_vector--module.exports+copy"></a>
 
 #### module.exports.copy() ⇒ <code>Vector</code>
-
 Builds a new vector with the same caractestics as this
 
-**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_vector--module.exports)  

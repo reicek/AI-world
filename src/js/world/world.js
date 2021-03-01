@@ -5,7 +5,8 @@ import Vector from '../vector/vector';
 import $ from 'jquery';
 
 /**
- * @module World 2D environment for creatures
+ * 2D environment for creatures
+ * @module
  */
 export default class World {
   /**

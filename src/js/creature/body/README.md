@@ -1,76 +1,71 @@
-<a name="module_Body Helper methods for creatures body processes"></a>
+<a name="module_body"></a>
 
-## Body Helper methods for creatures body processes
+## body
+Helper methods for creature's body processes
 
-**Requires**: <code>module:lodash</code>, <code>module:jquery</code>
+**Requires**: <code>module:lodash</code>, <code>module:jquery</code>  
 
-- [Body Helper methods for creatures body processes](#module_Body Helper methods for creatures body processes)
-  - [.initializeSpecies(creature, species)](#module_Body Helper methods for creatures body processes.initializeSpecies)
-  - [.initializeColor()](#module_Body Helper methods for creatures body processes.initializeColor)
-  - [.grow()](#module_Body Helper methods for creatures body processes.grow)
-  - [.age()](#module_Body Helper methods for creatures body processes.age)
-  - [.adjustSpeed()](#module_Body Helper methods for creatures body processes.adjustSpeed)
-  - [.boundaries()](#module_Body Helper methods for creatures body processes.boundaries)
-  - [.attemptReproduction(target, distance)](#module_Body Helper methods for creatures body processes.attemptReproduction)
+* [body](#module_body)
+    * [.initializeSpecies(creature, species)](#module_body.initializeSpecies)
+    * [.initializeColor()](#module_body.initializeColor)
+    * [.grow()](#module_body.grow)
+    * [.age()](#module_body.age)
+    * [.adjustSpeed()](#module_body.adjustSpeed)
+    * [.boundaries()](#module_body.boundaries)
+    * [.attemptReproduction(target, distance)](#module_body.attemptReproduction)
 
-<a name="module_Body Helper methods for creatures body processes.initializeSpecies"></a>
+<a name="module_body.initializeSpecies"></a>
 
-### Body Helper methods for creatures body processes.initializeSpecies(creature, species)
-
+### body.initializeSpecies(creature, species)
 Initializes creature's species
 
-**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-| Param    | Type            |
-| -------- | --------------- |
-| creature | <code>\*</code> |
-| species  | <code>\*</code> |
+| Param | Type |
+| --- | --- |
+| creature | <code>\*</code> | 
+| species | <code>\*</code> | 
 
-<a name="module_Body Helper methods for creatures body processes.initializeColor"></a>
+<a name="module_body.initializeColor"></a>
 
-### Body Helper methods for creatures body processes.initializeColor()
-
+### body.initializeColor()
 Initializes creature's color parameters
 
-**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
-<a name="module_Body Helper methods for creatures body processes.grow"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
+<a name="module_body.grow"></a>
 
-### Body Helper methods for creatures body processes.grow()
-
+### body.grow()
 Add growth depending on metabolism
 
-**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
-<a name="module_Body Helper methods for creatures body processes.age"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
+<a name="module_body.age"></a>
 
-### Body Helper methods for creatures body processes.age()
-
+### body.age()
 Aging translates into the creature's max speed reduction
 or death (deletion) when none speed is left
 
-**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
-<a name="module_Body Helper methods for creatures body processes.adjustSpeed"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
+<a name="module_body.adjustSpeed"></a>
 
-### Body Helper methods for creatures body processes.adjustSpeed()
-
+### body.adjustSpeed()
 Adjust velocity to stay close to maxSpeed
 
-**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
-<a name="module_Body Helper methods for creatures body processes.boundaries"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
+<a name="module_body.boundaries"></a>
 
-### Body Helper methods for creatures body processes.boundaries()
-
+### body.boundaries()
 Prevents creatures from going beyond the edges
 
-**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
-<a name="module_Body Helper methods for creatures body processes.attemptReproduction"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
+<a name="module_body.attemptReproduction"></a>
 
-### Body Helper methods for creatures body processes.attemptReproduction(target, distance)
-
+### body.attemptReproduction(target, distance)
 Attempt to reproduce creature
 
-**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-| Param    | Type                |
-| -------- | ------------------- |
-| target   | <code>Object</code> |
-| distance | <code>number</code> |
+| Param | Type |
+| --- | --- |
+| target | <code>Object</code> | 
+| distance | <code>number</code> | 
+

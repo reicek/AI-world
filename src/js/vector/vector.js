@@ -1,5 +1,6 @@
 /**
- * @module Vector 2D Matrix position
+ * 2D Matrix position
+ * @module
  * @requires lodash
  */
 export default class Vector {

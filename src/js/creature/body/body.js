@@ -3,7 +3,8 @@ import $ from 'jquery';
 import simulation from '../../app';
 
 /**
- * @module Body Helper methods for creature's body processes
+ * Helper methods for creature's body processes
+ * @module
  * @requires lodash
  * @requires jquery
  */

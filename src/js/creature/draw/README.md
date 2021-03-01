@@ -1,17 +1,18 @@
-<a name="module_Draw Creature draw tools"></a>
+<a name="module_draw"></a>
 
-## Draw Creature draw tools
+## draw
+Creature draw tools
 
-<a name="module_Draw Creature draw tools.shape"></a>
+<a name="module_draw.shape"></a>
 
-### Draw Creature draw tools.shape(size, color, location)
-
+### draw.shape(size, color, location)
 Creates creature's shape
 
-**Kind**: static method of [<code>Draw Creature draw tools</code>](#module_Draw Creature draw tools)
+**Kind**: static method of [<code>draw</code>](#module_draw)  
 
-| Param    | Type            |
-| -------- | --------------- |
-| size     | <code>\*</code> |
-| color    | <code>\*</code> |
-| location | <code>\*</code> |
+| Param | Type |
+| --- | --- |
+| size | <code>\*</code> | 
+| color | <code>\*</code> | 
+| location | <code>\*</code> | 
+
