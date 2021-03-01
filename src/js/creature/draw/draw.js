@@ -1,12 +1,14 @@
 import simulation from '../../app';
 
-/** Creature draw tools */
+/**
+ * @module Draw Creature draw tools
+ */
 export default class Draw {
   /**
    * Creates creature's shape
-   * @param {*} size 
-   * @param {*} color 
-   * @param {*} location 
+   * @param {*} size
+   * @param {*} color
+   * @param {*} location
    */
   static shape(size, color, location) {
     simulation.ctx.fillStyle = 'rgb(0,0,0)';

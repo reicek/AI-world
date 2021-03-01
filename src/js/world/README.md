@@ -1,132 +1,219 @@
-## Functions
+<a name="module_World 2D environment for creatures"></a>
 
-<dl>
-<dt><a href="#launch">launch()</a></dt>
-<dd><p>Start simulation</p>
-</dd>
-<dt><a href="#initializeCanvas">initializeCanvas()</a></dt>
-<dd><p>Canvas Setup</p>
-</dd>
-<dt><a href="#getMousePosition">getMousePosition()</a></dt>
-<dd><p>Store current mouse position</p>
-</dd>
-<dt><a href="#initializePopulation">initializePopulation()</a></dt>
-<dd><p>Spawn first creatures</p>
-</dd>
-<dt><a href="#startListeners">startListeners()</a></dt>
-<dd><p>Events listeners</p>
-</dd>
-<dt><a href="#increasePopulation">increasePopulation(x, y)</a></dt>
-<dd><p>Increases the least populated species</p>
-</dd>
-<dt><a href="#decreasePopulation">decreasePopulation()</a></dt>
-<dd><p>Removes oldest (slowest) creature</p>
-</dd>
-<dt><a href="#spawnCreature">spawnCreature(x, y, species, mass)</a></dt>
-<dd><p>Adds a new crature to the simulation</p>
-</dd>
-<dt><a href="#removeCreature">removeCreature(creature)</a></dt>
-<dd><p>Removes a creature from the simulation</p>
-</dd>
-<dt><a href="#drawNextFrame">drawNextFrame()</a></dt>
-<dd><p>Adjust population and draws creatures next move</p>
-</dd>
-<dt><a href="#adjustPopulationGrowth">adjustPopulationGrowth()</a></dt>
-<dd><p>Adjust world population growth to prevent overpopulation or full extintion</p>
-</dd>
-<dt><a href="#updateCreatures">updateCreatures()</a></dt>
-<dd><p>Draws creatures next move</p>
-</dd>
-</dl>
+## World 2D environment for creatures
 
-<a name="launch"></a>
+- [World 2D environment for creatures](#module_World 2D environment for creatures)
+  - [module.exports](#exp_module_World 2D environment for creatures--module.exports) ⏏
+    - [new module.exports([topPopulation], [id], [species])](#new_module_World 2D environment for creatures--module.exports_new)
+    - [.cycles](#module_World 2D environment for creatures--module.exports+cycles)
+    - [.learningRate](#module_World 2D environment for creatures--module.exports+learningRate)
+    - [.id](#module_World 2D environment for creatures--module.exports+id)
+    - [.creatures](#module_World 2D environment for creatures--module.exports+creatures)
+    - [.species](#module_World 2D environment for creatures--module.exports+species)
+    - [.topPopulation](#module_World 2D environment for creatures--module.exports+topPopulation)
+    - [.census](#module_World 2D environment for creatures--module.exports+census)
+    - [.initialPopulation](#module_World 2D environment for creatures--module.exports+initialPopulation)
+    - [.mousePosition](#module_World 2D environment for creatures--module.exports+mousePosition)
+    - [.launch()](#module_World 2D environment for creatures--module.exports+launch)
+    - [.initializeCanvas()](#module_World 2D environment for creatures--module.exports+initializeCanvas)
+    - [.getMousePosition()](#module_World 2D environment for creatures--module.exports+getMousePosition)
+    - [.initializePopulation()](#module_World 2D environment for creatures--module.exports+initializePopulation)
+    - [.startListeners()](#module_World 2D environment for creatures--module.exports+startListeners)
+    - [.increasePopulation(x, y)](#module_World 2D environment for creatures--module.exports+increasePopulation)
+    - [.decreasePopulation()](#module_World 2D environment for creatures--module.exports+decreasePopulation)
+    - [.spawnCreature(x, y, species, mass)](#module_World 2D environment for creatures--module.exports+spawnCreature)
+    - [.removeCreature(creature)](#module_World 2D environment for creatures--module.exports+removeCreature)
+    - [.drawNextFrame()](#module_World 2D environment for creatures--module.exports+drawNextFrame)
+    - [.adjustPopulationGrowth()](#module_World 2D environment for creatures--module.exports+adjustPopulationGrowth)
+    - [.updateCreatures()](#module_World 2D environment for creatures--module.exports+updateCreatures)
 
-## launch()
+<a name="exp_module_World 2D environment for creatures--module.exports"></a>
+
+### module.exports ⏏
+
+**Kind**: Exported class  
+<a name="new_module_World 2D environment for creatures--module.exports_new"></a>
+
+#### new module.exports([topPopulation], [id], [species])
+
+Create World
+
+| Param           | Type                              | Default                                                             | Description                |
+| --------------- | --------------------------------- | ------------------------------------------------------------------- | -------------------------- |
+| [topPopulation] | <code>number</code>               | <code>100</code>                                                    | World's maximum population |
+| [id]            | <code>string</code>               | <code>&quot;&#x27;world&#x27;&quot;</code>                          | Canvas id                  |
+| [species]       | <code>Array.&lt;string&gt;</code> | <code>[&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</code> | Available species          |
+
+**Example**
+
+```js
+const world = new World();
+const customWorld = new World(200, 'customWorld');
+```
+
+<a name="module_World 2D environment for creatures--module.exports+cycles"></a>
+
+#### module.exports.cycles
+
+Cycles counter
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+learningRate"></a>
+
+#### module.exports.learningRate
+
+Learning rate for all creatures in this world
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+id"></a>
+
+#### module.exports.id
+
+Canvas id
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+creatures"></a>
+
+#### module.exports.creatures
+
+Creatures array
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+species"></a>
+
+#### module.exports.species
+
+Available species
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+topPopulation"></a>
+
+#### module.exports.topPopulation
+
+World's maximum population
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+census"></a>
+
+#### module.exports.census
+
+Census instance
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+initialPopulation"></a>
+
+#### module.exports.initialPopulation
+
+Initial population
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+mousePosition"></a>
+
+#### module.exports.mousePosition
+
+Mouse position
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+launch"></a>
+
+#### module.exports.launch()
+
 Start simulation
 
-**Kind**: global function  
-<a name="initializeCanvas"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+initializeCanvas"></a>
 
-## initializeCanvas()
+#### module.exports.initializeCanvas()
+
 Canvas Setup
 
-**Kind**: global function  
-<a name="getMousePosition"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+getMousePosition"></a>
 
-## getMousePosition()
+#### module.exports.getMousePosition()
+
 Store current mouse position
 
-**Kind**: global function  
-<a name="initializePopulation"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+initializePopulation"></a>
 
-## initializePopulation()
+#### module.exports.initializePopulation()
+
 Spawn first creatures
 
-**Kind**: global function  
-<a name="startListeners"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+startListeners"></a>
 
-## startListeners()
+#### module.exports.startListeners()
+
 Events listeners
 
-**Kind**: global function  
-<a name="increasePopulation"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+increasePopulation"></a>
 
-## increasePopulation(x, y)
+#### module.exports.increasePopulation(x, y)
+
 Increases the least populated species
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | New creature's coordinate on the X axis |
-| y | <code>number</code> | New creature's coordinate on the Y axis |
+| Param | Type                | Description                             |
+| ----- | ------------------- | --------------------------------------- |
+| x     | <code>number</code> | New creature's coordinate on the X axis |
+| y     | <code>number</code> | New creature's coordinate on the Y axis |
 
-<a name="decreasePopulation"></a>
+<a name="module_World 2D environment for creatures--module.exports+decreasePopulation"></a>
 
-## decreasePopulation()
+#### module.exports.decreasePopulation()
+
 Removes oldest (slowest) creature
 
-**Kind**: global function  
-<a name="spawnCreature"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+spawnCreature"></a>
 
-## spawnCreature(x, y, species, mass)
+#### module.exports.spawnCreature(x, y, species, mass)
+
 Adds a new crature to the simulation
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | New creature's coordinate on the X axis |
-| y | <code>number</code> | New creature's coordinate on the Y axis |
-| species | <code>&#x27;red&#x27;</code> \| <code>&#x27;green&#x27;</code> \| <code>&#x27;blue&#x27;</code> |  |
-| mass | <code>number</code> | New creature's initial mass |
+| Param   | Type                                                                                            | Description                             |
+| ------- | ----------------------------------------------------------------------------------------------- | --------------------------------------- |
+| x       | <code>number</code>                                                                             | New creature's coordinate on the X axis |
+| y       | <code>number</code>                                                                             | New creature's coordinate on the Y axis |
+| species | <code>&#x27;red&#x27;</code> \| <code>&#x27;green&#x27;</code> \| <code>&#x27;blue&#x27;</code> |                                         |
+| mass    | <code>number</code>                                                                             | New creature's initial mass             |
 
-<a name="removeCreature"></a>
+<a name="module_World 2D environment for creatures--module.exports+removeCreature"></a>
 
-## removeCreature(creature)
+#### module.exports.removeCreature(creature)
+
 Removes a creature from the simulation
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)
 
-| Param | Type | Description |
-| --- | --- | --- |
+| Param    | Type                  | Description      |
+| -------- | --------------------- | ---------------- |
 | creature | <code>Creature</code> | Target to remove |
 
-<a name="drawNextFrame"></a>
+<a name="module_World 2D environment for creatures--module.exports+drawNextFrame"></a>
 
-## drawNextFrame()
+#### module.exports.drawNextFrame()
+
 Adjust population and draws creatures next move
 
-**Kind**: global function  
-<a name="adjustPopulationGrowth"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+adjustPopulationGrowth"></a>
 
-## adjustPopulationGrowth()
+#### module.exports.adjustPopulationGrowth()
+
 Adjust world population growth to prevent overpopulation or full extintion
 
-**Kind**: global function  
-<a name="updateCreatures"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)  
+<a name="module_World 2D environment for creatures--module.exports+updateCreatures"></a>
 
-## updateCreatures()
+#### module.exports.updateCreatures()
+
 Draws creatures next move
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_World 2D environment for creatures--module.exports)

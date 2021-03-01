@@ -1,82 +1,76 @@
-## Functions
+<a name="module_Body Helper methods for creatures body processes"></a>
 
-<dl>
-<dt><a href="#initializeSpecies">initializeSpecies(creature, species)</a></dt>
-<dd><p>Initializes creature&#39;s species</p>
-</dd>
-<dt><a href="#initializeColor">initializeColor()</a></dt>
-<dd><p>Initializes creature&#39;s color parameters</p>
-</dd>
-<dt><a href="#grow">grow()</a></dt>
-<dd><p>Add growth depending on metabolism</p>
-</dd>
-<dt><a href="#age">age()</a></dt>
-<dd><p>Aging translates into the creature&#39;s max speed reduction
-or death (deletion) when none speed is left</p>
-</dd>
-<dt><a href="#adjustSpeed">adjustSpeed()</a></dt>
-<dd><p>Adjust velocity to stay close to maxSpeed</p>
-</dd>
-<dt><a href="#boundaries">boundaries()</a></dt>
-<dd><p>Prevents creatures from going beyond the edges</p>
-</dd>
-<dt><a href="#attemptReproduction">attemptReproduction(target, distance)</a></dt>
-<dd><p>Attempt to reproduce creature</p>
-</dd>
-</dl>
+## Body Helper methods for creatures body processes
 
-<a name="initializeSpecies"></a>
+**Requires**: <code>module:lodash</code>, <code>module:jquery</code>
 
-## initializeSpecies(creature, species)
+- [Body Helper methods for creatures body processes](#module_Body Helper methods for creatures body processes)
+  - [.initializeSpecies(creature, species)](#module_Body Helper methods for creatures body processes.initializeSpecies)
+  - [.initializeColor()](#module_Body Helper methods for creatures body processes.initializeColor)
+  - [.grow()](#module_Body Helper methods for creatures body processes.grow)
+  - [.age()](#module_Body Helper methods for creatures body processes.age)
+  - [.adjustSpeed()](#module_Body Helper methods for creatures body processes.adjustSpeed)
+  - [.boundaries()](#module_Body Helper methods for creatures body processes.boundaries)
+  - [.attemptReproduction(target, distance)](#module_Body Helper methods for creatures body processes.attemptReproduction)
+
+<a name="module_Body Helper methods for creatures body processes.initializeSpecies"></a>
+
+### Body Helper methods for creatures body processes.initializeSpecies(creature, species)
+
 Initializes creature's species
 
-**Kind**: global function  
+**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)
 
-| Param | Type |
-| --- | --- |
-| creature | <code>\*</code> | 
-| species | <code>\*</code> | 
+| Param    | Type            |
+| -------- | --------------- |
+| creature | <code>\*</code> |
+| species  | <code>\*</code> |
 
-<a name="initializeColor"></a>
+<a name="module_Body Helper methods for creatures body processes.initializeColor"></a>
 
-## initializeColor()
+### Body Helper methods for creatures body processes.initializeColor()
+
 Initializes creature's color parameters
 
-**Kind**: global function  
-<a name="grow"></a>
+**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
+<a name="module_Body Helper methods for creatures body processes.grow"></a>
 
-## grow()
+### Body Helper methods for creatures body processes.grow()
+
 Add growth depending on metabolism
 
-**Kind**: global function  
-<a name="age"></a>
+**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
+<a name="module_Body Helper methods for creatures body processes.age"></a>
 
-## age()
+### Body Helper methods for creatures body processes.age()
+
 Aging translates into the creature's max speed reduction
 or death (deletion) when none speed is left
 
-**Kind**: global function  
-<a name="adjustSpeed"></a>
+**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
+<a name="module_Body Helper methods for creatures body processes.adjustSpeed"></a>
 
-## adjustSpeed()
+### Body Helper methods for creatures body processes.adjustSpeed()
+
 Adjust velocity to stay close to maxSpeed
 
-**Kind**: global function  
-<a name="boundaries"></a>
+**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
+<a name="module_Body Helper methods for creatures body processes.boundaries"></a>
 
-## boundaries()
+### Body Helper methods for creatures body processes.boundaries()
+
 Prevents creatures from going beyond the edges
 
-**Kind**: global function  
-<a name="attemptReproduction"></a>
+**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)  
+<a name="module_Body Helper methods for creatures body processes.attemptReproduction"></a>
 
-## attemptReproduction(target, distance)
+### Body Helper methods for creatures body processes.attemptReproduction(target, distance)
+
 Attempt to reproduce creature
 
-**Kind**: global function  
+**Kind**: static method of [<code>Body Helper methods for creatures body processes</code>](#module_Body Helper methods for creatures body processes)
 
-| Param | Type |
-| --- | --- |
-| target | <code>Object</code> | 
-| distance | <code>number</code> | 
-
+| Param    | Type                |
+| -------- | ------------------- |
+| target   | <code>Object</code> |
+| distance | <code>number</code> |

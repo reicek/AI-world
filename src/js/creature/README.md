@@ -1,111 +1,123 @@
-## Functions
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world"></a>
 
-<dl>
-<dt><a href="#moveTo">moveTo()</a></dt>
-<dd><p>Applies creature&#39;s movement</p>
-</dd>
-<dt><a href="#applyForce">applyForce()</a></dt>
-<dd><p>Applies a vector force to the creature&#39;s momentum=</p>
-</dd>
-<dt><a href="#draw">draw()</a></dt>
-<dd><p>Draws current&#39;s creature position and direction</p>
-</dd>
-<dt><a href="#update">update()</a></dt>
-<dd><p>Update&#39;s creature</p>
-</dd>
-<dt><a href="#seek">seek(target)</a> ⇒ <code>Vector</code></dt>
-<dd><p>Returns the force needed to move towards specific creature</p>
-</dd>
-<dt><a href="#separate">separate()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Makes creature attempt to stay within reasonable distance
-Triggers reproduction when creatures touch, depending on world reproduction chance</p>
-</dd>
-<dt><a href="#normalizeSeparation">normalizeSeparation()</a></dt>
-<dd><p>Normalizes creature separation if they are within range</p>
-</dd>
-<dt><a href="#align">align()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Align to other creatures</p>
-</dd>
-<dt><a href="#addAlignmentTo">addAlignmentTo()</a></dt>
-<dd><p>Adds force required to align to another creature</p>
-</dd>
-<dt><a href="#cohesion">cohesion()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Makes creature group with others</p>
-</dd>
-<dt><a href="#applyCohesion">applyCohesion()</a></dt>
-<dd><p>Makes creature attempt to stay close to same species</p>
-</dd>
-</dl>
+## Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world
 
-<a name="moveTo"></a>
+- [Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world)
+  - [module.exports](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports) ⏏
+    - [new module.exports(x, y, species, mass, inputNeurons, hiddenNeurons, outputNeurons)](#new_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports_new)
+    - [.moveTo()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+moveTo)
+    - [.applyForce()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+applyForce)
+    - [.draw()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+draw)
+    - [.update()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+update)
+    - [.seek(target)](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+seek) ⇒ <code>Vector</code>
+    - [.separate()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+separate) ⇒ <code>Vector</code>
+    - [.normalizeSeparation()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+normalizeSeparation)
+    - [.align()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+align) ⇒ <code>Vector</code>
+    - [.addAlignmentTo()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+addAlignmentTo)
+    - [.cohesion()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+cohesion) ⇒ <code>Vector</code>
+    - [.applyCohesion()](#module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+applyCohesion)
 
-## moveTo()
+<a name="exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports"></a>
+
+### module.exports ⏏
+
+**Kind**: Exported class  
+<a name="new_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports_new"></a>
+
+#### new module.exports(x, y, species, mass, inputNeurons, hiddenNeurons, outputNeurons)
+
+Create creature
+
+| Param         | Type            |
+| ------------- | --------------- |
+| x             | <code>\*</code> |
+| y             | <code>\*</code> |
+| species       | <code>\*</code> |
+| mass          | <code>\*</code> |
+| inputNeurons  | <code>\*</code> |
+| hiddenNeurons | <code>\*</code> |
+| outputNeurons | <code>\*</code> |
+
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+moveTo"></a>
+
+#### module.exports.moveTo()
+
 Applies creature's movement
 
-**Kind**: global function  
-<a name="applyForce"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+applyForce"></a>
 
-## applyForce()
+#### module.exports.applyForce()
+
 Applies a vector force to the creature's momentum=
 
-**Kind**: global function  
-<a name="draw"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+draw"></a>
 
-## draw()
+#### module.exports.draw()
+
 Draws current's creature position and direction
 
-**Kind**: global function  
-<a name="update"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+update"></a>
 
-## update()
+#### module.exports.update()
+
 Update's creature
 
-**Kind**: global function  
-<a name="seek"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+seek"></a>
 
-## seek(target) ⇒ <code>Vector</code>
+#### module.exports.seek(target) ⇒ <code>Vector</code>
+
 Returns the force needed to move towards specific creature
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)
 
-| Param | Type |
-| --- | --- |
-| target | <code>Vector</code> | 
+| Param  | Type                |
+| ------ | ------------------- |
+| target | <code>Vector</code> |
 
-<a name="separate"></a>
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+separate"></a>
 
-## separate() ⇒ <code>Vector</code>
+#### module.exports.separate() ⇒ <code>Vector</code>
+
 Makes creature attempt to stay within reasonable distance
 Triggers reproduction when creatures touch, depending on world reproduction chance
 
-**Kind**: global function  
-<a name="normalizeSeparation"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+normalizeSeparation"></a>
 
-## normalizeSeparation()
+#### module.exports.normalizeSeparation()
+
 Normalizes creature separation if they are within range
 
-**Kind**: global function  
-<a name="align"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+align"></a>
 
-## align() ⇒ <code>Vector</code>
+#### module.exports.align() ⇒ <code>Vector</code>
+
 Align to other creatures
 
-**Kind**: global function  
-<a name="addAlignmentTo"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+addAlignmentTo"></a>
 
-## addAlignmentTo()
+#### module.exports.addAlignmentTo()
+
 Adds force required to align to another creature
 
-**Kind**: global function  
-<a name="cohesion"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+cohesion"></a>
 
-## cohesion() ⇒ <code>Vector</code>
+#### module.exports.cohesion() ⇒ <code>Vector</code>
+
 Makes creature group with others
 
-**Kind**: global function  
-<a name="applyCohesion"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)  
+<a name="module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports+applyCohesion"></a>
 
-## applyCohesion()
+#### module.exports.applyCohesion()
+
 Makes creature attempt to stay close to same species
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world--module.exports)

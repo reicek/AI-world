@@ -4,7 +4,9 @@ import Census from '../census/census';
 import Vector from '../vector/vector';
 import $ from 'jquery';
 
-/** 2D environment for creatures */
+/**
+ * @module World 2D environment for creatures
+ */
 export default class World {
   /**
    * Create World

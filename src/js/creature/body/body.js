@@ -3,15 +3,15 @@ import $ from 'jquery';
 import simulation from '../../app';
 
 /**
- * Helper methods for creature's body processes
+ * @module Body Helper methods for creature's body processes
  * @requires lodash
  * @requires jquery
  */
 export default class Body {
   /**
    * Initializes creature's species
-   * @param {*} creature 
-   * @param {*} species 
+   * @param {*} creature
+   * @param {*} species
    */
   static initializeSpecies(creature, species) {
     creature.minColor = 100;

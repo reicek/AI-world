@@ -1,143 +1,180 @@
-## Functions
+<a name="module_Vector 2D Matrix position"></a>
 
-<dl>
-<dt><a href="#set">set([x], [y])</a> ⇒ <code>Vector</code></dt>
-<dd><p>Set position</p>
-</dd>
-<dt><a href="#random">random()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Set random angle</p>
-</dd>
-<dt><a href="#add">add()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Add to vector</p>
-</dd>
-<dt><a href="#sub">sub()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Substract from vector</p>
-</dd>
-<dt><a href="#mul">mul()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Multiply vector</p>
-</dd>
-<dt><a href="#div">div()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Divide vector</p>
-</dd>
-<dt><a href="#mag">mag()</a> ⇒ <code>number</code></dt>
-<dd></dd>
-<dt><a href="#normalize">normalize()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
-<dt><a href="#angle">angle()</a> ⇒ <code>number</code></dt>
-<dd></dd>
-<dt><a href="#setMag">setMag()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
-<dt><a href="#setAngle">setAngle()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
-<dt><a href="#rotate">rotate()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
-<dt><a href="#limit">limit()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
-<dt><a href="#angleBetween">angleBetween()</a> ⇒ <code>number</code></dt>
-<dd></dd>
-<dt><a href="#dot">dot()</a> ⇒ <code>number</code></dt>
-<dd></dd>
-<dt><a href="#lerp">lerp()</a> ⇒ <code>Vector</code></dt>
-<dd></dd>
-<dt><a href="#dist">dist()</a> ⇒ <code>number</code></dt>
-<dd><p>Calculates distance between current vector and the target</p>
-</dd>
-<dt><a href="#copy">copy()</a> ⇒ <code>Vector</code></dt>
-<dd><p>Builds a new vector with the same caractestics as this</p>
-</dd>
-</dl>
+## Vector 2D Matrix position
 
-<a name="set"></a>
+**Requires**: <code>module:lodash</code>
 
-## set([x], [y]) ⇒ <code>Vector</code>
+- [Vector 2D Matrix position](#module_Vector 2D Matrix position)
+  - [module.exports](#exp_module_Vector 2D Matrix position--module.exports) ⏏
+    - [new module.exports([x], [y])](#new_module_Vector 2D Matrix position--module.exports_new)
+    - [.x](#module_Vector 2D Matrix position--module.exports+x)
+    - [.y](#module_Vector 2D Matrix position--module.exports+y)
+    - [.set([x], [y])](#module_Vector 2D Matrix position--module.exports+set) ⇒ <code>Vector</code>
+    - [.random()](#module_Vector 2D Matrix position--module.exports+random) ⇒ <code>Vector</code>
+    - [.add()](#module_Vector 2D Matrix position--module.exports+add) ⇒ <code>Vector</code>
+    - [.sub()](#module_Vector 2D Matrix position--module.exports+sub) ⇒ <code>Vector</code>
+    - [.mul()](#module_Vector 2D Matrix position--module.exports+mul) ⇒ <code>Vector</code>
+    - [.div()](#module_Vector 2D Matrix position--module.exports+div) ⇒ <code>Vector</code>
+    - [.mag()](#module_Vector 2D Matrix position--module.exports+mag) ⇒ <code>number</code>
+    - [.normalize()](#module_Vector 2D Matrix position--module.exports+normalize) ⇒ <code>Vector</code>
+    - [.angle()](#module_Vector 2D Matrix position--module.exports+angle) ⇒ <code>number</code>
+    - [.setMag()](#module_Vector 2D Matrix position--module.exports+setMag) ⇒ <code>Vector</code>
+    - [.setAngle()](#module_Vector 2D Matrix position--module.exports+setAngle) ⇒ <code>Vector</code>
+    - [.rotate()](#module_Vector 2D Matrix position--module.exports+rotate) ⇒ <code>Vector</code>
+    - [.limit()](#module_Vector 2D Matrix position--module.exports+limit) ⇒ <code>Vector</code>
+    - [.angleBetween()](#module_Vector 2D Matrix position--module.exports+angleBetween) ⇒ <code>number</code>
+    - [.dot()](#module_Vector 2D Matrix position--module.exports+dot) ⇒ <code>number</code>
+    - [.lerp()](#module_Vector 2D Matrix position--module.exports+lerp) ⇒ <code>Vector</code>
+    - [.dist()](#module_Vector 2D Matrix position--module.exports+dist) ⇒ <code>number</code>
+    - [.copy()](#module_Vector 2D Matrix position--module.exports+copy) ⇒ <code>Vector</code>
+
+<a name="exp_module_Vector 2D Matrix position--module.exports"></a>
+
+### module.exports ⏏
+
+**Kind**: Exported class  
+<a name="new_module_Vector 2D Matrix position--module.exports_new"></a>
+
+#### new module.exports([x], [y])
+
+Create vector
+
+| Param | Type                | Default        | Description      |
+| ----- | ------------------- | -------------- | ---------------- |
+| [x]   | <code>number</code> | <code>0</code> | X position value |
+| [y]   | <code>number</code> | <code>0</code> | Y position value |
+
+**Example**
+
+```js
+const x = 1;
+const y = 1;
+const vector = new Vector(x, y);
+```
+
+<a name="module_Vector 2D Matrix position--module.exports+x"></a>
+
+#### module.exports.x
+
+X position value
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+y"></a>
+
+#### module.exports.y
+
+Y position value
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+set"></a>
+
+#### module.exports.set([x], [y]) ⇒ <code>Vector</code>
+
 Set position
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [x] | <code>number</code> | <code>0</code> | X position value |
-| [y] | <code>number</code> | <code>0</code> | Y position value |
+| Param | Type                | Default        | Description      |
+| ----- | ------------------- | -------------- | ---------------- |
+| [x]   | <code>number</code> | <code>0</code> | X position value |
+| [y]   | <code>number</code> | <code>0</code> | Y position value |
 
-<a name="random"></a>
+<a name="module_Vector 2D Matrix position--module.exports+random"></a>
 
-## random() ⇒ <code>Vector</code>
+#### module.exports.random() ⇒ <code>Vector</code>
+
 Set random angle
 
-**Kind**: global function  
-<a name="add"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+add"></a>
 
-## add() ⇒ <code>Vector</code>
+#### module.exports.add() ⇒ <code>Vector</code>
+
 Add to vector
 
-**Kind**: global function  
-<a name="sub"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+sub"></a>
 
-## sub() ⇒ <code>Vector</code>
+#### module.exports.sub() ⇒ <code>Vector</code>
+
 Substract from vector
 
-**Kind**: global function  
-<a name="mul"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+mul"></a>
 
-## mul() ⇒ <code>Vector</code>
+#### module.exports.mul() ⇒ <code>Vector</code>
+
 Multiply vector
 
-**Kind**: global function  
-<a name="div"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+div"></a>
 
-## div() ⇒ <code>Vector</code>
+#### module.exports.div() ⇒ <code>Vector</code>
+
 Divide vector
 
-**Kind**: global function  
-<a name="mag"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+mag"></a>
 
-## mag() ⇒ <code>number</code>
-**Kind**: global function  
-<a name="normalize"></a>
+#### module.exports.mag() ⇒ <code>number</code>
 
-## normalize() ⇒ <code>Vector</code>
-**Kind**: global function  
-<a name="angle"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+normalize"></a>
 
-## angle() ⇒ <code>number</code>
-**Kind**: global function  
-<a name="setMag"></a>
+#### module.exports.normalize() ⇒ <code>Vector</code>
 
-## setMag() ⇒ <code>Vector</code>
-**Kind**: global function  
-<a name="setAngle"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+angle"></a>
 
-## setAngle() ⇒ <code>Vector</code>
-**Kind**: global function  
-<a name="rotate"></a>
+#### module.exports.angle() ⇒ <code>number</code>
 
-## rotate() ⇒ <code>Vector</code>
-**Kind**: global function  
-<a name="limit"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+setMag"></a>
 
-## limit() ⇒ <code>Vector</code>
-**Kind**: global function  
-<a name="angleBetween"></a>
+#### module.exports.setMag() ⇒ <code>Vector</code>
 
-## angleBetween() ⇒ <code>number</code>
-**Kind**: global function  
-<a name="dot"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+setAngle"></a>
 
-## dot() ⇒ <code>number</code>
-**Kind**: global function  
-<a name="lerp"></a>
+#### module.exports.setAngle() ⇒ <code>Vector</code>
 
-## lerp() ⇒ <code>Vector</code>
-**Kind**: global function  
-<a name="dist"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+rotate"></a>
 
-## dist() ⇒ <code>number</code>
+#### module.exports.rotate() ⇒ <code>Vector</code>
+
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+limit"></a>
+
+#### module.exports.limit() ⇒ <code>Vector</code>
+
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+angleBetween"></a>
+
+#### module.exports.angleBetween() ⇒ <code>number</code>
+
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+dot"></a>
+
+#### module.exports.dot() ⇒ <code>number</code>
+
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+lerp"></a>
+
+#### module.exports.lerp() ⇒ <code>Vector</code>
+
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+dist"></a>
+
+#### module.exports.dist() ⇒ <code>number</code>
+
 Calculates distance between current vector and the target
 
-**Kind**: global function  
-<a name="copy"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)  
+<a name="module_Vector 2D Matrix position--module.exports+copy"></a>
 
-## copy() ⇒ <code>Vector</code>
+#### module.exports.copy() ⇒ <code>Vector</code>
+
 Builds a new vector with the same caractestics as this
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Vector 2D Matrix position--module.exports)

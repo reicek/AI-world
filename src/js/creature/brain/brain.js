@@ -2,16 +2,16 @@ import { Architect } from 'synaptic';
 import simulation from '../../app';
 
 /**
- * Creature's mind
+ * @module Brain Creature's mind
  * @requires synaptic
  * @see {@link https://github.com/cazala/synaptic} based on work by @cazala 's Synaptic.
  */
 export default class Brain {
   /**
    * Create new neural network
-   * @param {*} inputNeurons 
-   * @param {*} hiddenNeurons 
-   * @param {*} outputNeurons 
+   * @param {*} inputNeurons
+   * @param {*} hiddenNeurons
+   * @param {*} outputNeurons
    * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
    * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
    */

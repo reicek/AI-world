@@ -1,77 +1,123 @@
-## Functions
+<a name="module_Census Population registry"></a>
 
-<dl>
-<dt><a href="#log">log()</a></dt>
-<dd><p>Update census results on log</p>
-</dd>
-<dt><a href="#newDeath">newDeath()</a></dt>
-<dd><p>Registers a new death</p>
-</dd>
-<dt><a href="#newBirth">newBirth()</a></dt>
-<dd><p>Registers a new birth</p>
-</dd>
-<dt><a href="#update">update()</a></dt>
-<dd><p>Calculate population by species</p>
-</dd>
-<dt><a href="#reset">reset()</a></dt>
-<dd><p>Reset counts</p>
-</dd>
-<dt><a href="#minority">minority()</a></dt>
-<dd><p>Least populated species</p>
-</dd>
-<dt><a href="#mayority">mayority()</a></dt>
-<dd><p>Most populated species</p>
-</dd>
-<dt><a href="#list">list()</a></dt>
-<dd><p>Census list</p>
-</dd>
-</dl>
+## Census Population registry
 
-<a name="log"></a>
+- [Census Population registry](#module_Census Population registry)
+  - [module.exports](#exp_module_Census Population registry--module.exports) ⏏
+    - [new module.exports()](#new_module_Census Population registry--module.exports_new)
+    - [.red](#module_Census Population registry--module.exports+red)
+    - [.green](#module_Census Population registry--module.exports+green)
+    - [.blue](#module_Census Population registry--module.exports+blue)
+    - [.births](#module_Census Population registry--module.exports+births)
+    - [.deaths](#module_Census Population registry--module.exports+deaths)
+    - [.log()](#module_Census Population registry--module.exports+log)
+    - [.newDeath()](#module_Census Population registry--module.exports+newDeath)
+    - [.newBirth()](#module_Census Population registry--module.exports+newBirth)
+    - [.update()](#module_Census Population registry--module.exports+update)
+    - [.reset()](#module_Census Population registry--module.exports+reset)
+    - [.minority()](#module_Census Population registry--module.exports+minority)
+    - [.mayority()](#module_Census Population registry--module.exports+mayority)
+    - [.list()](#module_Census Population registry--module.exports+list)
 
-## log()
+<a name="exp_module_Census Population registry--module.exports"></a>
+
+### module.exports ⏏
+
+**Kind**: Exported class  
+<a name="new_module_Census Population registry--module.exports_new"></a>
+
+#### new module.exports()
+
+Create sensus
+
+<a name="module_Census Population registry--module.exports+red"></a>
+
+#### module.exports.red
+
+Red population
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+green"></a>
+
+#### module.exports.green
+
+Green population
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+blue"></a>
+
+#### module.exports.blue
+
+Blue population
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+births"></a>
+
+#### module.exports.births
+
+Total births
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+deaths"></a>
+
+#### module.exports.deaths
+
+Total deaths
+
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+log"></a>
+
+#### module.exports.log()
+
 Update census results on log
 
-**Kind**: global function  
-<a name="newDeath"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+newDeath"></a>
 
-## newDeath()
+#### module.exports.newDeath()
+
 Registers a new death
 
-**Kind**: global function  
-<a name="newBirth"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+newBirth"></a>
 
-## newBirth()
+#### module.exports.newBirth()
+
 Registers a new birth
 
-**Kind**: global function  
-<a name="update"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+update"></a>
 
-## update()
+#### module.exports.update()
+
 Calculate population by species
 
-**Kind**: global function  
-<a name="reset"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+reset"></a>
 
-## reset()
+#### module.exports.reset()
+
 Reset counts
 
-**Kind**: global function  
-<a name="minority"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+minority"></a>
 
-## minority()
+#### module.exports.minority()
+
 Least populated species
 
-**Kind**: global function  
-<a name="mayority"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+mayority"></a>
 
-## mayority()
+#### module.exports.mayority()
+
 Most populated species
 
-**Kind**: global function  
-<a name="list"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)  
+<a name="module_Census Population registry--module.exports+list"></a>
 
-## list()
+#### module.exports.list()
+
 Census list
 
-**Kind**: global function  
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_Census Population registry--module.exports)

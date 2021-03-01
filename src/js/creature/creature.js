@@ -4,17 +4,19 @@ import Draw from './draw/draw';
 import Body from './body/body';
 import simulation from '../app';
 
-/** Artificial Intelligence based in perceptron neural networks that lives in a 2D world */
+/**
+ * @module Creature Artificial Intelligence based in perceptron neural networks that lives in a 2D world
+ */
 export default class Creature {
   /**
    * Create creature
-   * @param {*} x 
-   * @param {*} y 
-   * @param {*} species 
-   * @param {*} mass 
-   * @param {*} inputNeurons 
-   * @param {*} hiddenNeurons 
-   * @param {*} outputNeurons 
+   * @param {*} x
+   * @param {*} y
+   * @param {*} species
+   * @param {*} mass
+   * @param {*} inputNeurons
+   * @param {*} hiddenNeurons
+   * @param {*} outputNeurons
    */
   constructor(x, y, species, mass, inputNeurons, hiddenNeurons, outputNeurons) {
     this.brain = new Brain(inputNeurons, hiddenNeurons, outputNeurons);

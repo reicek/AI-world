@@ -2,7 +2,7 @@ import { minBy, maxBy } from 'lodash';
 import $ from 'jquery';
 
 /**
- * Census registry
+ * @module Census Population registry
  */
 export default class Census {
   /** Create sensus */
