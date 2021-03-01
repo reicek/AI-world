@@ -1,7 +1,6 @@
-<a name="world"></a>
+<a name="simulation"></a>
 
-## world
-
+## simulation
 Wold simulation instance
 
-**Kind**: global constant
+**Kind**: global constant  

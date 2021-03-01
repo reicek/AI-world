@@ -1,18 +1,21 @@
-/**
- * Methods to draw creature
- */
+import simulation from '../../app';
+
+/** Creature draw tools */
 export default class Draw {
   /**
    * Creates creature's shape
+   * @param {*} size 
+   * @param {*} color 
+   * @param {*} location 
    */
-  static shape(size, color, location, world) {
-    world.ctx.fillStyle = 'rgb(0,0,0)';
-    world.ctx.strokeStyle = color;
-    world.ctx.beginPath();
+  static shape(size, color, location) {
+    simulation.ctx.fillStyle = 'rgb(0,0,0)';
+    simulation.ctx.strokeStyle = color;
+    simulation.ctx.beginPath();
 
-    world.ctx.arc(location.x, location.y, size, 0, Math.PI * 2, true);
+    simulation.ctx.arc(location.x, location.y, size, 0, Math.PI * 2, true);
 
-    world.ctx.stroke();
-    world.ctx.fill();
+    simulation.ctx.stroke();
+    simulation.ctx.fill();
   }
 }

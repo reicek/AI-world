@@ -1,5 +1,6 @@
 import { random, max } from 'lodash';
 import $ from 'jquery';
+import simulation from '../../app';
 
 /**
  * Helper methods for creature's body processes
@@ -9,6 +10,8 @@ import $ from 'jquery';
 export default class Body {
   /**
    * Initializes creature's species
+   * @param {*} creature 
+   * @param {*} species 
    */
   static initializeSpecies(creature, species) {
     creature.minColor = 100;
@@ -109,13 +112,13 @@ export default class Body {
   /**
    * Prevents creatures from going beyond the edges
    */
-  static boundaries(creature, world) {
+  static boundaries(creature) {
     switch (true) {
       case creature.location.x < creature.margin:
         creature.applyForce(new Vector(creature.velocity.mag(), 0));
         break;
 
-      case creature.location.x > world.width - creature.margin:
+      case creature.location.x > simulation.width - creature.margin:
         creature.applyForce(new Vector(-creature.velocity.mag(), 0));
         break;
 
@@ -123,7 +126,7 @@ export default class Body {
         creature.applyForce(new Vector(0, creature.velocity.mag()));
         break;
 
-      case creature.location.y > world.height - creature.margin:
+      case creature.location.y > simulation.height - creature.margin:
         creature.applyForce(new Vector(0, -creature.velocity.mag()));
         break;
 
@@ -139,10 +142,11 @@ export default class Body {
    * @param {Object} target
    * @param {number} distance
    */
-  static attemptReproduction(creature, world, target, distance) {
+  static attemptReproduction(creature, simulation, target, distance) {
     if (
       distance <=
-        creature.minSeparation * world.reproductionChance[creature.species] &&
+        creature.minSeparation *
+          simulation.reproductionChance[creature.species] &&
       target.species === creature.species
     ) {
       // is close enough to reproduce
@@ -155,7 +159,7 @@ export default class Body {
         creature.mass /= 2;
         target.mass /= 2;
         // Spawn a new this of the same species in the same spot
-        world.spawnCreature(
+        simulation.spawnCreature(
           creature.location.x,
           creature.location.y,
           creature.species,

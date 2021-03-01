@@ -4,6 +4,7 @@
  */
 export default class Vector {
   /**
+   * Create vector
    * @param {number} [x = 0] X position value
    * @param {number} [y = 0] Y position value
    * @example

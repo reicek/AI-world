@@ -1,4 +1,5 @@
 import { Architect } from 'synaptic';
+import simulation from '../../app';
 
 /**
  * Creature's mind
@@ -7,7 +8,10 @@ import { Architect } from 'synaptic';
  */
 export default class Brain {
   /**
-   * Creates a new neural network
+   * Create new neural network
+   * @param {*} inputNeurons 
+   * @param {*} hiddenNeurons 
+   * @param {*} outputNeurons 
    * @see {@link https://github.com/cazala/synaptic/wiki/Architect}
    * @see {@link https://github.com/cazala/synaptic/wiki/Networks}
    */
@@ -35,10 +39,10 @@ export default class Brain {
   /**
    * Learn how to move
    */
-  learn(cohesion, angle, world) {
-    this.network.propagate(world.learningRate, [
-      cohesion.x / world.width, // X target
-      cohesion.y / world.height, // Y target
+  learn(cohesion, angle) {
+    this.network.propagate(simulation.learningRate, [
+      cohesion.x / simulation.width, // X target
+      cohesion.y / simulation.height, // Y target
       (angle + Math.PI) / (Math.PI * 2), // Target angle
     ]);
   }

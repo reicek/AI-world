@@ -8,7 +8,7 @@
 ## Constants
 
 <dl>
-<dt><a href="#world">world</a></dt>
+<dt><a href="#simulation">simulation</a></dt>
 <dd><p>Wold simulation instance</p>
 </dd>
 </dl>
@@ -17,7 +17,7 @@
 
 <dl>
 <dt><a href="#log">log()</a></dt>
-<dd><p>Clears the log and shows the census results</p>
+<dd><p>Update census results on log</p>
 </dd>
 <dt><a href="#newDeath">newDeath()</a></dt>
 <dd><p>Registers a new death</p>
@@ -26,21 +26,21 @@
 <dd><p>Registers a new birth</p>
 </dd>
 <dt><a href="#update">update()</a></dt>
-<dd><p>Calculates population by species</p>
+<dd><p>Calculate population by species</p>
 </dd>
 <dt><a href="#reset">reset()</a></dt>
-<dd><p>Return counts results to inital state</p>
+<dd><p>Reset counts</p>
 </dd>
 <dt><a href="#minority">minority()</a></dt>
-<dd><p>Returns the least populated species</p>
+<dd><p>Least populated species</p>
 </dd>
 <dt><a href="#mayority">mayority()</a></dt>
-<dd><p>Returns the most populated species</p>
+<dd><p>Most populated species</p>
 </dd>
 <dt><a href="#list">list()</a></dt>
 <dd><p>Census list</p>
 </dd>
-<dt><a href="#initializeSpecies">initializeSpecies()</a></dt>
+<dt><a href="#initializeSpecies">initializeSpecies(creature, species)</a></dt>
 <dd><p>Initializes creature&#39;s species</p>
 </dd>
 <dt><a href="#initializeColor">initializeColor()</a></dt>
@@ -102,7 +102,7 @@ Triggers reproduction when creatures touch, depending on world reproduction chan
 <dt><a href="#applyCohesion">applyCohesion()</a></dt>
 <dd><p>Makes creature attempt to stay close to same species</p>
 </dd>
-<dt><a href="#shape">shape()</a></dt>
+<dt><a href="#shape">shape(size, color, location)</a></dt>
 <dd><p>Creates creature&#39;s shape</p>
 </dd>
 <dt><a href="#set">set([x], [y])</a> ⇒ <code>Vector</code></dt>
@@ -190,101 +190,92 @@ Triggers reproduction when creatures touch, depending on world reproduction chan
 <a name="module_eval"></a>
 
 ## eval
-
 **See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
 <a name="module_eval..isNode"></a>
 
 ### eval~isNode : <code>object</code>
-
 **Kind**: inner namespace of [<code>eval</code>](#module_eval)  
-<a name="world"></a>
+<a name="simulation"></a>
 
-## world
-
+## simulation
 Wold simulation instance
 
 **Kind**: global constant  
 <a name="log"></a>
 
 ## log()
-
-Clears the log and shows the census results
+Update census results on log
 
 **Kind**: global function  
 <a name="newDeath"></a>
 
 ## newDeath()
-
 Registers a new death
 
 **Kind**: global function  
 <a name="newBirth"></a>
 
 ## newBirth()
-
 Registers a new birth
 
 **Kind**: global function  
 <a name="update"></a>
 
 ## update()
-
-Calculates population by species
+Calculate population by species
 
 **Kind**: global function  
 <a name="reset"></a>
 
 ## reset()
-
-Return counts results to inital state
+Reset counts
 
 **Kind**: global function  
 <a name="minority"></a>
 
 ## minority()
-
-Returns the least populated species
+Least populated species
 
 **Kind**: global function  
 <a name="mayority"></a>
 
 ## mayority()
-
-Returns the most populated species
+Most populated species
 
 **Kind**: global function  
 <a name="list"></a>
 
 ## list()
-
 Census list
 
 **Kind**: global function  
 <a name="initializeSpecies"></a>
 
-## initializeSpecies()
-
+## initializeSpecies(creature, species)
 Initializes creature's species
 
 **Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| creature | <code>\*</code> | 
+| species | <code>\*</code> | 
+
 <a name="initializeColor"></a>
 
 ## initializeColor()
-
 Initializes creature's color parameters
 
 **Kind**: global function  
 <a name="grow"></a>
 
 ## grow()
-
 Add growth depending on metabolism
 
 **Kind**: global function  
 <a name="age"></a>
 
 ## age()
-
 Aging translates into the creature's max speed reduction
 or death (deletion) when none speed is left
 
@@ -292,88 +283,77 @@ or death (deletion) when none speed is left
 <a name="adjustSpeed"></a>
 
 ## adjustSpeed()
-
 Adjust velocity to stay close to maxSpeed
 
 **Kind**: global function  
 <a name="boundaries"></a>
 
 ## boundaries()
-
 Prevents creatures from going beyond the edges
 
 **Kind**: global function  
 <a name="attemptReproduction"></a>
 
 ## attemptReproduction(target, distance)
-
 Attempt to reproduce creature
 
-**Kind**: global function
+**Kind**: global function  
 
-| Param    | Type                |
-| -------- | ------------------- |
-| target   | <code>Object</code> |
-| distance | <code>number</code> |
+| Param | Type |
+| --- | --- |
+| target | <code>Object</code> | 
+| distance | <code>number</code> | 
 
 <a name="think"></a>
 
 ## think()
-
 Think of where to move from current location
 
 **Kind**: global function  
 <a name="learn"></a>
 
 ## learn()
-
 Learn how to move
 
 **Kind**: global function  
 <a name="moveTo"></a>
 
 ## moveTo()
-
 Applies creature's movement
 
 **Kind**: global function  
 <a name="applyForce"></a>
 
 ## applyForce()
-
 Applies a vector force to the creature's momentum=
 
 **Kind**: global function  
 <a name="draw"></a>
 
 ## draw()
-
 Draws current's creature position and direction
 
 **Kind**: global function  
 <a name="update"></a>
 
 ## update()
-
 Update's creature
 
 **Kind**: global function  
 <a name="seek"></a>
 
 ## seek(target) ⇒ <code>Vector</code>
-
 Returns the force needed to move towards specific creature
 
-**Kind**: global function
+**Kind**: global function  
 
-| Param  | Type                |
-| ------ | ------------------- |
-| target | <code>Vector</code> |
+| Param | Type |
+| --- | --- |
+| target | <code>Vector</code> | 
 
 <a name="separate"></a>
 
 ## separate() ⇒ <code>Vector</code>
-
 Makes creature attempt to stay within reasonable distance
 Triggers reproduction when creatures touch, depending on world reproduction chance
 
@@ -381,257 +361,228 @@ Triggers reproduction when creatures touch, depending on world reproduction chan
 <a name="normalizeSeparation"></a>
 
 ## normalizeSeparation()
-
 Normalizes creature separation if they are within range
 
 **Kind**: global function  
 <a name="align"></a>
 
 ## align() ⇒ <code>Vector</code>
-
 Align to other creatures
 
 **Kind**: global function  
 <a name="addAlignmentTo"></a>
 
 ## addAlignmentTo()
-
 Adds force required to align to another creature
 
 **Kind**: global function  
 <a name="cohesion"></a>
 
 ## cohesion() ⇒ <code>Vector</code>
-
 Makes creature group with others
 
 **Kind**: global function  
 <a name="applyCohesion"></a>
 
 ## applyCohesion()
-
 Makes creature attempt to stay close to same species
 
 **Kind**: global function  
 <a name="shape"></a>
 
-## shape()
-
+## shape(size, color, location)
 Creates creature's shape
 
 **Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| size | <code>\*</code> | 
+| color | <code>\*</code> | 
+| location | <code>\*</code> | 
+
 <a name="set"></a>
 
 ## set([x], [y]) ⇒ <code>Vector</code>
-
 Set position
 
-**Kind**: global function
+**Kind**: global function  
 
-| Param | Type                | Default        | Description      |
-| ----- | ------------------- | -------------- | ---------------- |
-| [x]   | <code>number</code> | <code>0</code> | X position value |
-| [y]   | <code>number</code> | <code>0</code> | Y position value |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [x] | <code>number</code> | <code>0</code> | X position value |
+| [y] | <code>number</code> | <code>0</code> | Y position value |
 
 <a name="random"></a>
 
 ## random() ⇒ <code>Vector</code>
-
 Set random angle
 
 **Kind**: global function  
 <a name="add"></a>
 
 ## add() ⇒ <code>Vector</code>
-
 Add to vector
 
 **Kind**: global function  
 <a name="sub"></a>
 
 ## sub() ⇒ <code>Vector</code>
-
 Substract from vector
 
 **Kind**: global function  
 <a name="mul"></a>
 
 ## mul() ⇒ <code>Vector</code>
-
 Multiply vector
 
 **Kind**: global function  
 <a name="div"></a>
 
 ## div() ⇒ <code>Vector</code>
-
 Divide vector
 
 **Kind**: global function  
 <a name="mag"></a>
 
 ## mag() ⇒ <code>number</code>
-
 **Kind**: global function  
 <a name="normalize"></a>
 
 ## normalize() ⇒ <code>Vector</code>
-
 **Kind**: global function  
 <a name="angle"></a>
 
 ## angle() ⇒ <code>number</code>
-
 **Kind**: global function  
 <a name="setMag"></a>
 
 ## setMag() ⇒ <code>Vector</code>
-
 **Kind**: global function  
 <a name="setAngle"></a>
 
 ## setAngle() ⇒ <code>Vector</code>
-
 **Kind**: global function  
 <a name="rotate"></a>
 
 ## rotate() ⇒ <code>Vector</code>
-
 **Kind**: global function  
 <a name="limit"></a>
 
 ## limit() ⇒ <code>Vector</code>
-
 **Kind**: global function  
 <a name="angleBetween"></a>
 
 ## angleBetween() ⇒ <code>number</code>
-
 **Kind**: global function  
 <a name="dot"></a>
 
 ## dot() ⇒ <code>number</code>
-
 **Kind**: global function  
 <a name="lerp"></a>
 
 ## lerp() ⇒ <code>Vector</code>
-
 **Kind**: global function  
 <a name="dist"></a>
 
 ## dist() ⇒ <code>number</code>
-
 Calculates distance between current vector and the target
 
 **Kind**: global function  
 <a name="copy"></a>
 
 ## copy() ⇒ <code>Vector</code>
-
 Builds a new vector with the same caractestics as this
 
 **Kind**: global function  
 <a name="launch"></a>
 
 ## launch()
-
 Start simulation
 
 **Kind**: global function  
 <a name="initializeCanvas"></a>
 
 ## initializeCanvas()
-
 Canvas Setup
 
 **Kind**: global function  
 <a name="getMousePosition"></a>
 
 ## getMousePosition()
-
 Store current mouse position
 
 **Kind**: global function  
 <a name="initializePopulation"></a>
 
 ## initializePopulation()
-
 Spawn first creatures
 
 **Kind**: global function  
 <a name="startListeners"></a>
 
 ## startListeners()
-
 Events listeners
 
 **Kind**: global function  
 <a name="increasePopulation"></a>
 
 ## increasePopulation(x, y)
-
 Increases the least populated species
 
-**Kind**: global function
+**Kind**: global function  
 
-| Param | Type                | Description                             |
-| ----- | ------------------- | --------------------------------------- |
-| x     | <code>number</code> | New creature's coordinate on the X axis |
-| y     | <code>number</code> | New creature's coordinate on the Y axis |
+| Param | Type | Description |
+| --- | --- | --- |
+| x | <code>number</code> | New creature's coordinate on the X axis |
+| y | <code>number</code> | New creature's coordinate on the Y axis |
 
 <a name="decreasePopulation"></a>
 
 ## decreasePopulation()
-
 Removes oldest (slowest) creature
 
 **Kind**: global function  
 <a name="spawnCreature"></a>
 
 ## spawnCreature(x, y, species, mass)
-
 Adds a new crature to the simulation
 
-**Kind**: global function
+**Kind**: global function  
 
-| Param   | Type                                                                                            | Description                             |
-| ------- | ----------------------------------------------------------------------------------------------- | --------------------------------------- |
-| x       | <code>number</code>                                                                             | New creature's coordinate on the X axis |
-| y       | <code>number</code>                                                                             | New creature's coordinate on the Y axis |
-| species | <code>&#x27;red&#x27;</code> \| <code>&#x27;green&#x27;</code> \| <code>&#x27;blue&#x27;</code> |                                         |
-| mass    | <code>number</code>                                                                             | New creature's initial mass             |
+| Param | Type | Description |
+| --- | --- | --- |
+| x | <code>number</code> | New creature's coordinate on the X axis |
+| y | <code>number</code> | New creature's coordinate on the Y axis |
+| species | <code>&#x27;red&#x27;</code> \| <code>&#x27;green&#x27;</code> \| <code>&#x27;blue&#x27;</code> |  |
+| mass | <code>number</code> | New creature's initial mass |
 
 <a name="removeCreature"></a>
 
 ## removeCreature(creature)
-
 Removes a creature from the simulation
 
-**Kind**: global function
+**Kind**: global function  
 
-| Param    | Type                  | Description      |
-| -------- | --------------------- | ---------------- |
+| Param | Type | Description |
+| --- | --- | --- |
 | creature | <code>Creature</code> | Target to remove |
 
 <a name="drawNextFrame"></a>
 
 ## drawNextFrame()
-
 Adjust population and draws creatures next move
 
 **Kind**: global function  
 <a name="adjustPopulationGrowth"></a>
 
 ## adjustPopulationGrowth()
-
 Adjust world population growth to prevent overpopulation or full extintion
 
 **Kind**: global function  
 <a name="updateCreatures"></a>
 
 ## updateCreatures()
-
 Draws creatures next move
 
-**Kind**: global function
+**Kind**: global function  

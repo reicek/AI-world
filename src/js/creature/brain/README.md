@@ -12,14 +12,12 @@
 <a name="think"></a>
 
 ## think()
-
 Think of where to move from current location
 
 **Kind**: global function  
 <a name="learn"></a>
 
 ## learn()
-
 Learn how to move
 
-**Kind**: global function
+**Kind**: global function  

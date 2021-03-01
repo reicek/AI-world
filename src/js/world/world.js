@@ -7,6 +7,7 @@ import $ from 'jquery';
 /** 2D environment for creatures */
 export default class World {
   /**
+   * Create World
    * @param {number} [topPopulation = 100] World's maximum population
    * @param {string} [id = 'world'] Canvas id
    * @param {string[]} [species = ['red', 'green', 'blue']] Available species

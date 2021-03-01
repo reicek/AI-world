@@ -1,7 +1,7 @@
 ## Functions
 
 <dl>
-<dt><a href="#initializeSpecies">initializeSpecies()</a></dt>
+<dt><a href="#initializeSpecies">initializeSpecies(creature, species)</a></dt>
 <dd><p>Initializes creature&#39;s species</p>
 </dd>
 <dt><a href="#initializeColor">initializeColor()</a></dt>
@@ -27,29 +27,31 @@ or death (deletion) when none speed is left</p>
 
 <a name="initializeSpecies"></a>
 
-## initializeSpecies()
-
+## initializeSpecies(creature, species)
 Initializes creature's species
 
 **Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| creature | <code>\*</code> | 
+| species | <code>\*</code> | 
+
 <a name="initializeColor"></a>
 
 ## initializeColor()
-
 Initializes creature's color parameters
 
 **Kind**: global function  
 <a name="grow"></a>
 
 ## grow()
-
 Add growth depending on metabolism
 
 **Kind**: global function  
 <a name="age"></a>
 
 ## age()
-
 Aging translates into the creature's max speed reduction
 or death (deletion) when none speed is left
 
@@ -57,26 +59,24 @@ or death (deletion) when none speed is left
 <a name="adjustSpeed"></a>
 
 ## adjustSpeed()
-
 Adjust velocity to stay close to maxSpeed
 
 **Kind**: global function  
 <a name="boundaries"></a>
 
 ## boundaries()
-
 Prevents creatures from going beyond the edges
 
 **Kind**: global function  
 <a name="attemptReproduction"></a>
 
 ## attemptReproduction(target, distance)
-
 Attempt to reproduce creature
 
-**Kind**: global function
+**Kind**: global function  
 
-| Param    | Type                |
-| -------- | ------------------- |
-| target   | <code>Object</code> |
-| distance | <code>number</code> |
+| Param | Type |
+| --- | --- |
+| target | <code>Object</code> | 
+| distance | <code>number</code> | 
+
