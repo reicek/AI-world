@@ -2,6 +2,7 @@ import { random, max } from 'lodash';
 import $ from 'jquery';
 import simulation from '../../app';
 import Vector from '../../vector/vector';
+import Creature from '../creature';
 
 /**
  * Helper methods for creature's body processes
@@ -12,8 +13,8 @@ import Vector from '../../vector/vector';
 export default class Body {
   /**
    * Initializes creature's species
-   * @param {*} creature
-   * @param {*} species
+   * @param {Creature} creature Creature reference
+   * @param {"red"|"green"|"blue"} species
    */
   static initializeSpecies(creature, species) {
     creature.minColor = 100;
@@ -54,6 +55,7 @@ export default class Body {
 
   /**
    * Initializes creature's color parameters
+   * @param {Creature} creature Creature reference
    */
   static initializeColor(creature) {
     creature.colors = {
@@ -70,6 +72,7 @@ export default class Body {
 
   /**
    * Add growth depending on metabolism
+   * @param {Creature} creature Creature reference
    */
   static grow(creature) {
     if (creature.mass >= creature.maxMass) return;
@@ -84,6 +87,7 @@ export default class Body {
   /**
    * Aging translates into the creature's max speed reduction
    * or death (deletion) when none speed is left
+   * @param {Creature} creature Creature reference
    */
   static age(creature) {
     creature._deterioration =
@@ -100,6 +104,7 @@ export default class Body {
 
   /**
    * Adjust velocity to stay close to maxSpeed
+   * @param {Creature} creature Creature reference
    */
   static adjustSpeed(creature) {
     creature.velocity.add(creature.acceleration).limit(creature.maxSpeed);
@@ -111,6 +116,7 @@ export default class Body {
 
   /**
    * Prevents creatures from going beyond the edges
+   * @param {Creature} creature Creature reference
    */
   static boundaries(creature) {
     switch (true) {
@@ -139,10 +145,11 @@ export default class Body {
 
   /**
    * Attempt to reproduce creature
-   * @param {Object} target
-   * @param {number} distance
+   * @param {Creature} creature Creature reference
+   * @param {Object} target Target creature
+   * @param {number} distance Distance between creature and target
    */
-  static attemptReproduction(creature, simulation, target, distance) {
+  static attemptReproduction(creature, target, distance) {
     if (
       distance <=
         creature.minSeparation *

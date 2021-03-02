@@ -1,6 +1,15 @@
 import { minBy, maxBy } from 'lodash';
 import $ from 'jquery';
 
+/** Red logs */
+const RED_LOG = 'color: rgb(255, 100, 100)';
+/** GREEN logs */
+const GREEN_LOG = 'color: rgb(100, 255, 100)';
+/** Green logs */
+const BLUE_LOG = 'color: rgb(100, 100, 255)';
+/** Gray logs */
+const GRAY_LOG = 'color: #777';
+
 /**
  * Population registry
  * @module
@@ -26,39 +35,39 @@ export default class Census {
     $('#population').text(simulation.creatures.length);
 
     console.clear();
-    console.log('%c==================================', 'color: #777');
-    console.log(`%c Red   : ${this.red}`, 'color: rgb(255, 100, 100)');
+    console.log('%c==================================', GRAY_LOG);
+    console.log(`%c Red   : ${this.red}`, RED_LOG);
     console.log(
       `%c Reproduction chance ${simulation.reproductionChance.red}`,
-      'color: rgb(255, 100, 100)'
+      RED_LOG
     );
-    console.log(`%c Green  : ${this.green}`, 'color: rgb(100, 255, 100)');
+    console.log(`%c Green  : ${this.green}`, GREEN_LOG);
     console.log(
       `%c Reproduction chance ${simulation.reproductionChance.green}`,
-      'color: rgb(100, 255, 100)'
+      GREEN_LOG
     );
-    console.log(`%c Blue : ${this.blue}`, ' color: rgb(100, 100, 255)');
+    console.log(`%c Blue : ${this.blue}`, BLUE_LOG);
     console.log(
       `%c Reproduction chance ${simulation.reproductionChance.blue}`,
-      'color: rgb(100, 100, 255)'
+      BLUE_LOG
     );
     console.log(` Population: ${simulation.creatures.length}`);
 
     if (this.births > 0) console.log(` Births: ${this.births}`);
+
     if (this.deaths > 0) console.log(` Deaths ${this.deaths}`);
+
     if (simulation.creatures.length >= simulation.topPopulation)
       console.log(
         `%c Overpopulation after ${simulation.cycles} cycles!`,
-        'color: rgb(255, 150, 150)'
-      );
-    if (simulation.creatures.length === 0)
-      console.log(
-        `%c Extintion after ${simulation.cycles} cycles!`,
-        'color: rgb(255, 150, 150)'
+        RED_LOG
       );
 
+    if (simulation.creatures.length === 0)
+      console.log(`%c Extintion after ${simulation.cycles} cycles!`, RED_LOG);
+
     console.log(simulation.creatures);
-    console.log('%c==================================', 'color: #777');
+    console.log('%c==================================', GRAY_LOG);
   }
 
   /** Registers a new death */

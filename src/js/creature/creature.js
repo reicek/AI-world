@@ -131,7 +131,6 @@ export default class Creature {
 
       Body.attemptReproduction(
         this,
-        simulation,
         simulation.creatures[this._index],
         this._distance
       );

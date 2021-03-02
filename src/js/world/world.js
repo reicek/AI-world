@@ -225,7 +225,7 @@ export default class World {
 
       return requestAnimationFrame(() => this.drawNextFrame());
     } catch (err) {
-      console.warn('ERROR', err);
+      console.warn('Warning:', err);
 
       return requestAnimationFrame(() => this.drawNextFrame());
     }

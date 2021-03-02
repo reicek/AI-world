@@ -6,8 +6,8 @@
 export default class Vector {
   /**
    * Create vector
-   * @param {number} [x = 0] X position value
-   * @param {number} [y = 0] Y position value
+   * @param {number} [x = 0] Initial X position value
+   * @param {number} [y = 0] Initial Y position value
    * @example
    *     const x = 1;
    *     const y = 1;
@@ -43,49 +43,54 @@ export default class Vector {
 
   /**
    * Add to vector
+   * @param {Vector} vector Addend
    * @return {Vector}
    */
-  add(v) {
-    this.x += v.x;
-    this.y += v.y;
+  add(vector) {
+    this.x += vector.x;
+    this.y += vector.y;
 
     return this;
   }
 
   /**
    * Substract from vector
+   * @param {Vector} vector Subtrahend
    * @return {Vector}
    */
-  sub(v) {
-    this.x -= v.x;
-    this.y -= v.y;
+  sub(vector) {
+    this.x -= vector.x;
+    this.y -= vector.y;
 
     return this;
   }
 
   /**
    * Multiply vector
+   * @param {number} factor Multiplication factor
    * @return {Vector}
    */
-  mul(s) {
-    this.x *= s;
-    this.y *= s;
+  mul(factor) {
+    this.x *= factor;
+    this.y *= factor;
 
     return this;
   }
 
   /**
    * Divide vector
+   * @param {number} divisor Division divisor
    * @return {Vector}
    */
-  div(s) {
-    this.x /= s;
-    this.y /= s;
+  div(divisor) {
+    this.x /= divisor;
+    this.y /= divisor;
 
     return this;
   }
 
   /**
+   * Vector's magnitude
    * @return {number}
    */
   mag() {
@@ -93,6 +98,7 @@ export default class Vector {
   }
 
   /**
+   * Normalize
    * @return {Vector}
    */
   normalize() {
@@ -100,6 +106,7 @@ export default class Vector {
   }
 
   /**
+   * Vector's angle
    * @return {number}
    */
   angle() {
@@ -107,6 +114,7 @@ export default class Vector {
   }
 
   /**
+   * Set magnitude
    * @return {Vector}
    */
   setMag(m) {
@@ -119,6 +127,7 @@ export default class Vector {
   }
 
   /**
+   * Set Angle
    * @return {Vector}
    */
   setAngle(a) {
@@ -131,6 +140,7 @@ export default class Vector {
   }
 
   /**
+   * Rotate vector
    * @return {Vector}
    */
   rotate(a) {
@@ -138,6 +148,7 @@ export default class Vector {
   }
 
   /**
+   * Limit magnitude to 1
    * @return {Vector}
    */
   limit(l) {
