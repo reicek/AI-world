@@ -1,6 +1,7 @@
 import { random, max } from 'lodash';
 import $ from 'jquery';
 import simulation from '../../app';
+import Vector from '../../vector/vector';
 
 /**
  * Helper methods for creature's body processes
@@ -18,7 +19,7 @@ export default class Body {
     creature.minColor = 100;
     creature.maxColor = 255;
 
-    if (!!species) {
+    if (species) {
       creature.species = species; // skip if already defined
 
       return creature.species; // skip if already defined
@@ -49,8 +50,6 @@ export default class Body {
         break;
     }
     delete creature.dominantColor;
-
-    return creature.species;
   }
 
   /**

@@ -87,12 +87,13 @@ export default class World {
     this.reproductionChance = clone(this.initialReproductionChange);
 
     this._i = this.species.length * 4;
-    while (this._i--)
-      this.spawnCreature(
-        random(0, this.width),
-        random(0, this.height),
-        this.species[Math.round((this._i + 1) / 3) - 1]
-      );
+    while (this._i--) {
+      const x = random(0, this.width);
+      const y = random(0, this.height);
+      const species = this.census.minority().species;
+
+      this.spawnCreature(x, y, species);
+    }
   }
 
   /** Events listeners */
@@ -142,7 +143,7 @@ export default class World {
    * @param {number} mass New creature's initial mass
    */
   spawnCreature(x, y, species, mass) {
-    this.creatures.push(new Creature(this, x, y, species, mass));
+    this.creatures.push(new Creature(x, y, species, mass));
     this.census.newBirth();
 
     return this.census.log(this);
@@ -224,6 +225,8 @@ export default class World {
 
       return requestAnimationFrame(() => this.drawNextFrame());
     } catch (err) {
+      console.warn('ERROR', err);
+
       return requestAnimationFrame(() => this.drawNextFrame());
     }
   }
