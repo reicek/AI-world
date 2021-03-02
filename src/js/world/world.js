@@ -84,7 +84,7 @@ export default class World {
       green: 2,
       blue: 2,
     };
-    this.reproductionChance = clone(this.initialReproductionChange);
+    this.reproductionChance = clone(this.initialReproductionChance);
     this._i = this.species.length * 4;
 
     while (this._i--) {
