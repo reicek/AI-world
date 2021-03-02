@@ -1,22 +1,18 @@
-<a name="module_DrawCreature"></a>
+<a name="module_draw"></a>
 
-## DrawCreature
+## draw
+Creature draw tools
 
-- [DrawCreature](#module_DrawCreature)
-  - [~DrawCreature](#module_DrawCreature..DrawCreature)
-    - [.shape()](#module_DrawCreature..DrawCreature.shape)
+<a name="module_draw.shape"></a>
 
-<a name="module_DrawCreature..DrawCreature"></a>
-
-### DrawCreature~DrawCreature
-
-Methods to draw creature
-
-**Kind**: inner class of [<code>DrawCreature</code>](#module_DrawCreature)  
-<a name="module_DrawCreature..DrawCreature.shape"></a>
-
-#### DrawCreature.shape()
-
+### draw.shape(size, color, location)
 Creates creature's shape
 
-**Kind**: static method of [<code>DrawCreature</code>](#module_DrawCreature..DrawCreature)
+**Kind**: static method of [<code>draw</code>](#module_draw)  
+
+| Param | Type |
+| --- | --- |
+| size | <code>\*</code> | 
+| color | <code>\*</code> | 
+| location | <code>\*</code> | 
+

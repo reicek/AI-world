@@ -1,50 +1,47 @@
-<a name="module_CreatureBrain"></a>
+<a name="module_brain"></a>
 
-## CreatureBrain
-
-**Requires**: <code>module:synaptic</code>  
-**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.
-
-- [CreatureBrain](#module_CreatureBrain)
-  - [~CreatureBrain](#module_CreatureBrain..CreatureBrain)
-    - [new CreatureBrain()](#new_module_CreatureBrain..CreatureBrain_new)
-    - [.think()](#module_CreatureBrain..CreatureBrain+think)
-    - [.learn()](#module_CreatureBrain..CreatureBrain+learn)
-
-<a name="module_CreatureBrain..CreatureBrain"></a>
-
-### CreatureBrain~CreatureBrain
-
+## brain
 Creature's mind
 
-**Kind**: inner class of [<code>CreatureBrain</code>](#module_CreatureBrain)  
+**Requires**: <code>module:synaptic</code>  
+**See**: [https://github.com/cazala/synaptic](https://github.com/cazala/synaptic) based on work by @cazala 's Synaptic.  
+
+* [brain](#module_brain)
+    * [module.exports](#exp_module_brain--module.exports) ⏏
+        * [new module.exports(inputNeurons, hiddenNeurons, outputNeurons)](#new_module_brain--module.exports_new)
+        * [.think()](#module_brain--module.exports+think)
+        * [.learn()](#module_brain--module.exports+learn)
+
+<a name="exp_module_brain--module.exports"></a>
+
+### module.exports ⏏
+**Kind**: Exported class  
 **See**
 
 - [https://github.com/cazala/synaptic/wiki/Architect](https://github.com/cazala/synaptic/wiki/Architect)
 - [https://github.com/cazala/synaptic/wiki/Networks](https://github.com/cazala/synaptic/wiki/Networks)
 
-* [~CreatureBrain](#module_CreatureBrain..CreatureBrain)
-  - [new CreatureBrain()](#new_module_CreatureBrain..CreatureBrain_new)
-  - [.think()](#module_CreatureBrain..CreatureBrain+think)
-  - [.learn()](#module_CreatureBrain..CreatureBrain+learn)
+<a name="new_module_brain--module.exports_new"></a>
 
-<a name="new_module_CreatureBrain..CreatureBrain_new"></a>
+#### new module.exports(inputNeurons, hiddenNeurons, outputNeurons)
+Create new neural network
 
-#### new CreatureBrain()
 
-Creates a new neural network
+| Param | Type | Default |
+| --- | --- | --- |
+| inputNeurons | <code>\*</code> | <code>4</code> | 
+| hiddenNeurons | <code>\*</code> | <code>6</code> | 
+| outputNeurons | <code>\*</code> | <code>3</code> | 
 
-<a name="module_CreatureBrain..CreatureBrain+think"></a>
+<a name="module_brain--module.exports+think"></a>
 
-#### creatureBrain.think()
-
+#### module.exports.think()
 Think of where to move from current location
 
-**Kind**: instance method of [<code>CreatureBrain</code>](#module_CreatureBrain..CreatureBrain)  
-<a name="module_CreatureBrain..CreatureBrain+learn"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_brain--module.exports)  
+<a name="module_brain--module.exports+learn"></a>
 
-#### creatureBrain.learn()
-
+#### module.exports.learn()
 Learn how to move
 
-**Kind**: instance method of [<code>CreatureBrain</code>](#module_CreatureBrain..CreatureBrain)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_brain--module.exports)  

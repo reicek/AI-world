@@ -1,11 +1,16 @@
+import { clone, random, minBy } from 'lodash';
+import Creature from '../creature/creature';
+import Census from '../census/census';
+import Vector from '../vector/vector';
+import $ from 'jquery';
+
 /**
  * 2D environment for creatures
- * @requires lodash
- * @requires Creature
- * @requires Census
+ * @module
  */
-class World {
+export default class World {
   /**
+   * Create World
    * @param {number} [topPopulation = 100] World's maximum population
    * @param {string} [id = 'world'] Canvas id
    * @param {string[]} [species = ['red', 'green', 'blue']] Available species
@@ -61,7 +66,7 @@ class World {
     this.ctx.lineWidth = 4;
   }
 
-  /** Update current mouse position */
+  /** Store current mouse position */
   getMousePosition() {
     $(document).mousemove((event) => {
       this.mousePosition.onScreen = event.pageX >= 50 && event.pageY >= 50;
@@ -79,15 +84,16 @@ class World {
       green: 2,
       blue: 2,
     };
-    this.reproductionChance = _.clone(this.initialReproductionChance);
-
+    this.reproductionChance = clone(this.initialReproductionChance);
     this._i = this.species.length * 4;
-    while (this._i--)
-      this.spawnCreature(
-        _.random(0, this.width),
-        _.random(0, this.height),
-        this.species[Math.round((this._i + 1) / 3) - 1]
-      );
+
+    while (this._i--) {
+      const x = random(0, this.width);
+      const y = random(0, this.height);
+      const species = this.census.minority().species;
+
+      this.spawnCreature(x, y, species);
+    }
   }
 
   /** Events listeners */
@@ -126,7 +132,7 @@ class World {
 
   /** Removes oldest (slowest) creature */
   decreasePopulation() {
-    this.removeCreature(_.minBy(this.creatures, 'maxSpeed'));
+    this.removeCreature(minBy(this.creatures, 'maxSpeed'));
   }
 
   /**
@@ -137,8 +143,8 @@ class World {
    * @param {number} mass New creature's initial mass
    */
   spawnCreature(x, y, species, mass) {
-    this.creatures.push(new Creature(this, x, y, species, mass));
-    this.births++;
+    this.creatures.push(new Creature(x, y, species, mass));
+    this.census.newBirth();
 
     return this.census.log(this);
   }
@@ -150,7 +156,7 @@ class World {
   removeCreature(creature) {
     this._index = this.creatures.indexOf(creature);
     this.creatures.splice(this._index, 1);
-    this.deaths++;
+    this.census.newDeath();
 
     return this.census.log(this);
   }
@@ -219,6 +225,8 @@ class World {
 
       return requestAnimationFrame(() => this.drawNextFrame());
     } catch (err) {
+      console.warn('Warning:', err);
+
       return requestAnimationFrame(() => this.drawNextFrame());
     }
   }

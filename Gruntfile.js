@@ -1,5 +1,8 @@
 'use strict';
+/** Webpack configuration */
+const webpackConfig = require('./webpack.config.js');
 
+/** Grunt configuration */
 const gruntConfig = {
   express: {
     options: {
@@ -24,18 +27,12 @@ const gruntConfig = {
     all: ['src/js/**/*.js'],
   },
 
-  vulcanize: {
-    default: {
-      options: {
-        inlineScripts: true,
-        inlineCss: true,
-        stripComments: true,
-        stripExcludes: true,
-      },
-      files: {
-        'docs/index.html': 'src/index.html',
-      },
+  webpack: {
+    options: {
+      stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
     },
+    prod: webpackConfig,
+    dev: Object.assign(webpackConfig),
   },
 
   jsdoc2md : {
@@ -45,14 +42,15 @@ const gruntConfig = {
     },
     separateOutputFilePerInput : {
       files: [
-        { src: 'src/js/world/world.js', dest: 'src/js/world/README.md' },
+        { src: 'src/js/app.js', dest: 'src/js/README.md' },
         { src: 'src/js/census/census.js', dest: 'src/js/census/README.md' },
         { src: 'src/js/creature/creature.js', dest: 'src/js/creature/README.md' },
         { src: 'src/js/creature/body/body.js', dest: 'src/js/creature/body/README.md' },
         { src: 'src/js/creature/brain/brain.js', dest: 'src/js/creature/brain/README.md' },
         { src: 'src/js/creature/draw/draw.js', dest: 'src/js/creature/draw/README.md' },
         { src: 'src/js/eval/eval.js', dest: 'src/js/eval/README.md' },
-        { src: 'src/js/vector/vector.js', dest: 'src/js/vector/README.md' }
+        { src: 'src/js/vector/vector.js', dest: 'src/js/vector/README.md' },
+        { src: 'src/js/world/world.js', dest: 'src/js/world/README.md' }
       ]
     }
   },
@@ -65,22 +63,22 @@ const gruntConfig = {
 
     modules: {
       files: ['node_modules'],
-      tasks: ['vulcanize'],
+      tasks: ['webpack'],
     },
 
     scripts: {
       files: ['src/**/*.js', 'specs/**/*.js'],
-      tasks: ['jshint', 'vulcanize'],
+      tasks: ['jshint', 'webpack'],
     },
 
     css: {
       files: ['src/**/*.css'],
-      tasks: ['vulcanize'],
+      tasks: ['webpack'],
     },
 
     html: {
       files: ['src/**/*.html'],
-      tasks: ['vulcanize'],
+      tasks: ['webpack'],
     },
 
     options: {
@@ -92,14 +90,14 @@ const gruntConfig = {
 const tasks = (grunt) => {
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-vulcanize');
+  grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
 
   grunt.initConfig(gruntConfig);
 
-  grunt.registerTask('default', ['express', 'jshint', 'vulcanize', 'watch', 'jsdoc2md']);
-  grunt.registerTask('travis', ['jshint', 'vulcanize', 'jsdoc2md']);
+  grunt.registerTask('default', ['express', 'jshint', 'webpack', 'watch', 'jsdoc2md']);
+  grunt.registerTask('travis', ['jshint', 'webpack', 'jsdoc2md']);
   grunt.registerTask('doc', ['jsdoc2md']);
 };
 

@@ -1,32 +1,38 @@
-'use strict';
-/**
- * @module CreatureBody
- * @requires lodash
- */
+import { random, max } from 'lodash';
+import $ from 'jquery';
+import simulation from '../../app';
+import Vector from '../../vector/vector';
+import Creature from '../creature';
+
 /**
  * Helper methods for creature's body processes
+ * @module
+ * @requires lodash
+ * @requires jquery
  */
-class CreatureBody {
+export default class Body {
   /**
    * Initializes creature's species
+   * @param {Creature} creature Creature reference
+   * @param {"red"|"green"|"blue"} species
    */
   static initializeSpecies(creature, species) {
     creature.minColor = 100;
     creature.maxColor = 255;
 
-    if (!!species) {
+    if (species) {
       creature.species = species; // skip if already defined
 
       return creature.species; // skip if already defined
     }
 
     creature.colors = {
-      red: _.random(creature.minColor, creature.maxColor),
-      green: _.random(creature.minColor, creature.maxColor),
-      blue: _.random(creature.minColor, creature.maxColor),
+      red: random(creature.minColor, creature.maxColor),
+      green: random(creature.minColor, creature.maxColor),
+      blue: random(creature.minColor, creature.maxColor),
     };
 
-    creature.dominantColor = _.max([
+    creature.dominantColor = max([
       creature.colors.red,
       creature.colors.green,
       creature.colors.blue,
@@ -45,12 +51,11 @@ class CreatureBody {
         break;
     }
     delete creature.dominantColor;
-
-    return creature.species;
   }
 
   /**
    * Initializes creature's color parameters
+   * @param {Creature} creature Creature reference
    */
   static initializeColor(creature) {
     creature.colors = {
@@ -67,6 +72,7 @@ class CreatureBody {
 
   /**
    * Add growth depending on metabolism
+   * @param {Creature} creature Creature reference
    */
   static grow(creature) {
     if (creature.mass >= creature.maxMass) return;
@@ -74,29 +80,31 @@ class CreatureBody {
     creature.mass += creature.metabolism;
     creature.maxSpeed = creature.mass * 2;
     creature.maxforce = 0.33 * (creature.mass / 2);
+
+    return creature;
   }
 
   /**
    * Aging translates into the creature's max speed reduction
    * or death (deletion) when none speed is left
+   * @param {Creature} creature Creature reference
    */
-  static age(creature, world) {
-    if (creature.maxSpeed > 0.1) {
-      // Aging
-      creature._deterioration =
-        creature.metabolism / creature.metabolismAgingRatio;
-      creature.maxSpeed -= creature._deterioration;
-      creature.colors[creature.species] =
-        Math.round((creature.maxSpeed * 255) / (creature.maxMass * 2)) + 110;
-      creature.color = `rgb(${Math.round(creature.colors.red)}, ${Math.round(
-        creature.colors.green
-      )}, ${Math.round(creature.colors.blue)})`;
-    } // Death
-    else return world.removeCreature(creature);
+  static age(creature) {
+    creature._deterioration =
+      creature.metabolism / creature.metabolismAgingRatio;
+    creature.maxSpeed -= creature._deterioration;
+    creature.colors[creature.species] =
+      Math.round((creature.maxSpeed * 255) / (creature.maxMass * 2)) + 110;
+    creature.color = `rgb(${Math.round(creature.colors.red)}, ${Math.round(
+      creature.colors.green
+    )}, ${Math.round(creature.colors.blue)})`;
+
+    return creature;
   }
 
   /**
    * Adjust velocity to stay close to maxSpeed
+   * @param {Creature} creature Creature reference
    */
   static adjustSpeed(creature) {
     creature.velocity.add(creature.acceleration).limit(creature.maxSpeed);
@@ -108,39 +116,44 @@ class CreatureBody {
 
   /**
    * Prevents creatures from going beyond the edges
+   * @param {Creature} creature Creature reference
    */
-  static boundaries(creature, world) {
+  static boundaries(creature) {
     switch (true) {
       case creature.location.x < creature.margin:
         creature.applyForce(new Vector(creature.velocity.mag(), 0));
-        return creature;
+        break;
 
-      case creature.location.x > world.width - creature.margin:
+      case creature.location.x > simulation.width - creature.margin:
         creature.applyForce(new Vector(-creature.velocity.mag(), 0));
-        return creature;
+        break;
 
       case creature.location.y < creature.margin:
         creature.applyForce(new Vector(0, creature.velocity.mag()));
-        return creature;
+        break;
 
-      case creature.location.y > world.height - creature.margin:
+      case creature.location.y > simulation.height - creature.margin:
         creature.applyForce(new Vector(0, -creature.velocity.mag()));
-        return creature;
+        break;
 
       default:
-        return creature;
+        break;
     }
+
+    return creature;
   }
 
   /**
    * Attempt to reproduce creature
-   * @param {Object} target
-   * @param {number} distance
+   * @param {Creature} creature Creature reference
+   * @param {Object} target Target creature
+   * @param {number} distance Distance between creature and target
    */
-  static attemptReproduction(creature, world, target, distance) {
+  static attemptReproduction(creature, target, distance) {
     if (
       distance <=
-        creature.minSeparation * world.reproductionChance[creature.species] &&
+        creature.minSeparation *
+          simulation.reproductionChance[creature.species] &&
       target.species === creature.species
     ) {
       // is close enough to reproduce
@@ -153,7 +166,7 @@ class CreatureBody {
         creature.mass /= 2;
         target.mass /= 2;
         // Spawn a new this of the same species in the same spot
-        world.spawnCreature(
+        simulation.spawnCreature(
           creature.location.x,
           creature.location.y,
           creature.species,

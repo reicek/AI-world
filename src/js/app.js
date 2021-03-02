@@ -1,5 +1,8 @@
-'use strict';
+import World from './world/world.js';
 
-const world = new World();
+/** Wold simulation instance */
+const simulation = new World();
 
-world.launch(); // Start simulation
+simulation.launch(); // Start simulation
+
+export default simulation;

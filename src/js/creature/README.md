@@ -1,124 +1,113 @@
-<a name="module_Creature"></a>
+<a name="module_creature"></a>
 
-## Creature
-
-**Requires**: <code>module:lodash</code>, <code>module:World</code>, <code>module:Vector</code>, <code>module:DrawCreature</code>, <code>module:CreatureBrain</code>, <code>module:CreatureBody</code>
-
-- [Creature](#module_Creature)
-  - [~Creature](#module_Creature..Creature)
-    - [.moveTo()](#module_Creature..Creature+moveTo)
-    - [.applyForce()](#module_Creature..Creature+applyForce)
-    - [.draw()](#module_Creature..Creature+draw)
-    - [.update()](#module_Creature..Creature+update)
-    - [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-    - [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
-    - [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-    - [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
-    - [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-    - [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
-    - [.applyCohesion()](#module_Creature..Creature+applyCohesion)
-
-<a name="module_Creature..Creature"></a>
-
-### Creature~Creature
-
+## creature
 Artificial Intelligence based in perceptron neural networks that lives in a 2D world
 
-**Kind**: inner class of [<code>Creature</code>](#module_Creature)
 
-- [~Creature](#module_Creature..Creature)
-  - [.moveTo()](#module_Creature..Creature+moveTo)
-  - [.applyForce()](#module_Creature..Creature+applyForce)
-  - [.draw()](#module_Creature..Creature+draw)
-  - [.update()](#module_Creature..Creature+update)
-  - [.seek(target)](#module_Creature..Creature+seek) ⇒ <code>Vector</code>
-  - [.separate()](#module_Creature..Creature+separate) ⇒ <code>Vector</code>
-  - [.normalizeSeparation()](#module_Creature..Creature+normalizeSeparation)
-  - [.align()](#module_Creature..Creature+align) ⇒ <code>Vector</code>
-  - [.addAlignmentTo()](#module_Creature..Creature+addAlignmentTo)
-  - [.cohesion()](#module_Creature..Creature+cohesion) ⇒ <code>Vector</code>
-  - [.applyCohesion()](#module_Creature..Creature+applyCohesion)
+* [creature](#module_creature)
+    * [module.exports](#exp_module_creature--module.exports) ⏏
+        * [new module.exports(x, y, species, mass, inputNeurons, hiddenNeurons, outputNeurons)](#new_module_creature--module.exports_new)
+        * [.moveTo()](#module_creature--module.exports+moveTo)
+        * [.applyForce()](#module_creature--module.exports+applyForce)
+        * [.draw()](#module_creature--module.exports+draw)
+        * [.update()](#module_creature--module.exports+update)
+        * [.seek(target)](#module_creature--module.exports+seek) ⇒ <code>Vector</code>
+        * [.separate()](#module_creature--module.exports+separate) ⇒ <code>Vector</code>
+        * [.normalizeSeparation()](#module_creature--module.exports+normalizeSeparation)
+        * [.align()](#module_creature--module.exports+align) ⇒ <code>Vector</code>
+        * [.addAlignmentTo()](#module_creature--module.exports+addAlignmentTo)
+        * [.cohesion()](#module_creature--module.exports+cohesion) ⇒ <code>Vector</code>
+        * [.applyCohesion()](#module_creature--module.exports+applyCohesion)
 
-<a name="module_Creature..Creature+moveTo"></a>
+<a name="exp_module_creature--module.exports"></a>
 
-#### creature.moveTo()
+### module.exports ⏏
+**Kind**: Exported class  
+<a name="new_module_creature--module.exports_new"></a>
 
+#### new module.exports(x, y, species, mass, inputNeurons, hiddenNeurons, outputNeurons)
+Create creature
+
+
+| Param | Type |
+| --- | --- |
+| x | <code>\*</code> | 
+| y | <code>\*</code> | 
+| species | <code>\*</code> | 
+| mass | <code>\*</code> | 
+| inputNeurons | <code>\*</code> | 
+| hiddenNeurons | <code>\*</code> | 
+| outputNeurons | <code>\*</code> | 
+
+<a name="module_creature--module.exports+moveTo"></a>
+
+#### module.exports.moveTo()
 Applies creature's movement
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+applyForce"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+applyForce"></a>
 
-#### creature.applyForce()
-
+#### module.exports.applyForce()
 Applies a vector force to the creature's momentum=
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+draw"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+draw"></a>
 
-#### creature.draw()
-
+#### module.exports.draw()
 Draws current's creature position and direction
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+update"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+update"></a>
 
-#### creature.update()
-
+#### module.exports.update()
 Update's creature
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+seek"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+seek"></a>
 
-#### creature.seek(target) ⇒ <code>Vector</code>
-
+#### module.exports.seek(target) ⇒ <code>Vector</code>
 Returns the force needed to move towards specific creature
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
 
-| Param  | Type                |
-| ------ | ------------------- |
-| target | <code>Vector</code> |
+| Param | Type |
+| --- | --- |
+| target | <code>Vector</code> | 
 
-<a name="module_Creature..Creature+separate"></a>
+<a name="module_creature--module.exports+separate"></a>
 
-#### creature.separate() ⇒ <code>Vector</code>
-
+#### module.exports.separate() ⇒ <code>Vector</code>
 Makes creature attempt to stay within reasonable distance
 Triggers reproduction when creatures touch, depending on world reproduction chance
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+normalizeSeparation"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+normalizeSeparation"></a>
 
-#### creature.normalizeSeparation()
-
+#### module.exports.normalizeSeparation()
 Normalizes creature separation if they are within range
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+align"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+align"></a>
 
-#### creature.align() ⇒ <code>Vector</code>
-
+#### module.exports.align() ⇒ <code>Vector</code>
 Align to other creatures
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+addAlignmentTo"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+addAlignmentTo"></a>
 
-#### creature.addAlignmentTo()
-
+#### module.exports.addAlignmentTo()
 Adds force required to align to another creature
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+cohesion"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+cohesion"></a>
 
-#### creature.cohesion() ⇒ <code>Vector</code>
-
+#### module.exports.cohesion() ⇒ <code>Vector</code>
 Makes creature group with others
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)  
-<a name="module_Creature..Creature+applyCohesion"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  
+<a name="module_creature--module.exports+applyCohesion"></a>
 
-#### creature.applyCohesion()
-
+#### module.exports.applyCohesion()
 Makes creature attempt to stay close to same species
 
-**Kind**: instance method of [<code>Creature</code>](#module_Creature..Creature)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_creature--module.exports)  

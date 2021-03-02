@@ -1,88 +1,97 @@
-<a name="module_CreatureBody"></a>
+<a name="module_body"></a>
 
-## CreatureBody
-
-**Requires**: <code>module:lodash</code>
-
-- [CreatureBody](#module_CreatureBody)
-  - [~CreatureBody](#module_CreatureBody..CreatureBody)
-    - [.initializeSpecies()](#module_CreatureBody..CreatureBody.initializeSpecies)
-    - [.initializeColor()](#module_CreatureBody..CreatureBody.initializeColor)
-    - [.grow()](#module_CreatureBody..CreatureBody.grow)
-    - [.age()](#module_CreatureBody..CreatureBody.age)
-    - [.adjustSpeed()](#module_CreatureBody..CreatureBody.adjustSpeed)
-    - [.boundaries()](#module_CreatureBody..CreatureBody.boundaries)
-    - [.attemptReproduction(target, distance)](#module_CreatureBody..CreatureBody.attemptReproduction)
-
-<a name="module_CreatureBody..CreatureBody"></a>
-
-### CreatureBody~CreatureBody
-
+## body
 Helper methods for creature's body processes
 
-**Kind**: inner class of [<code>CreatureBody</code>](#module_CreatureBody)
+**Requires**: <code>module:lodash</code>, <code>module:jquery</code>  
 
-- [~CreatureBody](#module_CreatureBody..CreatureBody)
-  - [.initializeSpecies()](#module_CreatureBody..CreatureBody.initializeSpecies)
-  - [.initializeColor()](#module_CreatureBody..CreatureBody.initializeColor)
-  - [.grow()](#module_CreatureBody..CreatureBody.grow)
-  - [.age()](#module_CreatureBody..CreatureBody.age)
-  - [.adjustSpeed()](#module_CreatureBody..CreatureBody.adjustSpeed)
-  - [.boundaries()](#module_CreatureBody..CreatureBody.boundaries)
-  - [.attemptReproduction(target, distance)](#module_CreatureBody..CreatureBody.attemptReproduction)
+* [body](#module_body)
+    * [.initializeSpecies(creature, species)](#module_body.initializeSpecies)
+    * [.initializeColor(creature)](#module_body.initializeColor)
+    * [.grow(creature)](#module_body.grow)
+    * [.age(creature)](#module_body.age)
+    * [.adjustSpeed(creature)](#module_body.adjustSpeed)
+    * [.boundaries(creature)](#module_body.boundaries)
+    * [.attemptReproduction(creature, target, distance)](#module_body.attemptReproduction)
 
-<a name="module_CreatureBody..CreatureBody.initializeSpecies"></a>
+<a name="module_body.initializeSpecies"></a>
 
-#### CreatureBody.initializeSpecies()
-
+### body.initializeSpecies(creature, species)
 Initializes creature's species
 
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.initializeColor"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-#### CreatureBody.initializeColor()
+| Param | Type | Description |
+| --- | --- | --- |
+| creature | <code>Creature</code> | Creature reference |
+| species | <code>&quot;red&quot;</code> \| <code>&quot;green&quot;</code> \| <code>&quot;blue&quot;</code> |  |
 
+<a name="module_body.initializeColor"></a>
+
+### body.initializeColor(creature)
 Initializes creature's color parameters
 
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.grow"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-#### CreatureBody.grow()
+| Param | Type | Description |
+| --- | --- | --- |
+| creature | <code>Creature</code> | Creature reference |
 
+<a name="module_body.grow"></a>
+
+### body.grow(creature)
 Add growth depending on metabolism
 
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.age"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-#### CreatureBody.age()
+| Param | Type | Description |
+| --- | --- | --- |
+| creature | <code>Creature</code> | Creature reference |
 
+<a name="module_body.age"></a>
+
+### body.age(creature)
 Aging translates into the creature's max speed reduction
 or death (deletion) when none speed is left
 
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.adjustSpeed"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-#### CreatureBody.adjustSpeed()
+| Param | Type | Description |
+| --- | --- | --- |
+| creature | <code>Creature</code> | Creature reference |
 
+<a name="module_body.adjustSpeed"></a>
+
+### body.adjustSpeed(creature)
 Adjust velocity to stay close to maxSpeed
 
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.boundaries"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-#### CreatureBody.boundaries()
+| Param | Type | Description |
+| --- | --- | --- |
+| creature | <code>Creature</code> | Creature reference |
 
+<a name="module_body.boundaries"></a>
+
+### body.boundaries(creature)
 Prevents creatures from going beyond the edges
 
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)  
-<a name="module_CreatureBody..CreatureBody.attemptReproduction"></a>
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-#### CreatureBody.attemptReproduction(target, distance)
+| Param | Type | Description |
+| --- | --- | --- |
+| creature | <code>Creature</code> | Creature reference |
 
+<a name="module_body.attemptReproduction"></a>
+
+### body.attemptReproduction(creature, target, distance)
 Attempt to reproduce creature
 
-**Kind**: static method of [<code>CreatureBody</code>](#module_CreatureBody..CreatureBody)
+**Kind**: static method of [<code>body</code>](#module_body)  
 
-| Param    | Type                |
-| -------- | ------------------- |
-| target   | <code>Object</code> |
-| distance | <code>number</code> |
+| Param | Type | Description |
+| --- | --- | --- |
+| creature | <code>Creature</code> | Creature reference |
+| target | <code>Object</code> | Target creature |
+| distance | <code>number</code> | Distance between creature and target |
+

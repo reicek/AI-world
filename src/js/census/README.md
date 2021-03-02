@@ -1,109 +1,159 @@
-<a name="Census"></a>
+## Modules
 
-## Census
+<dl>
+<dt><a href="#module_census">census</a></dt>
+<dd><p>Population registry</p>
+</dd>
+</dl>
 
-Census registry
+## Constants
 
-**Kind**: global class  
-**Requires**: <code>module:lodash</code>, <code>module:jquery</code>
+<dl>
+<dt><a href="#RED_LOG">RED_LOG</a></dt>
+<dd><p>Red logs</p>
+</dd>
+<dt><a href="#GREEN_LOG">GREEN_LOG</a></dt>
+<dd><p>GREEN logs</p>
+</dd>
+<dt><a href="#BLUE_LOG">BLUE_LOG</a></dt>
+<dd><p>Green logs</p>
+</dd>
+<dt><a href="#GRAY_LOG">GRAY_LOG</a></dt>
+<dd><p>Gray logs</p>
+</dd>
+</dl>
 
-- [Census](#Census)
-  - [.red](#Census+red)
-  - [.green](#Census+green)
-  - [.blue](#Census+blue)
-  - [.births](#Census+births)
-  - [.deaths](#Census+deaths)
-  - [.log(world)](#Census+log)
-  - [.update(world)](#Census+update)
-  - [.reset()](#Census+reset)
-  - [.minority()](#Census+minority)
-  - [.mayority()](#Census+mayority)
-  - [.list()](#Census+list)
+<a name="module_census"></a>
 
-<a name="Census+red"></a>
+## census
+Population registry
 
-### census.red
 
+* [census](#module_census)
+    * [module.exports](#exp_module_census--module.exports) ⏏
+        * [new module.exports()](#new_module_census--module.exports_new)
+        * [.red](#module_census--module.exports+red)
+        * [.green](#module_census--module.exports+green)
+        * [.blue](#module_census--module.exports+blue)
+        * [.births](#module_census--module.exports+births)
+        * [.deaths](#module_census--module.exports+deaths)
+        * [.log()](#module_census--module.exports+log)
+        * [.newDeath()](#module_census--module.exports+newDeath)
+        * [.newBirth()](#module_census--module.exports+newBirth)
+        * [.update()](#module_census--module.exports+update)
+        * [.reset()](#module_census--module.exports+reset)
+        * [.minority()](#module_census--module.exports+minority)
+        * [.mayority()](#module_census--module.exports+mayority)
+        * [.list()](#module_census--module.exports+list)
+
+<a name="exp_module_census--module.exports"></a>
+
+### module.exports ⏏
+**Kind**: Exported class  
+<a name="new_module_census--module.exports_new"></a>
+
+#### new module.exports()
+Create sensus
+
+<a name="module_census--module.exports+red"></a>
+
+#### module.exports.red
 Red population
 
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+green"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+green"></a>
 
-### census.green
-
+#### module.exports.green
 Green population
 
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+blue"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+blue"></a>
 
-### census.blue
-
+#### module.exports.blue
 Blue population
 
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+births"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+births"></a>
 
-### census.births
-
+#### module.exports.births
 Total births
 
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+deaths"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+deaths"></a>
 
-### census.deaths
-
+#### module.exports.deaths
 Total deaths
 
-**Kind**: instance property of [<code>Census</code>](#Census)  
-<a name="Census+log"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+log"></a>
 
-### census.log(world)
-
+#### module.exports.log()
 Update census results on log
 
-**Kind**: instance method of [<code>Census</code>](#Census)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+newDeath"></a>
 
-| Param | Type               | Description          |
-| ----- | ------------------ | -------------------- |
-| world | <code>World</code> | Simulation reference |
+#### module.exports.newDeath()
+Registers a new death
 
-<a name="Census+update"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+newBirth"></a>
 
-### census.update(world)
+#### module.exports.newBirth()
+Registers a new birth
 
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+update"></a>
+
+#### module.exports.update()
 Calculate population by species
 
-**Kind**: instance method of [<code>Census</code>](#Census)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+reset"></a>
 
-| Param | Type               | Description          |
-| ----- | ------------------ | -------------------- |
-| world | <code>World</code> | Simulation reference |
+#### module.exports.reset()
+Reset counts
 
-<a name="Census+reset"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+minority"></a>
 
-### census.reset()
-
-Reset counts results
-
-**Kind**: instance method of [<code>Census</code>](#Census)  
-<a name="Census+minority"></a>
-
-### census.minority()
-
+#### module.exports.minority()
 Least populated species
 
-**Kind**: instance method of [<code>Census</code>](#Census)  
-<a name="Census+mayority"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+mayority"></a>
 
-### census.mayority()
-
+#### module.exports.mayority()
 Most populated species
 
-**Kind**: instance method of [<code>Census</code>](#Census)  
-<a name="Census+list"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="module_census--module.exports+list"></a>
 
-### census.list()
-
+#### module.exports.list()
 Census list
 
-**Kind**: instance method of [<code>Census</code>](#Census)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_census--module.exports)  
+<a name="RED_LOG"></a>
+
+## RED\_LOG
+Red logs
+
+**Kind**: global constant  
+<a name="GREEN_LOG"></a>
+
+## GREEN\_LOG
+GREEN logs
+
+**Kind**: global constant  
+<a name="BLUE_LOG"></a>
+
+## BLUE\_LOG
+Green logs
+
+**Kind**: global constant  
+<a name="GRAY_LOG"></a>
+
+## GRAY\_LOG
+Gray logs
+
+**Kind**: global constant  

@@ -1,216 +1,197 @@
-<a name="World"></a>
+<a name="module_world"></a>
 
-## World
-
+## world
 2D environment for creatures
 
-**Kind**: global class  
-**Requires**: <code>module:lodash</code>, <code>module:Creature</code>, <code>module:Census</code>
 
-- [World](#World)
-  - [new World([topPopulation], [id], [species])](#new_World_new)
-  - [.cycles](#World+cycles)
-  - [.learningRate](#World+learningRate)
-  - [.id](#World+id)
-  - [.creatures](#World+creatures)
-  - [.species](#World+species)
-  - [.topPopulation](#World+topPopulation)
-  - [.census](#World+census)
-  - [.initialPopulation](#World+initialPopulation)
-  - [.mousePosition](#World+mousePosition)
-  - [.launch()](#World+launch)
-  - [.initializeCanvas()](#World+initializeCanvas)
-  - [.getMousePosition()](#World+getMousePosition)
-  - [.initializePopulation()](#World+initializePopulation)
-  - [.startListeners()](#World+startListeners)
-  - [.increasePopulation(x, y)](#World+increasePopulation)
-  - [.decreasePopulation()](#World+decreasePopulation)
-  - [.spawnCreature(x, y, species, mass)](#World+spawnCreature)
-  - [.removeCreature(creature)](#World+removeCreature)
-  - [.drawNextFrame()](#World+drawNextFrame)
-  - [.adjustPopulationGrowth()](#World+adjustPopulationGrowth)
-  - [.updateCreatures()](#World+updateCreatures)
+* [world](#module_world)
+    * [module.exports](#exp_module_world--module.exports) ⏏
+        * [new module.exports([topPopulation], [id], [species])](#new_module_world--module.exports_new)
+        * [.cycles](#module_world--module.exports+cycles)
+        * [.learningRate](#module_world--module.exports+learningRate)
+        * [.id](#module_world--module.exports+id)
+        * [.creatures](#module_world--module.exports+creatures)
+        * [.species](#module_world--module.exports+species)
+        * [.topPopulation](#module_world--module.exports+topPopulation)
+        * [.census](#module_world--module.exports+census)
+        * [.initialPopulation](#module_world--module.exports+initialPopulation)
+        * [.mousePosition](#module_world--module.exports+mousePosition)
+        * [.launch()](#module_world--module.exports+launch)
+        * [.initializeCanvas()](#module_world--module.exports+initializeCanvas)
+        * [.getMousePosition()](#module_world--module.exports+getMousePosition)
+        * [.initializePopulation()](#module_world--module.exports+initializePopulation)
+        * [.startListeners()](#module_world--module.exports+startListeners)
+        * [.increasePopulation(x, y)](#module_world--module.exports+increasePopulation)
+        * [.decreasePopulation()](#module_world--module.exports+decreasePopulation)
+        * [.spawnCreature(x, y, species, mass)](#module_world--module.exports+spawnCreature)
+        * [.removeCreature(creature)](#module_world--module.exports+removeCreature)
+        * [.drawNextFrame()](#module_world--module.exports+drawNextFrame)
+        * [.adjustPopulationGrowth()](#module_world--module.exports+adjustPopulationGrowth)
+        * [.updateCreatures()](#module_world--module.exports+updateCreatures)
 
-<a name="new_World_new"></a>
+<a name="exp_module_world--module.exports"></a>
 
-### new World([topPopulation], [id], [species])
+### module.exports ⏏
+**Kind**: Exported class  
+<a name="new_module_world--module.exports_new"></a>
 
-| Param           | Type                              | Default                                                             | Description                |
-| --------------- | --------------------------------- | ------------------------------------------------------------------- | -------------------------- |
-| [topPopulation] | <code>number</code>               | <code>100</code>                                                    | World's maximum population |
-| [id]            | <code>string</code>               | <code>&quot;&#x27;world&#x27;&quot;</code>                          | Canvas id                  |
-| [species]       | <code>Array.&lt;string&gt;</code> | <code>[&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</code> | Available species          |
+#### new module.exports([topPopulation], [id], [species])
+Create World
 
-**Example**
 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [topPopulation] | <code>number</code> | <code>100</code> | World's maximum population |
+| [id] | <code>string</code> | <code>&quot;&#x27;world&#x27;&quot;</code> | Canvas id |
+| [species] | <code>Array.&lt;string&gt;</code> | <code>[&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]</code> | Available species |
+
+**Example**  
 ```js
 const world = new World();
-const customWorld = new World(200, 'customWorld');
+    const customWorld = new World(200, 'customWorld');
 ```
+<a name="module_world--module.exports+cycles"></a>
 
-<a name="World+cycles"></a>
-
-### world.cycles
-
+#### module.exports.cycles
 Cycles counter
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+learningRate"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+learningRate"></a>
 
-### world.learningRate
-
+#### module.exports.learningRate
 Learning rate for all creatures in this world
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+id"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+id"></a>
 
-### world.id
-
+#### module.exports.id
 Canvas id
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+creatures"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+creatures"></a>
 
-### world.creatures
-
+#### module.exports.creatures
 Creatures array
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+species"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+species"></a>
 
-### world.species
-
+#### module.exports.species
 Available species
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+topPopulation"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+topPopulation"></a>
 
-### world.topPopulation
-
+#### module.exports.topPopulation
 World's maximum population
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+census"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+census"></a>
 
-### world.census
-
+#### module.exports.census
 Census instance
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+initialPopulation"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+initialPopulation"></a>
 
-### world.initialPopulation
-
+#### module.exports.initialPopulation
 Initial population
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+mousePosition"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+mousePosition"></a>
 
-### world.mousePosition
-
+#### module.exports.mousePosition
 Mouse position
 
-**Kind**: instance property of [<code>World</code>](#World)  
-<a name="World+launch"></a>
+**Kind**: instance property of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+launch"></a>
 
-### world.launch()
-
+#### module.exports.launch()
 Start simulation
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+initializeCanvas"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+initializeCanvas"></a>
 
-### world.initializeCanvas()
-
+#### module.exports.initializeCanvas()
 Canvas Setup
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+getMousePosition"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+getMousePosition"></a>
 
-### world.getMousePosition()
+#### module.exports.getMousePosition()
+Store current mouse position
 
-Update current mouse position
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+initializePopulation"></a>
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+initializePopulation"></a>
-
-### world.initializePopulation()
-
+#### module.exports.initializePopulation()
 Spawn first creatures
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+startListeners"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+startListeners"></a>
 
-### world.startListeners()
-
+#### module.exports.startListeners()
 Events listeners
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+increasePopulation"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+increasePopulation"></a>
 
-### world.increasePopulation(x, y)
-
+#### module.exports.increasePopulation(x, y)
 Increases the least populated species
 
-**Kind**: instance method of [<code>World</code>](#World)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
 
-| Param | Type                | Description                             |
-| ----- | ------------------- | --------------------------------------- |
-| x     | <code>number</code> | New creature's coordinate on the X axis |
-| y     | <code>number</code> | New creature's coordinate on the Y axis |
+| Param | Type | Description |
+| --- | --- | --- |
+| x | <code>number</code> | New creature's coordinate on the X axis |
+| y | <code>number</code> | New creature's coordinate on the Y axis |
 
-<a name="World+decreasePopulation"></a>
+<a name="module_world--module.exports+decreasePopulation"></a>
 
-### world.decreasePopulation()
-
+#### module.exports.decreasePopulation()
 Removes oldest (slowest) creature
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+spawnCreature"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+spawnCreature"></a>
 
-### world.spawnCreature(x, y, species, mass)
-
+#### module.exports.spawnCreature(x, y, species, mass)
 Adds a new crature to the simulation
 
-**Kind**: instance method of [<code>World</code>](#World)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
 
-| Param   | Type                                                                                            | Description                             |
-| ------- | ----------------------------------------------------------------------------------------------- | --------------------------------------- |
-| x       | <code>number</code>                                                                             | New creature's coordinate on the X axis |
-| y       | <code>number</code>                                                                             | New creature's coordinate on the Y axis |
-| species | <code>&#x27;red&#x27;</code> \| <code>&#x27;green&#x27;</code> \| <code>&#x27;blue&#x27;</code> |                                         |
-| mass    | <code>number</code>                                                                             | New creature's initial mass             |
+| Param | Type | Description |
+| --- | --- | --- |
+| x | <code>number</code> | New creature's coordinate on the X axis |
+| y | <code>number</code> | New creature's coordinate on the Y axis |
+| species | <code>&#x27;red&#x27;</code> \| <code>&#x27;green&#x27;</code> \| <code>&#x27;blue&#x27;</code> |  |
+| mass | <code>number</code> | New creature's initial mass |
 
-<a name="World+removeCreature"></a>
+<a name="module_world--module.exports+removeCreature"></a>
 
-### world.removeCreature(creature)
-
+#### module.exports.removeCreature(creature)
 Removes a creature from the simulation
 
-**Kind**: instance method of [<code>World</code>](#World)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
 
-| Param    | Type                  | Description      |
-| -------- | --------------------- | ---------------- |
+| Param | Type | Description |
+| --- | --- | --- |
 | creature | <code>Creature</code> | Target to remove |
 
-<a name="World+drawNextFrame"></a>
+<a name="module_world--module.exports+drawNextFrame"></a>
 
-### world.drawNextFrame()
-
+#### module.exports.drawNextFrame()
 Adjust population and draws creatures next move
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+adjustPopulationGrowth"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+adjustPopulationGrowth"></a>
 
-### world.adjustPopulationGrowth()
-
+#### module.exports.adjustPopulationGrowth()
 Adjust world population growth to prevent overpopulation or full extintion
 
-**Kind**: instance method of [<code>World</code>](#World)  
-<a name="World+updateCreatures"></a>
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
+<a name="module_world--module.exports+updateCreatures"></a>
 
-### world.updateCreatures()
-
+#### module.exports.updateCreatures()
 Draws creatures next move
 
-**Kind**: instance method of [<code>World</code>](#World)
+**Kind**: instance method of [<code>module.exports</code>](#exp_module_world--module.exports)  
