@@ -79,14 +79,14 @@ export default class World {
 
   /** Spawn first creatures */
   initializePopulation() {
-    this.initialReproductionChange = {
+    this.initialReproductionChance = {
       red: 2,
       green: 2,
       blue: 2,
     };
     this.reproductionChance = clone(this.initialReproductionChange);
-
     this._i = this.species.length * 4;
+
     while (this._i--) {
       const x = random(0, this.width);
       const y = random(0, this.height);
@@ -194,7 +194,7 @@ export default class World {
         default:
           this.reproductionChance[
             this.species[this._i]
-          ] = this.initialReproductionChange[this.species[this._i]];
+          ] = this.initialReproductionChance[this.species[this._i]];
           break;
       }
     }
